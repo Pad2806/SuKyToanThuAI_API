@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------
+  # API GATEWAY (NGINX) - Gộp cả 5 service vào chung port 8000
+  # ----------------------------------------
+  api-gateway:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth-service
+      - content-service
+      - media-service
+      - education-service
+      - workspace-service
+
+  # ----------------------------------------
+  # SERVICE 1: AUTH & USER
+  # ----------------------------------------
+  auth-service:
+    build: .
+    command: uvicorn app.services.auth.main:app --host 0.0.0.0 --port 8001 --reload
+    env_file: .env
+    volumes:
+      - .:/app # Hot-reload cho dev
+    expose:
+      - "8001"
+
+  # ----------------------------------------
+  # SERVICE 2: CONTENT
+  # ----------------------------------------
+  content-service:
+    build: .
+    command: uvicorn app.services.content.main:app --host 0.0.0.0 --port 8002 --reload
+    env_file: .env
+    volumes:
+      - .:/app
+    expose:
+      - "8002"
+
+  # ----------------------------------------
+  # SERVICE 3: MEDIA (VISUAL AI)
+  # ----------------------------------------
+  media-service:
+    build: .
+    command: uvicorn app.services.media.main:app --host 0.0.0.0 --port 8003 --reload
+    env_file: .env
+    volumes:
+      - .:/app
+    expose:
+      - "8003"
+
+  # ----------------------------------------
+  # SERVICE 4: EDUCATION
+  # ----------------------------------------
+  education-service:
+    build: .
+    command: uvicorn app.services.education.main:app --host 0.0.0.0 --port 8004 --reload
+    env_file: .env
+    volumes:
+      - .:/app
+    expose:
+      - "8004"
+
+  # ----------------------------------------
+  # SERVICE 5: WORKSPACE & EXPORT
+  # ----------------------------------------
+  workspace-service:
+    build: .
+    command: uvicorn app.services.workspace.main:app --host 0.0.0.0 --port 8005 --reload
+    env_file: .env
+    volumes:
+      - .:/app
+    expose:
+      - "8005"

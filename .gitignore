@@ -1,0 +1,24 @@
+# Python & Environments
+.env
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Supabase Local state
+supabase/.branch/
+supabase/.temp/
+
+# IDE & AI Configs (MUST BE KEPT OUT OF REPO)
+.vscode/
+.idea/
+.agent/
+.gemini/
+
+# Thư mục nháp cũ
+database/
+CDNNLT-FE-main/ # Nên đẩy thư mục Client này thành 1 Repo khác tên là _FE
+
+# Logs & temp
+*.log
