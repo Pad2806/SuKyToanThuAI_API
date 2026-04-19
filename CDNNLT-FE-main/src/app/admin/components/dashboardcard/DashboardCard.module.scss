@@ -1,0 +1,29 @@
+.card {
+  background: #1d1a14;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 12px;
+  padding: 24px 28px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #8d816e;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #c9a84c;
+    line-height: 1;
+  }
+}

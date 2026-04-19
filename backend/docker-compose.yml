@@ -1,9 +1,5 @@
 version: '3.8'
-
 services:
-  # ----------------------------------------
-  # API GATEWAY (NGINX) - Gộp cả 5 service vào chung port 8000
-  # ----------------------------------------
   api-gateway:
     image: nginx:alpine
     ports:
@@ -17,62 +13,43 @@ services:
       - education-service
       - workspace-service
 
-  # ----------------------------------------
-  # SERVICE 1: AUTH & USER
-  # ----------------------------------------
   auth-service:
-    build: .
-    command: uvicorn app.services.auth.main:app --host 0.0.0.0 --port 8001 --reload
-    env_file: .env
+    build: ./auth_service
+    ports:
+      - "8001:8000"
     volumes:
-      - .:/app # Hot-reload cho dev
-    expose:
-      - "8001"
+      - ./auth_service:/app
+    env_file: .env.example
 
-  # ----------------------------------------
-  # SERVICE 2: CONTENT
-  # ----------------------------------------
   content-service:
-    build: .
-    command: uvicorn app.services.content.main:app --host 0.0.0.0 --port 8002 --reload
-    env_file: .env
+    build: ./content_service
+    ports:
+      - "8002:8000"
     volumes:
-      - .:/app
-    expose:
-      - "8002"
+      - ./content_service:/app
+    env_file: .env.example
 
-  # ----------------------------------------
-  # SERVICE 3: MEDIA (VISUAL AI)
-  # ----------------------------------------
   media-service:
-    build: .
-    command: uvicorn app.services.media.main:app --host 0.0.0.0 --port 8003 --reload
-    env_file: .env
+    build: ./media_service
+    ports:
+      - "8003:8000"
     volumes:
-      - .:/app
-    expose:
-      - "8003"
+      - ./media_service:/app
+    env_file: .env.example
 
-  # ----------------------------------------
-  # SERVICE 4: EDUCATION
-  # ----------------------------------------
   education-service:
-    build: .
-    command: uvicorn app.services.education.main:app --host 0.0.0.0 --port 8004 --reload
-    env_file: .env
+    build: ./education_service
+    ports:
+      - "8004:8000"
     volumes:
-      - .:/app
-    expose:
-      - "8004"
+      - ./education_service:/app
+    env_file: .env.example
 
-  # ----------------------------------------
-  # SERVICE 5: WORKSPACE & EXPORT
-  # ----------------------------------------
   workspace-service:
-    build: .
-    command: uvicorn app.services.workspace.main:app --host 0.0.0.0 --port 8005 --reload
-    env_file: .env
+    build: ./workspace_service
+    ports:
+      - "8005:8000"
     volumes:
-      - .:/app
-    expose:
-      - "8005"
+      - ./workspace_service:/app
+    env_file: .env.example
+
