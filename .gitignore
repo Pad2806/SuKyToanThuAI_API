@@ -18,7 +18,7 @@ supabase/.temp/
 
 # Thư mục nháp cũ
 database/
-CDNNLT-FE-main/ # Nên đẩy thư mục Client này thành 1 Repo khác tên là _FE
+CDNNLT-FE-main/
 
 # Logs & temp
 *.log
