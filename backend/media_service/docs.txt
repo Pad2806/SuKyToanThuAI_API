@@ -1,0 +1,191 @@
+Ok, giờ mình sẽ chốt lại phân công FINAL cho team 5 người theo đúng hướng bạn vừa nâng cấp (có user customize + AI regenerate + media thông minh).
+👉 Mục tiêu: mỗi người làm 1 service rõ ràng, không đụng nhau, merge không vỡ
+
+🔥 TỔNG QUAN PHÂN CÔNG (FINAL)
+Người	Service	Vai trò chính
+1	Auth Service	Xác thực
+2	Content Service	AI xử lý text (CORE)
+3	Media Service (Visual AI)	AI xử lý hình ảnh
+4	Education Service	Quiz + Flashcard
+5	Export + Workspace	Lưu trữ + xuất file
+🟢 1. Người 1 — Auth Service
+🎯 Bạn này làm “cổng vào hệ thống”
+📦 Nhiệm vụ cụ thể
+Đăng ký / đăng nhập
+JWT authentication
+Middleware verify token
+API:
+POST /auth/register
+POST /auth/login
+GET /auth/me
+🎯 Deliverables
+Login chạy được
+Token dùng được cho tất cả service khác
+🔥 2. Người 2 — Content Service (QUAN TRỌNG NHẤT)
+🎯 Đây là “não AI”
+📦 Nhiệm vụ
+1. Kiểm duyệt
+/content/moderate
+2. Làm mượt nội dung
+/content/enhance
+3. Trích xuất keyword
+/content/keywords
+4. Sinh outline (slide/comic)
+/content/outline
+5. ❗ UPDATE THEO REQUIREMENT MỚI
+
+👉 Xử lý user edit
+
+POST /content/regenerate
+
+👉 Input:
+
+{
+  "slides": [...],
+  "style": "storytelling",
+  "tone": "dramatic"
+}
+
+👉 Output:
+
+nội dung mới theo ý user
+🎯 Deliverables
+AI generate được:
+slide outline
+comic script
+Có thể regenerate khi user chỉnh
+🔵 3. Người 3 — Media Service (Visual AI) ⭐
+🎯 Không còn là “search ảnh” nữa
+
+👉 Đây là:
+🔥 AI hiểu hình ảnh theo context + style
+
+📦 Nhiệm vụ
+1. Generate keyword thông minh
+
+(từ content)
+
+2. Search Wikimedia
+3. Filter:
+chất lượng
+license
+đúng bối cảnh
+4. ❗ QUAN TRỌNG NHẤT
+POST /media/generate-assets
+
+👉 Input:
+
+{
+  "scenes": [...],
+  "style": "comic",
+  "tone": "funny"
+}
+
+👉 Output:
+
+{
+  "images": [...]
+}
+5. Regenerate ảnh khi user không thích
+POST /media/regenerate-image
+🎯 Deliverables
+Ảnh phù hợp:
+nội dung
+style (comic / serious)
+Có thể đổi lại ảnh theo user
+🟣 4. Người 4 — Education Service
+🎯 Biến nội dung → học được
+📦 Nhiệm vụ
+1. Quiz
+POST /education/quiz
+2. Flashcard
+POST /education/flashcard
+3. History
+GET /education/history
+🎯 Deliverables
+Tạo được quiz từ content
+Có lưu kết quả user
+🟠 5. Người 5 — Export + Workspace ⭐
+🎯 Người này làm phần “nhìn thấy được sản phẩm”
+
+👉 QUAN TRỌNG KHÔNG KÉM CONTENT
+
+📦 Nhiệm vụ
+1. Workspace (quản lý project)
+POST /workspace/projects
+GET /workspace/projects
+GET /workspace/:id
+
+👉 Lưu:
+
+content
+slides
+images
+trạng thái
+2. Export
+POST /export/pptx
+POST /export/pdf
+⚙️ Logic
+Nhận JSON từ Content + Media
+Render:
+slide
+comic
+Dùng python-pptx
+🎯 Deliverables
+Xuất được file:
+PPT
+PDF
+Có project để demo lại
+🔗 6. PHÂN RÕ RANH GIỚI (CỰC KỲ QUAN TRỌNG)
+Service	KHÔNG được làm
+Auth	Không đụng content
+Content	Không xử lý ảnh
+Media	Không generate text
+Education	Không gọi DB content
+Export	Không gọi OpenAI
+🔄 7. FLOW CHUẨN TOÀN HỆ THỐNG
+User nhập nội dung
+→ Content: moderate + outline
+User chỉnh sửa
+→ Content: regenerate
+→ Media: generate ảnh
+→ Export: tạo slide/comic
+→ Workspace: lưu lại
+→ Education: tạo quiz
+⚠️ 8. RULE SỐNG CÒN (phải nói với team)
+1. API phải fix trước khi code
+
+👉 Không tự ý đổi
+
+2. JSON phải thống nhất
+
+Ví dụ:
+
+{
+  "title": "...",
+  "content": "...",
+  "image_url": "..."
+}
+3. Không ai được:
+query DB của người khác
+sửa API người khác
+🎯 9. Chốt cực gọn (để bạn nói với team)
+
+👉 Team 5 người:
+
+1 người Auth
+1 người Content (AI text)
+1 người Media (AI image)
+1 người Education
+1 người Export + Workspace
+
+👉 Flow:
+
+Content xử lý text
+Media xử lý ảnh
+Export render
+Workspace lưu
+Education học
+
+👉 User có thể:
+🔥 chỉnh sửa → AI regenerate → ra slide/comic theo ý muốn
