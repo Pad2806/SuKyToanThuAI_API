@@ -7,13 +7,32 @@ Endpoints liên quan đến việc tìm kiếm và đổi ảnh:
   - POST /api/v1/media/regenerate-image  Đổi ảnh khi user không thích
 """
 from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel, Field
 from sqlalchemy import text
 from sqlalchemy.orm import Session
+import logging
 
 from app.db.session import get_db
-from app.schemas.media import RegenerateImageRequest, RegenerateImageResponse
+from app.schemas.media import RegenerateImageRequestV2, AssetResult
+from app.services import wikimedia_service, filter_service, asset_service
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/media", tags=["Search & Regenerate"])
+
+class KeywordItem(BaseModel):
+    keyword_en: str = Field(..., description="Keyword tiếng Anh")
+    category: str | None = Field(default=None, description="Loại: location, person, event")
+
+
+class SearchRequest(BaseModel):
+    keywords: list[KeywordItem] = Field(..., min_length=1, description="Danh sách keyword")
+    max_results: int = Field(default=10, ge=1, le=30, description="Số ảnh tối đa")
+    min_width: int = Field(default=800, description="Chiều rộng tối thiểu (px)")
+    license_filter: list[str] = Field(
+        default=["cc-by", "cc-by-sa", "public-domain"],
+        description="Loại license chấp nhận"
+    )
 
 
 # ── GET /db-check ─────────────────────────────────────────────────────────────
@@ -88,23 +107,47 @@ def get_categories(
     }
 
 
-# ── GET /search ───────────────────────────────────────────────────────────────
+# ── POST /search ───────────────────────────────────────────────────────────────
 
-@router.get("/search", summary="Tìm kiếm ảnh thủ công bằng keyword")
-async def search_images(
-    keyword: str = Query(..., min_length=2, description="Từ khóa tìm kiếm"),
-    limit: int = Query(default=10, ge=1, le=30, description="Số ảnh trả về tối đa"),
-):
+@router.post("/search", summary="Tìm kiếm ảnh theo keywords")
+async def search_images(body: SearchRequest):
     """
-    Tìm kiếm ảnh trên Wikimedia Commons theo keyword.
-    Phase 1: Trả về placeholder — logic thật sẽ được implement ở Phase 2.
+    Tìm kiếm ảnh trên Wikimedia Commons theo danh sách keyword tiếng Anh.
+    Ảnh đã được lọc theo chất lượng, kích thước và license.
     """
-    # TODO (Phase 2): Gọi wikimedia_service.search(keyword, limit)
+    all_images = []
+
+    for kw_item in body.keywords:
+        result = await wikimedia_service.search_images(
+            kw_item.keyword_en,
+            limit=body.max_results,
+        )
+        all_images.extend(result.items)
+
+    # Lọc chất lượng
+    filtered = filter_service.filter_by_quality(all_images)
+
     return {
         "success": True,
-        "keyword": keyword,
-        "note": "Tính năng search sẽ được implement ở Phase 2",
-        "items": [],
+        "data": {
+            "images": [
+                {
+                    "id": str(item.page_id),
+                    "title": item.title,
+                    "url": item.image_info.url if item.image_info else None,
+                    "thumbnail_url": item.image_info.url if item.image_info else None,
+                    "width": item.image_info.width if item.image_info else None,
+                    "height": item.image_info.height if item.image_info else None,
+                    "license": item.image_info.license_short_name if item.image_info else None,
+                    "author": item.image_info.artist if item.image_info else None,
+                    "source_url": item.image_info.descriptionurl if item.image_info else None,
+                    "relevance_score": None,
+                    "matched_keyword": None,
+                }
+                for item in filtered
+            ],
+            "total_found": len(filtered),
+        },
     }
 
 
@@ -113,15 +156,41 @@ async def search_images(
 @router.post(
     "/regenerate-image",
     summary="Đổi ảnh khi user không hài lòng",
-    response_model=RegenerateImageResponse,
 )
-async def regenerate_image(body: RegenerateImageRequest):
+async def regenerate_image(body: RegenerateImageRequestV2):
     """
     User bấm 'Đổi ảnh' → FE gọi endpoint này.
-    Phase 1: Trả về stub response — logic thật ở Phase 4.
+
+    **Nhận vào:**
+    - slide_order: slide nào cần đổi ảnh
+    - image_suggestion: gợi ý ảnh gốc (từ outline)
+    - reason: lý do đổi (optional)
+    - preferred_keywords: keyword user muốn tìm (optional)
+    - exclude_urls: URL ảnh cũ cần loại bỏ
+
+    **Trả về:**
+    - asset: ảnh mới tìm được
+    - is_fallback: true nếu không tìm được ảnh thật
     """
-    # TODO (Phase 4): Gọi asset_service.regenerate(body)
-    raise HTTPException(
-        status_code=501,
-        detail="Tính năng regenerate image sẽ được implement ở Phase 4",
+    logger.info(
+        "regenerate-image: slide_order=%d, reason='%s'",
+        body.slide_order,
+        body.reason or "không có",
     )
+
+    asset: AssetResult = await asset_service.regenerate_single_slide(body)
+
+    return {
+        "success": True,
+        "data": {
+            "asset": {
+                "slide_order": asset.slide_order,
+                "image_url": asset.image_url,
+                "source": asset.source,
+                "license": asset.license,
+                "keywords_used": asset.keywords_used,
+                "relevance_score": asset.relevance_score,
+            },
+            "is_fallback": asset.source == "fallback",
+        },
+    }

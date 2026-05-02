@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "schema_version": "1.1.0",
+    "awf_version": "3.3.0"
+  },
+  "project": {
+    "name": "SuKyToanThuAI",
+    "type": "Microservices AI Application",
+    "status": "Development - Phase 2"
+  },
+  "tech_stack": {
+    "backend": {
+      "framework": "FastAPI",
+      "database": "PostgreSQL (Supabase)",
+      "ai": "Groq LLM (llama-3.3-70b-versatile)"
+    }
+  },
+  "database_schema": {
+    "summary": "App lưu nội dung lịch sử, project slide/comic của user, data media. Media Service chỉ tìm ảnh.",
+    "tables": [
+      "historical_events",
+      "categories",
+      "user_contents",
+      "slides",
+      "story_chapters"
+    ],
+    "relationships_explained": "Sự kiện lịch sử map đến các slide hoặc chapter comic. Media Service được phân công đọc event, trả URL ảnh."
+  },
+  "api_endpoints": [
+    {
+      "path": "/api/v1/media/generate-assets",
+      "explained": "API gọi Groq lấy keyword, search Wikimedia, filter chất lượng và trả về ảnh cho scene. (Media Service)"
+    },
+    {
+      "path": "/api/content/outline",
+      "explained": "AI nhận biết nội dung và sinh outline (Content Service)"
+    }
+  ],
+  "business_rules": [
+    "Khác với ban đầu tưởng, Media Service KHÔNG tạo outline. Content Service lo outline.",
+    "Media Service chỉ tìm và chọn lọc ảnh dựa trên Outline từ Content Service."
+  ],
+  "features": [
+    "Tạo Slide/Comic từ dữ liệu lịch sử có sẵn",
+    "Tạo Slide/Comic từ nội dung user",
+    "Dùng AI LLM (Groq) để phân tích scene và tìm ảnh phù hợp"
+  ],
+  "knowledge_items": {
+    "patterns": [
+      "Sử dụng Groq AI làm default vì miễn phí và tốc độ cao",
+      "Tắt AuthMiddleware trong lúc lập trình Phase 1-2 để test dễ hơn"
+    ],
+    "gotchas": [
+      "Phải chắc chắn JSON từ AI trả về chuẩn, cần fallback parse nếu thiếu/sai."
+    ],
+    "conventions": []
+  }
+}

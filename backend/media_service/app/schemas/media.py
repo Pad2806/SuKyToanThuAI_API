@@ -180,3 +180,105 @@ class RegenerateImageResponse(BaseModel):
         default=1,
         description="Số lần thử (retry) trước khi tìm được ảnh"
     )
+
+
+# ── Phase 3: Schema mới theo API Contract ─────────────────────────────────────
+
+class SlideAssetInput(BaseModel):
+    """1 slide cần tìm ảnh — input đơn giản từ outline."""
+    slide_order: int = Field(..., ge=1, description="Thứ tự slide (bắt đầu từ 1)")
+    image_suggestion: str = Field(
+        ...,
+        min_length=1,
+        max_length=500,
+        description="Gợi ý ảnh từ outline (tiếng Việt). VD: 'Panorama thung lũng Điện Biên Phủ'"
+    )
+
+
+class GenerateAssetsRequestV2(BaseModel):
+    """
+    Body JSON cho POST /api/v1/media/generate-assets (API Contract mới).
+    FE gọi sau khi có outline từ Content Service.
+    """
+    project_id: str = Field(..., description="UUID của project")
+    slides: list[SlideAssetInput] = Field(
+        ...,
+        min_length=1,
+        description="Danh sách slide cần tìm ảnh (ít nhất 1 slide)"
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "project_id": "550e8400-e29b-41d4-a716-446655440000",
+                "slides": [
+                    {
+                        "slide_order": 1,
+                        "image_suggestion": "Panorama thung lũng Điện Biên Phủ"
+                    },
+                    {
+                        "slide_order": 2,
+                        "image_suggestion": "Bản đồ Đông Dương 1954"
+                    }
+                ]
+            }
+        }
+    }
+
+
+class AssetResult(BaseModel):
+    """Kết quả 1 ảnh tìm được cho 1 slide."""
+    slide_order: int = Field(..., description="Slide thứ mấy")
+    image_url: str = Field(..., description="URL trực tiếp đến file ảnh")
+    source: str = Field(default="wikimedia", description="Nguồn ảnh: wikimedia hoặc fallback")
+    license: str | None = Field(default=None, description="Giấy phép (vd: CC-BY-SA-4.0)")
+    keywords_used: list[str] = Field(
+        default_factory=list,
+        description="Các keyword EN đã dùng để tìm ảnh"
+    )
+    relevance_score: float | None = Field(
+        default=None,
+        ge=0.0,
+        le=1.0,
+        description="Điểm liên quan (0-1)"
+    )
+
+
+# ── Phase 4: Schema cho Regenerate Image ──────────────────────────────────────
+
+class RegenerateImageRequestV2(BaseModel):
+    """
+    Body JSON cho POST /api/v1/media/regenerate-image (API Contract mới).
+    FE gọi khi user bấm 'Đổi ảnh khác'.
+    """
+    slide_order: int = Field(..., ge=1, description="Slide thứ mấy cần đổi ảnh")
+    image_suggestion: str = Field(
+        ...,
+        min_length=1,
+        description="Gợi ý ảnh gốc (từ outline)"
+    )
+    reason: str | None = Field(
+        default=None,
+        max_length=500,
+        description="Lý do user muốn đổi ảnh (giúp tìm ảnh khác ý hơn)"
+    )
+    preferred_keywords: list[str] = Field(
+        default_factory=list,
+        description="Keyword user muốn tìm (nếu có, ưu tiên dùng)"
+    )
+    exclude_urls: list[str] = Field(
+        default_factory=list,
+        description="Danh sách URL ảnh cũ cần loại bỏ, không dùng lại"
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "slide_order": 2,
+                "image_suggestion": "Bản đồ Đông Dương 1954",
+                "reason": "Ảnh không đúng bối cảnh",
+                "preferred_keywords": ["French Indochina map 1954"],
+                "exclude_urls": ["https://upload.wikimedia.org/old-image.jpg"]
+            }
+        }
+    }

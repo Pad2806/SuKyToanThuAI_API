@@ -14,6 +14,7 @@ import httpx
 from app.core.config import settings
 from app.core.exceptions import WikimediaError
 from app.schemas.wikimedia import WikimediaImageInfo, WikimediaSearchResponse, WikimediSearchResultItem
+from app.services import cache_service
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,13 @@ async def search_images(keyword: str, limit: int = 10) -> WikimediaSearchRespons
 
     TODO (Phase 2): Implement đầy đủ với httpx async call.
     """
+    # ── Check cache trước ─────────────────────────────────────────────
+    cache_key = f"wikimedia:{keyword}:{limit}"
+    cached = cache_service.get(cache_key)
+    if cached is not None:
+        logger.info("Cache hit cho keyword: '%s'", keyword)
+        return cached
+
     # Tham số gửi tới Wikimedia API
     params = {
         "action": "query",
@@ -52,15 +60,28 @@ async def search_images(keyword: str, limit: int = 10) -> WikimediaSearchRespons
         "User-Agent": settings.WIKIMEDIA_USER_AGENT,
     }
 
-    # TODO (Phase 2): Thay khối dưới đây bằng httpx async call thật
-    # async with httpx.AsyncClient(timeout=15.0) as client:
-    #     response = await client.get(settings.WIKIMEDIA_API_URL, params=params, headers=headers)
-    #     response.raise_for_status()
-    #     data = response.json()
-    #     return _parse_wikimedia_response(keyword, data)
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            response = await client.get(
+                settings.WIKIMEDIA_API_URL,
+                params=params,
+                headers=headers,
+            )
+            response.raise_for_status()
+            data = response.json()
+    except httpx.TimeoutException:
+        logger.error("Wikimedia API timeout cho keyword: %s", keyword)
+        raise WikimediaError(f"Wikimedia API timeout: {keyword}")
+    except httpx.HTTPStatusError as e:
+        logger.error("Wikimedia API HTTP error: %s", e)
+        raise WikimediaError(f"Wikimedia API lỗi HTTP {e.response.status_code}")
+    except Exception as e:
+        logger.error("Wikimedia API lỗi: %s", e)
+        raise WikimediaError(f"Không thể kết nối Wikimedia: {e}")
 
-    logger.info("[Phase 1 Stub] search_images('%s', limit=%d)", keyword, limit)
-    return WikimediaSearchResponse(keyword_used=keyword, total_found=0, items=[])
+    result = _parse_wikimedia_response(keyword, data)
+    cache_service.set(cache_key, result)
+    return result
 
 
 def _parse_wikimedia_response(keyword: str, data: dict) -> WikimediaSearchResponse:

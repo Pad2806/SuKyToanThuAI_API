@@ -2,8 +2,8 @@
 
 > **Người đảm nhận:** Bạn (Người 3)
 > **Service:** Media Service — Port 8003
-> **Ngày tạo:** 23/04/2026
-> **Trạng thái hiện tại:** Skeleton (chỉ có 2 stub endpoint + 1 GET categories)
+> **Ngày tạo:** 23/04/2026 | **Cập nhật:** 29/04/2026
+> **Trạng thái hiện tại:** Phase 1 hoàn thành (Skeleton + Schema + Folder structure)
 
 ---
 
@@ -11,31 +11,88 @@
 
 ### Dự án là gì?
 
-**SuKyToanThuAI** — Nền tảng AI giúp trực quan hóa lịch sử. User nhập text hoặc chọn sự kiện → AI tạo ra **slide thuyết trình** + **truyện tranh (comic)** kèm hình ảnh minh họa.
+**SuKyToanThuAI** — Nền tảng AI giúp trực quan hóa nội dung lịch sử thành **slide thuyết trình** và **truyện tranh (comic)**, đồng thời hỗ trợ ôn tập bằng **quiz** và **flashcard**.
+
+### 3 Tính năng cốt lõi của hệ thống
+
+#### 🔹 Tính năng 1: Tạo Slide/Comic từ dữ liệu lịch sử có sẵn
+
+```
+User chọn sự kiện → Chọn loại output (Slide/Comic) → Tùy chỉnh phong cách
+  → AI phân tích sự kiện → Tạo outline/kịch bản
+  → Hiển thị preview → User duyệt → Xuất file (PDF/PPT/Ảnh)
+```
+
+#### 🔹 Tính năng 2: Tạo Slide/Comic từ nội dung người dùng nhập
+
+```
+User nhập/dán nội dung → Kiểm tra hợp lệ → AI đánh giá độ chính xác
+  → Cảnh báo nếu sai lệch → Tạo outline/kịch bản
+  → Hiển thị preview → User duyệt → Xuất file (PDF/PPT/Ảnh)
+```
+
+#### 🔹 Tính năng 3: Tạo Quiz & Flashcard luyện tập
+
+```
+Nội dung đã học (từ slide/comic/sự kiện) → AI sinh quiz + flashcard
+  → User luyện tập → Hệ thống theo dõi tiến trình (SM-2)
+```
+
+---
 
 ### Kiến trúc tổng thể (5 Microservices + Nginx Gateway)
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                   API Gateway (Nginx :8000)                      │
-├──────────┬──────────┬──────────┬───────────┬────────────────────┤
-│ Auth     │ Content  │ 🔥MEDIA  │ Education │ Workspace          │
-│ :8001    │ :8002    │ :8003    │ :8004     │ :8005              │
-│ JWT/User │ AI Text  │ AI Image │ Quiz/FC   │ Project/Export     │
-└──────────┴──────────┴──────────┴───────────┴────────────────────┘
-                          │
-                    Database: Supabase (PostgreSQL)
+┌───────────────────────────────────────────────────────────────────────┐
+│                     API Gateway (Nginx :8000)                         │
+├──────────┬─────────────────┬──────────────┬───────────┬───────────────┤
+│ Auth     │ Content              │ 🔥MEDIA   │ Education │ Workspace     │
+│ :8001    │ :8002                │ :8003     │ :8004     │ :8005         │
+│ JWT/User │ Moderate+Outline+Regen│ AI Image │ Quiz/FC   │ Project/Export│
+└──────────┴─────────────────┴──────────────┴───────────┴───────────────┘
+                                │
+                          Database: Supabase (PostgreSQL)
 ```
 
-### Flow chính của hệ thống
+### Phân công Service theo tính năng
+
+> [!IMPORTANT]
+> **Content Service (Người 2) làm:**
+>
+> 1. Xây dựng Database
+> 2. `POST /api/v1/content/moderate` — Kiểm duyệt & đánh giá nội dung
+> 3. `POST /api/v1/content/enhance` — Làm mượt nội dung (storytelling)
+> 4. `POST /api/v1/content/outline` — **Sinh outline slide / kịch bản comic** (kèm `image_suggestion`)
+> 5. `POST /api/v1/content/regenerate` — Regenerate nội dung khi user chỉnh
+>
+> → **Media Service (Bạn) nhận `image_suggestion` từ outline → sinh keyword EN → tìm ảnh trên Wikimedia**
+
+### Flow chính — Tính năng 1 (Từ sự kiện có sẵn)
 
 ```
-User nhập "Chiến dịch Điện Biên Phủ"
-  → Content Service: kiểm duyệt → tạo outline (slide/comic)
-  → 🔥 Media Service: tạo/tìm hình ảnh phù hợp cho mỗi slide/panel
-  → Workspace: lưu project
-  → Export: xuất PPTX/PDF
-  → Education: tạo quiz ôn tập
+1. User đăng nhập (Auth Service)
+2. User browse/chọn sự kiện lịch sử
+3. User chọn output: Slide hoặc Comic + tùy chỉnh phong cách
+4. Content Service → POST /content/outline → tạo outline (slides[] với image_suggestion)
+5. 🔥 Media Service → nhận slides[].image_suggestion → sinh keyword EN → tìm ảnh Wikimedia
+6. Hiển thị preview cho user duyệt
+7. User chỉnh sửa → Content /regenerate → Media tìm ảnh lại
+8. Workspace Service → lưu project → xuất PDF/PPT/Ảnh
+```
+
+### Flow chính — Tính năng 2 (Từ nội dung user nhập)
+
+```
+1. User đăng nhập (Auth Service)
+2. User nhập/dán nội dung text
+3. Content Service → POST /content/moderate → kiểm duyệt + đánh giá
+4. Nếu có vấn đề → cảnh báo user
+5. Content Service → POST /content/enhance → làm mượt nội dung
+6. Content Service → POST /content/outline → tạo outline (slides[] với image_suggestion)
+7. 🔥 Media Service → nhận slides[].image_suggestion → sinh keyword EN → tìm ảnh Wikimedia
+8. Hiển thị preview cho user duyệt
+9. User chỉnh sửa → Content /regenerate → Media tìm ảnh lại
+10. Workspace Service → lưu project → xuất PDF/PPT/Ảnh
 ```
 
 ---
@@ -44,19 +101,221 @@ User nhập "Chiến dịch Điện Biên Phủ"
 
 ### Bạn LÀM gì?
 
-| #   | Nhiệm vụ                        | Mô tả                                                         |
-| --- | ------------------------------- | ------------------------------------------------------------- |
-| 1   | **Generate keyword thông minh** | Từ content (outline slide/comic), AI tạo ra keyword search    |
-| 2   | **Search Wikimedia**            | Tìm ảnh minh họa lịch sử từ Wikimedia Commons                 |
-| 3   | **Filter chất lượng**           | Lọc ảnh theo: chất lượng, license, đúng bối cảnh              |
-| 4   | **Generate assets**             | `POST /media/generate-assets` — API chính                     |
-| 5   | **Regenerate image**            | `POST /media/regenerate-image` — Đổi ảnh khi user không thích |
+| #   | Nhiệm vụ                        | Mô tả                                                                              |
+| :-- | :------------------------------ | :---------------------------------------------------------------------------------- |
+| 1   | **Sinh keyword tiếng Anh**      | Nhận `image_suggestion` (tiếng Việt) từ outline → AI dịch/sinh keyword EN           |
+| 2   | **Search Wikimedia**            | Tìm ảnh minh họa lịch sử từ Wikimedia Commons bằng keyword EN                       |
+| 3   | **Filter chất lượng**           | Lọc ảnh theo: kích thước, license CC, định dạng hợp lệ                              |
+| 4   | **Search ảnh (POST)**           | `POST /media/search` — Nhận keywords[] → trả images[] đã lọc                        |
+| 5   | **Generate assets**             | `POST /media/generate-assets` — Nhận slides[].image_suggestion → trả images[]       |
+| 6   | **Regenerate image**            | `POST /media/regenerate-image` — Đổi ảnh khi user không thích                       |
 
 ### Bạn KHÔNG ĐƯỢC làm gì?
 
-- ❌ Không generate text (việc của Content Service)
-- ❌ Không query bảng khác ngoài phạm vi media
-- ❌ Không gọi OpenAI để tạo nội dung văn bản
+- ❌ Không generate text / outline (việc của Content Service)
+- ❌ Không kiểm duyệt nội dung (Content `/moderate`)
+- ❌ Không làm mượt text (Content `/enhance`)
+- ❌ Không tạo quiz/flashcard (việc của Education Service)
+- ❌ Không xuất PDF/PPT (việc của Workspace Service)
+
+---
+
+## 🔌 API CONTRACT (THEO CHUẨN TEAM)
+
+### Dữ liệu bạn NHẬN từ Content Service
+
+Content Service gọi `/content/outline` → trả về outline chứa `image_suggestion` cho mỗi slide:
+
+```json
+// Output của Content Service /content/outline (Slide)
+{
+  "slides": [
+    {
+      "slide_order": 1,
+      "layout_type": "title",
+      "title": "Chiến thắng Điện Biên Phủ",
+      "content": "Trận đánh quyết định kết thúc chiến tranh Đông Dương",
+      "speaker_notes": "...",
+      "image_suggestion": "Panorama thung lũng Điện Biên Phủ"
+    },
+    {
+      "slide_order": 2,
+      "layout_type": "content",
+      "title": "Bối cảnh lịch sử",
+      "content": "Sau 8 năm kháng chiến chống Pháp...",
+      "speaker_notes": "...",
+      "image_suggestion": "Bản đồ Đông Dương 1954"
+    }
+  ]
+}
+```
+
+> **`image_suggestion`** là gợi ý ảnh bằng tiếng Việt do Content Service tạo ra.
+> Nhiệm vụ của bạn: biến nó thành keyword tiếng Anh → search Wikimedia → trả URL ảnh.
+
+### Endpoints chính của Media Service
+
+| Method | Path                             | Mô tả                                                    | Gọi bởi           |
+| :----- | :------------------------------- | :------------------------------------------------------- | :----------------- |
+| `GET`  | `/api/v1/media/health`           | Health check                                             | Gateway            |
+| `POST` | `/api/v1/media/search`           | **Tìm ảnh theo keywords[]** (đã lọc chất lượng)          | FE / Internal      |
+| `POST` | `/api/v1/media/generate-assets`  | **🔥 Nhận slides[].image_suggestion → trả images[]**     | FE (sau outline)   |
+| `POST` | `/api/v1/media/regenerate-image` | Đổi ảnh cụ thể                                           | FE                 |
+
+### API Contract chi tiết
+
+#### POST /api/v1/media/search
+
+```json
+// Request
+{
+  "keywords": [
+    { "keyword_en": "Dien Bien Phu", "category": "location" },
+    { "keyword_en": "Vo Nguyen Giap", "category": "person" }
+  ],
+  "max_results": 10,
+  "min_width": 800,
+  "license_filter": ["cc-by", "cc-by-sa", "public-domain"]
+}
+
+// Response
+{
+  "success": true,
+  "data": {
+    "images": [
+      {
+        "id": "wikimedia-file-id",
+        "title": "Battle of Dien Bien Phu.jpg",
+        "url": "https://upload.wikimedia.org/...",
+        "thumbnail_url": "https://upload.wikimedia.org/.../300px-...",
+        "width": 1200,
+        "height": 800,
+        "license": "public-domain",
+        "author": "Unknown",
+        "source_url": "https://commons.wikimedia.org/wiki/File:...",
+        "relevance_score": 0.91,
+        "matched_keyword": "Dien Bien Phu"
+      }
+    ],
+    "total_found": 5
+  },
+  "meta": { "request_id": "uuid", "timestamp": "2026-04-28T10:00:00Z" }
+}
+```
+
+#### POST /api/v1/media/generate-assets
+
+```json
+// Request — FE gửi sau khi có outline từ Content Service
+{
+  "project_id": "uuid",
+  "slides": [
+    { "slide_order": 1, "image_suggestion": "Panorama thung lũng Điện Biên Phủ" },
+    { "slide_order": 2, "image_suggestion": "Bản đồ Đông Dương 1954" }
+  ]
+}
+
+// Response
+{
+  "success": true,
+  "data": {
+    "assets": [
+      {
+        "slide_order": 1,
+        "image_url": "https://upload.wikimedia.org/...",
+        "source": "wikimedia",
+        "license": "public-domain",
+        "keywords_used": ["Dien Bien Phu valley panorama 1954"],
+        "relevance_score": 0.89
+      },
+      {
+        "slide_order": 2,
+        "image_url": "https://upload.wikimedia.org/...",
+        "source": "wikimedia",
+        "license": "cc-by-sa",
+        "keywords_used": ["Indochina map 1954"],
+        "relevance_score": 0.82
+      }
+    ],
+    "total_matched": 2,
+    "total_requested": 2
+  },
+  "meta": { "request_id": "uuid", "timestamp": "2026-04-28T10:00:00Z" }
+}
+```
+
+### Luồng xử lý bên trong Media Service
+
+```
+FE gửi: slides[].image_suggestion
+  │
+  ▼
+┌─────────────────────────────────────────────────────────┐
+│ MEDIA SERVICE                                            │
+│                                                          │
+│  Với MỖI slide:                                          │
+│                                                          │
+│  1. keyword_service                                      │
+│     image_suggestion: "Panorama thung lũng Điện Biên Phủ"│
+│     → AI (Groq) sinh keyword EN                          │
+│     → ["Dien Bien Phu valley panorama 1954"]             │
+│                                                          │
+│  2. wikimedia_service                                    │
+│     keyword EN → gọi Wikimedia Commons API               │
+│     → [ảnh1, ảnh2, ảnh3, ...]                            │
+│                                                          │
+│  3. filter_service                                       │
+│     Lọc: kích thước ≥ 800x600, license CC, format OK     │
+│     → [ảnh hợp lệ]                                       │
+│     Chọn ảnh tốt nhất (rộng nhất hoặc AI scoring)        │
+│     → best_image                                         │
+│                                                          │
+│  4. Trả về: image_url + metadata                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Luồng dữ liệu giữa các Service
+
+```
+                    ┌──────────────────────────────────────────┐
+                    │              FRONTEND (Web)              │
+                    └──┬───────────────────────────────┬───────┘
+                       │                               │
+                       ▼                               │
+                ┌──────────────┐                       │
+                │   Content    │                       │
+                │   Service    │                       │
+                │              │                       │
+                │ /moderate    │                       │
+                │ /enhance     │                       │
+                │ /outline ────┼── slides[] ──┐        │
+                │   (kèm image_│              │        │
+                │   suggestion)│              │        │
+                └──────────────┘              │        │
+                                              ▼        │
+                                    ┌─────────────────┐│
+                                    │  🔥 MEDIA       ││
+                                    │   SERVICE       │◀┘ (FE gọi trực tiếp)
+                                    │                 │
+                                    │ keyword_service │
+                                    │ → Groq AI       │
+                                    │ → keyword EN    │
+                                    │                 │
+                                    │ wikimedia_svc   │
+                                    │ → search ảnh    │
+                                    │                 │
+                                    │ filter_service  │
+                                    │ → lọc + chọn    │
+                                    └──────┬──────────┘
+                                           │
+                                ┌──────────┼──────────┐
+                                ▼                     ▼
+                         ┌─────────────┐       ┌─────────────┐
+                         │  Wikimedia  │       │  Workspace  │
+                         │  Commons    │       │   Service   │
+                         │  (External) │       │ (Lưu/Export)│
+                         └─────────────┘       └─────────────┘
+```
 
 ---
 
@@ -64,194 +323,53 @@ User nhập "Chiến dịch Điện Biên Phủ"
 
 ### Bảng bạn SẼ ĐỌC (READ):
 
-| Bảng                                                                                      | Mục đích            | Khi nào đọc                         |
-| ----------------------------------------------------------------------------------------- | ------------------- | ----------------------------------- |
-| `historical_events`                                                                       | Lấy context sự kiện | Khi cần biết bối cảnh để search ảnh |
-| [categories](file:///d:/cdnnlt/SuKyToanThuAI_API/backend/media_service/app/main.py#35-91) | Phân loại sự kiện   | Để filter ảnh theo category         |
+| Bảng                | Mục đích                                      | Khi nào đọc                              |
+| :------------------ | :-------------------------------------------- | :--------------------------------------- |
+| `historical_events` | Lấy context sự kiện (nhân vật, năm, địa điểm) | Khi cần bối cảnh để search ảnh chính xác |
+| `categories`        | Phân loại sự kiện                             | Để filter ảnh theo category / thời kỳ    |
 
 ### Bảng bạn SẼ GHI (WRITE):
 
-| Bảng             | Trường liên quan                                 | Mục đích                          |
-| ---------------- | ------------------------------------------------ | --------------------------------- |
-| `slides`         | `image_url`, `image_prompt`, `background_url`    | Ghi URL ảnh đã chọn/tạo cho slide |
-| `story_chapters` | `image_urls`, `image_prompts`, `cover_image_url` | Ghi ảnh cho comic panel           |
-| `projects`       | `thumbnail_url`                                  | Ảnh bìa project                   |
-
-### Cấu trúc dữ liệu quan trọng
-
-**Slide image fields:**
-
-```
-slides.image_url       → Ảnh chính trên slide
-slides.image_prompt    → Prompt đã dùng để tìm/tạo ảnh
-slides.background_url  → Ảnh nền slide
-```
-
-**Comic panel structure (panels_data JSONB):**
-
-```json
-{
-  "panel_no": 1,
-  "layout": "wide",
-  "scene_description": "Đại quân Việt Minh tiến vào thung lũng Điện Biên",
-  "dialogue": [{ "character": "Võ Nguyên Giáp", "text": "Tiến lên!" }],
-  "mood": "epic"
-}
-```
-
-→ Bạn cần tạo ảnh cho MỖI panel dựa trên `scene_description` + `mood`
-
-**Project style_config cho Slide:**
-
-```json
-{
-  "theme": "modern_dark",
-  "color_scheme": { "primary": "#1a1a2e", "accent": "#e94560" },
-  "layout_preference": "visual_heavy",
-  "tone": "academic",
-  "target_audience": "high_school"
-}
-```
-
-**Project style_config cho Comic:**
-
-```json
-{
-  "art_style": "manga",
-  "color_mode": "full_color",
-  "panel_layout": "dynamic",
-  "character_style": "semi_realistic",
-  "tone": "dramatic"
-}
-```
-
----
-
-## 🔧 CHUẨN BỊ TRƯỚC KHI CODE
-
-### ✅ Checklist kiến thức cần nắm
-
-#### 1. Python/FastAPI (Nền tảng)
-
-- [ ] Hiểu cách tạo endpoint (GET, POST, PUT, DELETE)
-- [ ] Hiểu dependency injection (`Depends()`)
-- [ ] Hiểu Pydantic models (request/response schemas)
-- [ ] Hiểu async/await trong FastAPI
-
-#### 2. Wikimedia API
-
-- [ ] Đọc tài liệu [Wikimedia Commons API](https://commons.wikimedia.org/w/api.php)
-- [ ] Hiểu cách search ảnh bằng keyword
-- [ ] Hiểu license types (Creative Commons)
-- [ ] Practice gọi API bằng `httpx`
-
-#### 3. AI/LLM (Groq)
-
-- [ ] Hiểu cách dùng Groq SDK (`groq` package)
-- [ ] Biết cách viết prompt để AI tạo keyword từ content
-- [ ] Biết cách để AI đánh giá "ảnh nào phù hợp nhất"
-
-#### 4. Database (SQLAlchemy)
-
-- [ ] Hiểu cách dùng `text()` query (đang dùng raw SQL)
-- [ ] Hoặc chuyển sang ORM models (tốt hơn)
-
-#### 5. Docker
-
-- [ ] Biết cách chạy `docker-compose up --build`
-- [ ] Biết cách đọc log service: `docker-compose logs media-service`
+| Bảng             | Trường liên quan                                 | Mục đích                               |
+| :--------------- | :----------------------------------------------- | :------------------------------------- |
+| `slides`         | `image_url`, `image_prompt`, `background_url`    | Ghi URL ảnh đã chọn/tạo cho từng slide |
+| `story_chapters` | `image_urls`, `image_prompts`, `cover_image_url` | Ghi ảnh cho từng panel truyện tranh    |
+| `projects`       | `thumbnail_url`                                  | Ảnh bìa project                        |
 
 ---
 
 ## 📋 KẾ HOẠCH PHÁT TRIỂN (4 Phases)
 
-### 🏗️ Phase 1: Foundation (Setup cấu trúc) — ~2 ngày
+### 🏗️ Phase 1: Foundation — ✅ ĐÃ HOÀN THÀNH
 
-**Mục tiêu:** Folder structure chuẩn FastAPI nâng cao + models + schemas
-
-#### Cấu trúc folder cần tạo (Chuẩn cấu trúc FastAPI Chuyên Nghiệp):
-
-```
-backend/media_service/
-├── Dockerfile
-├── requirements.txt
-├── app/
-│   ├── main.py                    # Entry point chính chạy server (đã có)
-│   ├── ai/                        # 🆕 CHUYÊN xử lý Trí Tuệ Nhân Tạo
-│   │   ├── groq_client.py         # Gọi API LLM Groq (sinh keyword)
-│   │   └── prompts.py             # Các prompt mẫu để bắt AI tự tạo keywords
-│   ├── core/                      # 🆕 File cấu hình, bảo mật cốt lõi
-│   │   ├── config.py              # Load biến môi trường từ .env (dịch chuyển từ db/ sang)
-│   │   └── exceptions.py          # Bắt lỗi toàn cục (custom error response format)
-│   ├── db/                        # Tương tác với Cơ Sở Dữ Liệu
-│   │   └── session.py             # Xử lý kết nối PostgreSQL bằng SQLAlchemy (đã có)
-│   ├── middleware/                # 🆕 Tầng chặn ở giữa Request/Response
-│   │   ├── auth.py                # Verify JWT Token nội bộ từ Auth Service
-│   │   └── logging.py             # Log theo dõi request (tuỳ chọn)
-│   ├── models/                    # 🆕 Database ORM (tuỳ chọn)
-│   │   └── media_models.py        # Abstract schema mapping nếu dùng ORM
-│   ├── routers/                   # 🆕 Khai báo và chia nhánh API Endpoints
-│   │   ├── assets.py              # Xử lý POST /generate-assets
-│   │   ├── deps.py                # Các hàm phụ trợ inject (Depends)
-│   │   └── search.py              # Xử lý GET /search, POST /regenerate-image
-│   ├── schemas/                   # 🆕 Data classes xác thực JSON (Pydantic)
-│   │   ├── media.py               # Validate format body request/response
-│   │   └── wikimedia.py           # Định dạng hứng data JSON trả về từ Wikimedia
-│   ├── services/                  # 🆕 Logic nghiệp vụ xử lý chính (Business logic)
-│   │   ├── asset_service.py       # Gọi AI + Gọi Wiki → Lọc ảnh (Orchestrator chính)
-│   │   ├── filter_service.py      # Thuật toán lọc ảnh chất lượng / kích thước
-│   │   └── wikimedia_service.py   # Viết code module httpx gọi sang Wikipedia API
-│   ├── tasks/                     # 🆕 Các tác vụ xử lý ngầm (Background / Async queue)
-│   │   └── asset_worker.py        # Logic tải file, sinh ảnh chạy ngầm (chống Timeout mạng)
-│   └── utils/                     # 🆕 Các hàm chuẩn hóa (helper)
-│       └── helpers.py             # Xử lý string, regex, normalize text...
-```
-
-#### Tasks:
-
-- [ ] Refactor lại cấu trúc thu mục theo chuẩn thiết kế mới (di chuyển `config.py` sang `core/`).
-- [ ] Tạo các thư mục con còn thiếu (`ai`, `core`, `middleware`, `models`, `routers`, `schemas`, `services`, `tasks`, `utils`).
-- [ ] Xác định và tạo sẵn các file schema Pydantic chính (`request/response` json).
-- [ ] Tách 2 đoạn code API mẫu trong `main.py` để nhét vào route trong thủ mục `routers/`.
-- [ ] Update import các modules và thêm gói cần dùng vào module `requirements.txt`.
+Folder structure chuẩn FastAPI + schemas + stub endpoints.
 
 ---
 
 ### 🔍 Phase 2: Wikimedia Search (Core Feature 1) — ~3 ngày
 
-**Mục tiêu:** Tìm được ảnh lịch sử từ Wikimedia
+**Mục tiêu:** Nhận `image_suggestion` → sinh keyword EN → tìm ảnh từ Wikimedia
 
-#### 2.1. Keyword Service
+#### 2.1. Keyword Service (AI sinh keyword tiếng Anh)
 
 ```python
-# Input: scene description + context
-# Output: list of search keywords
+# Input: image_suggestion (tiếng Việt) từ outline
+# Output: list keyword tiếng Anh để search Wikimedia
 
 # Ví dụ:
-# Input: "Chiến dịch Điện Biên Phủ, Võ Nguyên Giáp chỉ huy"
-# Output: ["Điện Biên Phủ 1954", "Vo Nguyen Giap", "Battle of Dien Bien Phu"]
+# Input:  "Panorama thung lũng Điện Biên Phủ"
+# Output: ["Dien Bien Phu valley panorama 1954", "Battle of Dien Bien Phu aerial view"]
 ```
 
-> [!TIP]
-> Dùng Groq LLM để AI tạo keywords. Các lưu ý:
->
-> - Tạo cả keyword tiếng Anh (ảnh trên Wikimedia chủ yếu tiếng Anh)
-> - Kết hợp: tên sự kiện + nhân vật + năm + địa điểm
-> - Loại bỏ keyword quá generic ("history", "war")
+> Dùng Groq (`llama-3.3-70b-versatile`) để dịch/sinh keyword EN từ `image_suggestion`.
+> Input đơn giản hơn trước — chỉ 1 string gợi ý ảnh, không cần phân tích cả scene.
 
 #### 2.2. Wikimedia Service
 
 ```python
-# API endpoint chính:
+# Gọi Wikimedia Commons API với keyword EN
 # https://commons.wikimedia.org/w/api.php
-
-# Parameters quan trọng:
-# action=query
-# generator=search
-# gsrsearch={keyword}
-# gsrnamespace=6 (File namespace)
-# prop=imageinfo
-# iiprop=url|size|mime|extmetadata
+# Trả về danh sách ảnh thô (chưa filter)
 ```
 
 #### 2.3. Filter Service
@@ -259,17 +377,17 @@ backend/media_service/
 ```python
 # Tiêu chí filter:
 # 1. Kích thước ảnh: min 800x600
-# 2. License: Creative Commons only
+# 2. License: Creative Commons / Public Domain
 # 3. Format: JPEG, PNG (loại SVG, GIF)
-# 4. Relevance score (AI đánh giá)
+# 4. Chọn ảnh tốt nhất (rộng nhất hoặc AI scoring)
 ```
 
 #### Tasks:
 
-- [ ] Implement `keyword_service.py`
-- [ ] Implement `wikimedia_service.py`
-- [ ] Implement `filter_service.py`
-- [ ] Viết unit test cơ bản
+- [ ] Implement `keyword_service.py` — AI sinh keyword EN từ `image_suggestion`
+- [ ] Implement `wikimedia_service.py` — gọi Wikimedia API thật (bỏ stub)
+- [ ] Implement `filter_service.py` — lọc chất lượng + chọn best image
+- [ ] Kết nối router `POST /media/search` với logic thật
 - [ ] Test thử với 3-5 sự kiện lịch sử
 
 ---
@@ -278,266 +396,78 @@ backend/media_service/
 
 **Mục tiêu:** API `POST /media/generate-assets` hoạt động hoàn chỉnh
 
-#### 3.1. API Input (từ Content Service)
-
-```json
-// POST /api/v1/media/generate-assets
-{
-  "project_type": "slide", // "slide" hoặc "comic"
-  "scenes": [
-    {
-      "order": 1,
-      "title": "Bối cảnh Điện Biên Phủ",
-      "content": "Năm 1954, quân Pháp xây dựng cứ điểm...",
-      "mood": "tension",
-      "characters": ["Võ Nguyên Giáp", "de Castries"]
-    },
-    {
-      "order": 2,
-      "title": "Trận đánh bắt đầu",
-      "content": "Ngày 13/3/1954...",
-      "mood": "epic"
-    }
-  ],
-  "style": {
-    "art_style": "realistic", // cho comic
-    "tone": "academic", // cho slide
-    "color_mode": "full_color"
-  },
-  "language": "vi"
-}
-```
-
-#### 3.2. API Output
-
-```json
-{
-  "status": "completed",
-  "images": [
-    {
-      "scene_order": 1,
-      "image_url": "https://upload.wikimedia.org/...",
-      "image_source": "wikimedia",
-      "image_title": "Battle of Dien Bien Phu",
-      "image_license": "CC-BY-SA-4.0",
-      "search_keywords_used": ["Dien Bien Phu 1954"],
-      "relevance_score": 0.92,
-      "width": 1200,
-      "height": 800
-    },
-    {
-      "scene_order": 2,
-      "image_url": "https://upload.wikimedia.org/...",
-      "image_source": "wikimedia",
-      "image_title": "...",
-      "image_license": "CC-BY-SA-4.0",
-      "search_keywords_used": ["..."],
-      "relevance_score": 0.85,
-      "width": 1024,
-      "height": 768
-    }
-  ],
-  "fallback_used": false
-}
-```
-
-#### 3.3. Logic chính (asset_generator.py)
+#### Logic chính (asset_service.py)
 
 ```
-Input scenes
-  → Với MỖI scene:
-      1. keyword_service.generate_keywords(scene) → keywords[]
+Input: slides[].image_suggestion (từ FE, sau khi có outline)
+  → Với MỖI slide:
+      1. keyword_service.generate_keywords(image_suggestion) → keywords[]
       2. Với MỖI keyword:
           wikimedia_service.search(keyword) → raw_images[]
-      3. filter_service.filter(raw_images) → filtered[]
-      4. filter_service.rank_by_relevance(filtered, scene) → best_image
-  → Output: images[] cho tất cả scenes
+      3. filter_service.filter_by_quality(raw_images) → filtered[]
+      4. filter_service.pick_best_image(filtered) → best_image
+  → Output: assets[] cho tất cả slides
 ```
 
-> [!IMPORTANT]
 > **Fallback strategy** khi không tìm thấy ảnh:
->
-> 1. Thử keyword khác (synonym, tiếng Anh)
-> 2. Thử search broader (bỏ năm, chỉ giữ sự kiện)
-> 3. Trả về placeholder + flag `"fallback_used": true`
+> 1. Thử keyword rộng hơn (bỏ chi tiết, giữ tên sự kiện)
+> 2. Trả về `"source": "fallback"` + placeholder URL
 
 #### Tasks:
 
-- [ ] Implement `asset_generator.py` (orchestrator)
-- [ ] Implement API endpoint đầy đủ
+- [ ] Implement đầy đủ `asset_service.py` (orchestrator)
+- [ ] Implement API endpoint `POST /generate-assets` đầy đủ
 - [ ] Handle error cases (no image found, API timeout)
-- [ ] Test integration với Content Service output
+- [ ] Test integration với output của Content `/outline`
 
 ---
 
 ### 🔄 Phase 4: Regenerate + Polish — ~2 ngày
 
-**Mục tiêu:** User có thể đổi ảnh + optimize
+**Mục tiêu:** User có thể đổi ảnh + optimize performance
 
-#### 4.1. API Regenerate Image
+#### Tasks:
 
-```json
-// POST /api/v1/media/regenerate-image
-{
-  "scene_order": 2,
-  "reason": "Ảnh không đúng bối cảnh",
-  "preferred_keywords": ["Điện Biên Phủ trận đánh"], // optional
-  "exclude_urls": ["https://...ảnh_cũ.jpg"] // bỏ ảnh cũ
-}
-```
-
-#### 4.2. Bổ sung thêm
-
+- [ ] Implement `POST /media/regenerate-image`
 - [ ] Cache kết quả search (tránh gọi Wikimedia lặp)
 - [ ] Rate limiting Wikimedia API
-- [ ] Logging chi tiết
-- [ ] Error handling đẹp
-- [ ] API docs (FastAPI auto-OpenAPI)
-
----
-
-## 🔌 API CONTRACT (CHỐT VỚI TEAM)
-
-> [!CAUTION]
-> **Phải thống nhất API contract với team TRƯỚC khi code!**
-> Đặc biệt: Content Service (Người 2) và Workspace Service (Người 5).
-
-### Endpoints chính chính:
-
-| Method | Path                             | Mô tả                             |
-| ------ | -------------------------------- | --------------------------------- |
-| `GET`  | `/api/v1/media/health`           | Health check                      |
-| `GET`  | `/api/v1/media/categories`       | Lấy danh mục (đã có)              |
-| `POST` | `/api/v1/media/generate-assets`  | **🔥 Tạo hình cho slides/comics** |
-| `POST` | `/api/v1/media/regenerate-image` | Đổi ảnh cụ thể                    |
-| `GET`  | `/api/v1/media/search`           | (Bonus) Search ảnh thủ công       |
-
-### Bạn NHẬN dữ liệu từ ai?
-
-```
-Content Service → outline/scenes → Media Service
-                   (Người 2 gọi API bạn)
-```
-
-### Bạn TRẢ dữ liệu cho ai?
-
-```
-Media Service → images[] → Workspace Service (Người 5 lưu) + FE hiển thị
-```
-
----
-
-## ⚡ QUICK START — Chạy service ngay
-
-```bash
-# 1. Clone repo (nếu chưa có)
-cd d:\cdnnlt\SuKyToanThuAI_API
-
-# 2. Copy .env
-cp backend/.env.example backend/.env
-# Điền GROQ_API_KEY thật!
-
-# 3. Chạy toàn bộ services
-cd backend
-docker-compose up --build
-
-# 4. Test media service
-curl http://localhost:8003/health
-curl http://localhost:8000/api/v1/media/categories
-```
-
----
-
-## 📚 TÀI LIỆU CẦN ĐỌC
-
-| #   | Tài liệu            | Link/Vị trí                                                                               | Mức quan trọng |
-| --- | ------------------- | ----------------------------------------------------------------------------------------- | -------------- |
-| 1   | FastAPI docs        | https://fastapi.tiangolo.com/                                                             | ⭐⭐⭐         |
-| 2   | Wikimedia API       | https://www.mediawiki.org/wiki/API:Main_page                                              | ⭐⭐⭐         |
-| 3   | Groq SDK            | https://console.groq.com/docs                                                             | ⭐⭐⭐         |
-| 4   | httpx (HTTP client) | https://www.python-httpx.org/                                                             | ⭐⭐           |
-| 5   | Pydantic v2         | https://docs.pydantic.dev/latest/                                                         | ⭐⭐           |
-| 6   | Database Guide      | [database_guide.md](file:///d:/cdnnlt/SuKyToanThuAI_API/database_guide.md) (project root) | ⭐⭐           |
-
----
-
-## 🧪 CÁCH TEST ĐỐI VỚI MỖI PHASE
-
-### Phase 1 Test:
-
-```bash
-# Service chạy được
-curl http://localhost:8003/health  # → {"status": "ok"}
-
-# Endpoint stub trả response đúng schema
-curl -X POST http://localhost:8003/api/v1/media/generate-assets \
-  -H "Content-Type: application/json" \
-  -d '{"scenes": []}'
-# → Response có đúng format schema không?
-```
-
-### Phase 2 Test:
-
-```bash
-# Search Wikimedia trực tiếp
-curl "http://localhost:8003/api/v1/media/search?keyword=Dien+Bien+Phu"
-# → Có trả về danh sách ảnh không?
-```
-
-### Phase 3 Test:
-
-```bash
-# Full flow: scenes → images
-curl -X POST http://localhost:8003/api/v1/media/generate-assets \
-  -H "Content-Type: application/json" \
-  -d '{
-    "project_type": "slide",
-    "scenes": [{
-      "order": 1,
-      "title": "Chiến thắng Điện Biên Phủ",
-      "content": "Ngày 7/5/1954...",
-      "mood": "epic"
-    }],
-    "style": {"tone": "academic"}
-  }'
-# → Có image_url hợp lệ không?
-# → Ảnh có liên quan đến nội dung không?
-```
+- [ ] Logging chi tiết + error handling
 
 ---
 
 ## 🚨 RỦI RO & GIẢI PHÁP
 
-| Rủi ro                     | Giải pháp                                |
-| -------------------------- | ---------------------------------------- |
-| Wikimedia API rate limit   | Implement caching (Redis hoặc in-memory) |
-| Không tìm được ảnh phù hợp | Fallback: keyword rộng hơn → placeholder |
-| Ảnh sai bối cảnh           | AI ranking + cho user regenerate         |
-| Groq API key hết quota     | Retry logic + fallback keyword thủ công  |
-| Sync với Content Service   | Chốt JSON schema sớm, dùng mock trước    |
+| Rủi ro                      | Giải pháp                                        |
+| :-------------------------- | :----------------------------------------------- |
+| Wikimedia API rate limit    | Implement caching (in-memory hoặc Redis)         |
+| Không tìm được ảnh phù hợp  | Fallback: keyword rộng hơn → placeholder         |
+| Ảnh sai bối cảnh            | AI scoring + cho user regenerate                 |
+| AI API key hết quota        | Retry logic + fallback keyword thủ công          |
+| Sync với Content Service    | Chốt JSON schema sớm, dùng mock trước            |
 
 ---
 
-## 📅 TIMELINE KHUYẾN NGHỊ
+## ⚡ QUICK START
 
-```
-Tuần 1: ┌─ Phase 1 (2 ngày) ── Phase 2 bắt đầu (3 ngày) ─┐
-Tuần 2: └─ Phase 2 xong ── Phase 3 (3 ngày) ──────────────┘
-Tuần 3: ┌─ Phase 4 (2 ngày) ── Test tổng hợp ── Demo ─────┐
+```bash
+cd d:\cdnnlt\SuKyToanThuAI_API\backend
+cp .env.example .env
+# Điền GROQ_API_KEY (lấy free tại https://console.groq.com)
+docker-compose up --build
+
+# Test
+curl http://localhost:8003/health
 ```
 
 ---
 
-## ➡️ NEXT STEPS (Bắt đầu từ đâu?)
+## ➡️ NEXT STEPS
 
 ```
-1️⃣  Chạy docker-compose test service hiện tại hoạt động chưa
-2️⃣  Tạo folder structure (Phase 1)
-3️⃣  Viết Pydantic schemas cho API contract
-4️⃣  Thử gọi Wikimedia API bằng httpx (prototype)
-5️⃣  Chốt API contract JSON với team (đặc biệt Người 2 + Người 5)
+1️⃣  Điền GROQ_API_KEY vào .env
+2️⃣  Implement keyword_service.py (AI sinh keyword EN từ image_suggestion)
+3️⃣  Implement wikimedia_service.py (gọi API Wikimedia thật)
+4️⃣  Implement filter_service.py (lọc chất lượng)
+5️⃣  Kết nối POST /media/search với logic thật
+6️⃣  Test flow: image_suggestion → keyword EN → search → filter → best image
 ```
-
-> [!NOTE]
-> Có thể bắt đầu Phase 2 song song Phase 1 bằng cách viết prototype
-> search Wikimedia ở 1 file Python riêng rồi integrate vào service sau.

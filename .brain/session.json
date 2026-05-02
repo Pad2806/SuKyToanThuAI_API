@@ -1,0 +1,66 @@
+{
+  "updated_at": "2026-04-24T16:22:04Z",
+  "working_on": {
+    "feature": "Media Service - Phase 2 (Wikimedia Search)",
+    "task": "Implement keyword_service.py and integrate with AI Groq",
+    "status": "coding",
+    "files": [
+      "backend/media_service/app/services/keyword_service.py",
+      "backend/media_service/phase2_coding_guide.md",
+      "backend/media_service/media_service_mentor_guide.md"
+    ],
+    "blockers": [],
+    "notes": "Using Groq instead of OpenAI/Claude for free and fast processing. Prepared a very detailed phase2_coding_guide.md for the user to follow."
+  },
+  "pending_tasks": [
+    {
+      "task": "Implement wikimedia_service.py",
+      "priority": "high",
+      "notes": "Fetch API to wikimedia commons, replacing stubs with httpx"
+    },
+    {
+      "task": "Implement filter_service.py",
+      "priority": "high",
+      "notes": "Add AI scoring functionality using Groq AI"
+    },
+    {
+      "task": "Wire search.py router",
+      "priority": "high",
+      "notes": "Connect /api/v1/media/search to new logic"
+    }
+  ],
+  "recent_changes": [
+    {
+      "timestamp": "2026-04-24",
+      "type": "docs",
+      "description": "Cập nhật tài liệu: Content Service tạo Outline thay vì Media Service. Media chỉ đảm nhận Visual AI.",
+      "files": [
+        "media_service_mentor_guide.md"
+      ]
+    },
+    {
+      "timestamp": "2026-04-24",
+      "type": "feature",
+      "description": "Khởi tạo keyword_service.py và file hướng dẫn code Phase 2.",
+      "files": [
+        "keyword_service.py",
+        "phase2_coding_guide.md"
+      ]
+    }
+  ],
+  "errors_encountered": [],
+  "decisions_made": [
+    {
+      "decision": "Dùng Content Service để Outline, Media chỉ lấy keyword + search",
+      "reason": "Trung thành với file dự án gốc doc.txt, chuyên biệt hóa từng service"
+    },
+    {
+      "decision": "Chỉ dùng Groq AI thay vì OpenAI.",
+      "reason": "Miễn phí 100%, nhanh, token giới hạn nhưng dư sức search keyword, kịch bản text"
+    },
+    {
+      "decision": "Tắt Token Auth trong quá trình Dev",
+      "reason": "Thêm middleware auth ở chế độ is_enabled=False để tiết kiệm công sức trong dev"
+    }
+  ]
+}

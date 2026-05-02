@@ -3,73 +3,81 @@ routers/assets.py
 Endpoint chính của Media Service:
   - POST /api/v1/media/generate-assets
 
-Đây là API mà Content Service (Người 2) sẽ gọi sau khi tạo xong outline.
-Phase 1: Validate request và trả về stub response đúng schema.
-Phase 3: Sẽ implement logic thật.
+FE gọi API này sau khi có outline từ Content Service.
+Phase 3: Implement logic thật.
 """
-from fastapi import APIRouter, BackgroundTasks, HTTPException
+import logging
 
-from app.schemas.media import GenerateAssetsRequest, GenerateAssetsResponse, ImageResult, ImageSource
+from fastapi import APIRouter, HTTPException
+
+from app.schemas.media import (
+    GenerateAssetsRequestV2,
+    AssetResult,
+)
+from app.services import asset_service
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/media", tags=["Generate Assets"])
 
 
 @router.post(
     "/generate-assets",
-    summary="Tạo hình ảnh cho tất cả các slide/panel",
-    response_model=GenerateAssetsResponse,
-    status_code=202,  # 202 Accepted — vì có thể xử lý async sau
+    summary="Tạo hình ảnh cho tất cả các slide",
+    status_code=200,
 )
-async def generate_assets(
-    body: GenerateAssetsRequest,
-    background_tasks: BackgroundTasks,
-):
+async def generate_assets(body: GenerateAssetsRequestV2):
     """
     API chính của Media Service.
 
-    **Nhận vào (từ Content Service):**
-    - Danh sách scenes (mỗi scene là 1 slide hoặc 1 panel comic)
-    - Cấu hình phong cách (academic/dramatic, màu sắc...)
+    **Nhận vào (từ FE, sau khi có outline):**
+    - project_id: UUID của project
+    - slides[]: danh sách slide, mỗi slide có slide_order + image_suggestion
+
+    **Xử lý:**
+    1. Với mỗi slide: AI sinh keyword EN từ image_suggestion
+    2. Search Wikimedia Commons bằng keyword EN
+    3. Lọc ảnh theo chất lượng (kích thước, license, format)
+    4. Chọn ảnh tốt nhất
 
     **Trả về:**
-    - Danh sách image_url tương ứng cho từng scene
-    - Score relevance để FE hiển thị chất lượng ảnh
-
-    **Luồng xử lý (sẽ implement ở Phase 3):**
-    1. Groq LLM → sinh keyword tiếng Anh cho từng scene
-    2. Wikimedia Commons → tìm ảnh theo keyword
-    3. Filter → loại ảnh nhỏ, sai license, không liên quan
-    4. Rank → chọn ảnh phù hợp nhất theo context
-
-    **Phase 1:** Validate schema + trả về stub response đúng format.
+    - assets[]: danh sách ảnh tương ứng cho từng slide
+    - total_matched: số slide tìm được ảnh thật
+    - total_requested: tổng số slide yêu cầu
     """
-    # Validate: phải có ít nhất 1 scene
-    if not body.scenes:
-        raise HTTPException(status_code=422, detail="Cần ít nhất 1 scene để tạo ảnh")
+    # Validate
+    if not body.slides:
+        raise HTTPException(status_code=422, detail="Cần ít nhất 1 slide")
 
-    # TODO (Phase 3): Gọi asset_service.generate(body)
-    # Hiện tại: trả về stub response đúng schema để FE/team có thể test tích hợp trước
-
-    stub_images = [
-        ImageResult(
-            scene_order=scene.order,
-            image_url="https://upload.wikimedia.org/wikipedia/commons/thumb/placeholder.jpg",
-            image_source=ImageSource.fallback,
-            image_title=f"[Stub] Ảnh cho scene {scene.order}: {scene.title}",
-            image_license="CC-BY-SA-4.0",
-            search_keywords_used=[scene.title],
-            relevance_score=0.0,
-            width=1200,
-            height=800,
-        )
-        for scene in sorted(body.scenes, key=lambda s: s.order)
-    ]
-
-    return GenerateAssetsResponse(
-        success=True,
-        status="partial",   # partial vì đang dùng stub
-        images=stub_images,
-        fallback_used=True,
-        total_scenes=len(body.scenes),
-        matched_scenes=0,   # Phase 3 sẽ tìm ảnh thật, con số này sẽ tăng
+    logger.info(
+        "generate-assets: project_id=%s, slides=%d",
+        body.project_id,
+        len(body.slides),
     )
+
+    # Gọi asset_service xử lý
+    assets: list[AssetResult] = await asset_service.generate_assets_for_slides(
+        body.slides
+    )
+
+    # Đếm số slide tìm được ảnh thật (không phải fallback)
+    matched = sum(1 for a in assets if a.source != "fallback")
+
+    return {
+        "success": True,
+        "data": {
+            "assets": [
+                {
+                    "slide_order": a.slide_order,
+                    "image_url": a.image_url,
+                    "source": a.source,
+                    "license": a.license,
+                    "keywords_used": a.keywords_used,
+                    "relevance_score": a.relevance_score,
+                }
+                for a in assets
+            ],
+            "total_matched": matched,
+            "total_requested": len(body.slides),
+        },
+    }
