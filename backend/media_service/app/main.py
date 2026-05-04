@@ -1,4 +1,4 @@
-# uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+# python -m uvicorn app.main:app --reload --port 8003
 """
 Media Service — Entry Point
 Port: 8003 (xem docker-compose.yml)
@@ -18,11 +18,12 @@ Cấu trúc thư mục (Phase 1):
     └── utils/        ← Helper functions
 """
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.middleware.auth import AuthMiddleware
-from app.routers import assets, search
+from app.routers import assets, search, slides
 
 # ── Khởi tạo FastAPI app ──────────────────────────────────────────────────────
 app = FastAPI(
@@ -31,6 +32,19 @@ app = FastAPI(
     description="Media Service — Tìm kiếm và tạo hình ảnh lịch sử bằng AI",
     docs_url="/docs",       # Swagger UI: http://localhost:8003/docs
     redoc_url="/redoc",     # ReDoc UI: http://localhost:8003/redoc
+)
+
+# ── CORS — cho phép FE (localhost:5173) gọi API ──────────────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",    # Vite dev server
+        "http://localhost:3000",    # Fallback
+        "http://localhost:8000",    # Nginx gateway
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ── Đăng ký Middleware ────────────────────────────────────────────────────────
@@ -44,6 +58,7 @@ register_exception_handlers(app)
 # ── Đăng ký Routers ──────────────────────────────────────────────────────────
 app.include_router(assets.router)   # POST /api/v1/media/generate-assets
 app.include_router(search.router)   # GET  /api/v1/media/categories, /search, ...
+app.include_router(slides.router)   # POST /api/v1/media/generate-pptx
 
 
 # ── Health Check ──────────────────────────────────────────────────────────────
