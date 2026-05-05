@@ -34,7 +34,17 @@ app = FastAPI(
     redoc_url="/redoc",     # ReDoc UI: http://localhost:8003/redoc
 )
 
-# ── CORS — cho phép FE (localhost:5173) gọi API ──────────────────────────────
+# ── Đăng ký Middleware ────────────────────────────────────────────────────────
+# ⚠️ Starlette xử lý middleware theo thứ tự NGƯỢC: middleware add SAU sẽ chạy TRƯỚC.
+# → CORSMiddleware phải được add CUỐI CÙNG để nó là lớp ngoài cùng,
+#   xử lý OPTIONS preflight TRƯỚC khi AuthMiddleware can thiệp.
+
+# Phase 1: is_enabled=False (chỉ log, không chặn request)
+# Phase 3+: Đổi thành is_enabled=True để bắt buộc xác thực
+app.add_middleware(AuthMiddleware, is_enabled=False)
+
+# CORS — cho phép FE (localhost:5173) gọi API
+# ⚠️ PHẢI add SAU AuthMiddleware → chạy TRƯỚC AuthMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -46,11 +56,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ── Đăng ký Middleware ────────────────────────────────────────────────────────
-# Phase 1: is_enabled=False (chỉ log, không chặn request)
-# Phase 3+: Đổi thành is_enabled=True để bắt buộc xác thực
-app.add_middleware(AuthMiddleware, is_enabled=False)
 
 # ── Đăng ký Exception Handlers ───────────────────────────────────────────────
 register_exception_handlers(app)

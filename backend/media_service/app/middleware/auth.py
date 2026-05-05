@@ -42,6 +42,10 @@ class AuthMiddleware(BaseHTTPMiddleware):
         self.is_enabled = is_enabled
 
     async def dispatch(self, request: Request, call_next):
+        # Bỏ qua CORS preflight — OPTIONS luôn được pass-through
+        if request.method == "OPTIONS":
+            return await call_next(request)
+
         # Bỏ qua public endpoints
         if request.url.path in PUBLIC_PATHS:
             return await call_next(request)
