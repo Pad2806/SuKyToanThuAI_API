@@ -23,7 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.middleware.auth import AuthMiddleware
-from app.routers import assets, search, slides
+from app.routers import assets, search, slides, infographic
 
 # ── Khởi tạo FastAPI app ──────────────────────────────────────────────────────
 app = FastAPI(
@@ -64,6 +64,7 @@ register_exception_handlers(app)
 app.include_router(assets.router)   # POST /api/v1/media/generate-assets
 app.include_router(search.router)   # GET  /api/v1/media/categories, /search, ...
 app.include_router(slides.router)   # POST /api/v1/media/generate-pptx
+app.include_router(infographic.router)  # POST /api/v1/media/infographic-images
 
 
 # ── Health Check ──────────────────────────────────────────────────────────────
