@@ -1,29 +1,28 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Auth Service", version="1.0.0")
+from api.auth import router as auth_router
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
+app = FastAPI(
+    title="Auth Service",
+    description="Authentication Service - Cổng vào hệ thống cho đồ án AI Slide Lịch Sử",
+    version="1.0.0"
+)
 
-@app.post("/api/v1/auth/register", tags=["User Endpoints"])
-def register(): return {"msg": "Register"}
+# CORS cho React Frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.post("/api/v1/auth/login", tags=["User Endpoints"])
-def login(): return {"msg": "Login"}
+app.include_router(auth_router, prefix="/api/v1")
 
-@app.get("/api/v1/auth/me", tags=["User Endpoints"])
-def me(): return {"msg": "Me"}
-
-# ==========================================
-# 🛑 ADMIN ENDPOINTS
-# ==========================================
-@app.get("/api/v1/auth/admin/users", tags=["Admin Endpoints"])
-def admin_list_users():
-    """Lấy danh sách tất cả người dùng trong hệ thống (Pagination)"""
-    return {"msg": "Admin: Lấy danh sách Users"}
-
-@app.delete("/api/v1/auth/admin/users/{user_id}", tags=["Admin Endpoints"])
-def admin_delete_user(user_id: str):
-    """Xóa / Ban một user cụ thể"""
-    return {"msg": f"Admin: Đã khóa / xóa User {user_id}"}
+@app.get("/")
+async def root():
+    return {
+        "message": "Auth Service đang chạy thành công!",
+        "docs": "/docs"
+    }
