@@ -1,222 +1,230 @@
 version: "3.9"
 
-# Internal network — all services communicate through this
+# ── Networks ─────────────────────────────────────────────────────────────────
 networks:
   sukyai_net:
     driver: bridge
 
+# ── Volumes ───────────────────────────────────────────────────────────────────
 volumes:
   pgdata:
   minio_data:
 
+# ── Build context helper ──────────────────────────────────────────────────────
+# Every Python service is built from its own folder, with shared/ mounted in.
+# The Dockerfile COPY shared/ /app/shared/ copies the shared lib into each image.
+
 services:
 
-  # ──────────────────────────────────────────────────────────
-  # 1. DATABASE SERVICE (shared Postgres + pgvector)
-  # ──────────────────────────────────────────────────────────
-  sukyai-db:
+  # ── 1. PostgreSQL ─────────────────────────────────────────────────────────
+  postgres:
     image: pgvector/pgvector:pg16
-    container_name: sukyai-db
+    container_name: sukyai-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: sukyai_db
-      POSTGRES_USER: ${POSTGRES_USER:-sukyai}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sukyai_secret}
+      POSTGRES_DB: sukyai
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./infra/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./infra/init.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
     networks:
       - sukyai_net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sukyai} -d sukyai_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d sukyai"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # ──────────────────────────────────────────────────────────
-  # 2. OBJECT STORAGE (MinIO — local S3-compatible)
-  # ──────────────────────────────────────────────────────────
-  sukyai-minio:
+  # ── 2. MinIO (optional object storage) ────────────────────────────────────
+  minio:
     image: minio/minio:latest
     container_name: sukyai-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: ${S3_ACCESS_KEY:-minioadmin}
-      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:-minioadmin}
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:-minioadmin}
     ports:
-      - "9000:9000"   # API
-      - "9001:9001"   # Console UI
+      - "9000:9000"
+      - "9001:9001"
     volumes:
       - minio_data:/data
     networks:
       - sukyai_net
 
-  # ──────────────────────────────────────────────────────────
-  # 3. API GATEWAY (Traefik)
-  # ──────────────────────────────────────────────────────────
-  sukyai-gateway:
-    image: traefik:v2.10
+  # ── 3. Gateway (public entrypoint, port 8000) ─────────────────────────────
+  gateway:
+    build:
+      context: .
+      dockerfile: services/gateway/Dockerfile
     container_name: sukyai-gateway
     restart: unless-stopped
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"
-      - "8080:8080"  # Traefik dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - sukyai_net
-
-  # ──────────────────────────────────────────────────────────
-  # 4. AUTH SERVICE  (users, audit_log)
-  # ──────────────────────────────────────────────────────────
-  sukyai-auth:
-    build:
-      context: .
-      dockerfile: services/auth/Dockerfile
-    container_name: sukyai-auth
-    restart: unless-stopped
+      - "8000:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sukyai}:${POSTGRES_PASSWORD:-sukyai_secret}@sukyai-db:5432/sukyai_db
-      SECRET_KEY: ${SECRET_KEY}
+      AUTH_SERVICE_URL: http://auth-service:8001
+      CONTENT_SERVICE_URL: http://content-service:8002
+      RAG_SERVICE_URL: http://rag-service:8003
+      STORY_SERVICE_URL: http://story-service:8004
+      AI_WORKER_URL: http://ai-worker:8005
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:5173}
       APP_ENV: ${APP_ENV:-development}
       DEBUG: ${DEBUG:-false}
-      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:5173}
     depends_on:
-      sukyai-db:
-        condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.auth.rule=PathPrefix(`/api/v1/auth`) || PathPrefix(`/api/v1/users`)"
-      - "traefik.http.services.auth.loadbalancer.server.port=8000"
+      - auth-service
+      - content-service
+      - rag-service
+      - story-service
     networks:
       - sukyai_net
 
-  # ──────────────────────────────────────────────────────────
-  # 5. CONTENT SERVICE  (eras, grades, lessons, topics, events)
-  # ──────────────────────────────────────────────────────────
-  sukyai-content:
+  # ── 4. Auth Service (internal port 8001) ──────────────────────────────────
+  auth-service:
     build:
       context: .
-      dockerfile: services/content/Dockerfile
-    container_name: sukyai-content
+      dockerfile: services/auth-service/Dockerfile
+    container_name: sukyai-auth-service
     restart: unless-stopped
+    ports:
+      - "8001:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sukyai}:${POSTGRES_PASSWORD:-sukyai_secret}@sukyai-db:5432/sukyai_db
-      SECRET_KEY: ${SECRET_KEY}
-      # Internal URL to call story-service for published story_json
-      STORY_SERVICE_URL: http://sukyai-story:8000
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      JWT_ISSUER: ${JWT_ISSUER:-sukyai}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-sukyai-api}
+      SERVICE_TOKEN: ${SERVICE_TOKEN:-change-me-internal-service-token}
       APP_ENV: ${APP_ENV:-development}
       DEBUG: ${DEBUG:-false}
-      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:5173}
     depends_on:
-      sukyai-db:
+      postgres:
         condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.content.rule=PathPrefix(`/api/v1/eras`) || PathPrefix(`/api/v1/grades`) || PathPrefix(`/api/v1/lessons`) || PathPrefix(`/api/v1/topics`) || PathPrefix(`/api/v1/events`)"
-      - "traefik.http.services.content.loadbalancer.server.port=8000"
     networks:
       - sukyai_net
 
-  # ──────────────────────────────────────────────────────────
-  # 6. RAG SERVICE  (source_documents, chunks, embeddings)
-  # ──────────────────────────────────────────────────────────
-  sukyai-rag:
+  # ── 5. Content Service (internal port 8002) ───────────────────────────────
+  content-service:
     build:
       context: .
-      dockerfile: services/rag/Dockerfile
-    container_name: sukyai-rag
+      dockerfile: services/content-service/Dockerfile
+    container_name: sukyai-content-service
     restart: unless-stopped
+    ports:
+      - "8002:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sukyai}:${POSTGRES_PASSWORD:-sukyai_secret}@sukyai-db:5432/sukyai_db
-      SECRET_KEY: ${SECRET_KEY}
-      NINEROUTER_API_KEY: ${NINEROUTER_API_KEY}
-      NINEROUTER_BASE_URL: ${NINEROUTER_BASE_URL}
-      EMBED_MODEL: ${EMBED_MODEL:-intfloat/multilingual-e5-large}
-      S3_ENDPOINT_URL: http://sukyai-minio:9000
-      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-minioadmin}
-      S3_SECRET_KEY: ${S3_SECRET_KEY:-minioadmin}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      SERVICE_TOKEN: ${SERVICE_TOKEN:-change-me-internal-service-token}
+      STORY_SERVICE_URL: http://story-service:8004
+      RAG_SERVICE_URL: http://rag-service:8003
+      APP_ENV: ${APP_ENV:-development}
+      DEBUG: ${DEBUG:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - sukyai_net
+
+  # ── 6. RAG Service (internal port 8003) ───────────────────────────────────
+  rag-service:
+    build:
+      context: .
+      dockerfile: services/rag-service/Dockerfile
+    container_name: sukyai-rag-service
+    restart: unless-stopped
+    ports:
+      - "8003:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      SERVICE_TOKEN: ${SERVICE_TOKEN:-change-me-internal-service-token}
+      NINEROUTER_API_KEY: ${NINEROUTER_API_KEY:-}
+      NINEROUTER_BASE_URL: ${NINEROUTER_BASE_URL:-}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-intfloat/multilingual-e5-large}
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_BUCKET: ${S3_BUCKET:-sukyai}
+      PUBLIC_CDN_BASE_URL: ${PUBLIC_CDN_BASE_URL:-}
+      APP_ENV: ${APP_ENV:-development}
+      DEBUG: ${DEBUG:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - sukyai_net
+
+  # ── 7. Story Service (internal port 8004) ─────────────────────────────────
+  story-service:
+    build:
+      context: .
+      dockerfile: services/story-service/Dockerfile
+    container_name: sukyai-story-service
+    restart: unless-stopped
+    ports:
+      - "8004:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      SERVICE_TOKEN: ${SERVICE_TOKEN:-change-me-internal-service-token}
+      CONTENT_SERVICE_URL: http://content-service:8002
+      RAG_SERVICE_URL: http://rag-service:8003
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
       S3_BUCKET: ${S3_BUCKET:-sukyai}
       APP_ENV: ${APP_ENV:-development}
       DEBUG: ${DEBUG:-false}
     depends_on:
-      sukyai-db:
+      postgres:
         condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.rag.rule=PathPrefix(`/api/v1/documents`) || PathPrefix(`/api/v1/search`)"
-      - "traefik.http.services.rag.loadbalancer.server.port=8000"
     networks:
       - sukyai_net
 
-  # ──────────────────────────────────────────────────────────
-  # 7. STORY SERVICE  (story_versions, citations, images, review)
-  # ──────────────────────────────────────────────────────────
-  sukyai-story:
-    build:
-      context: .
-      dockerfile: services/story/Dockerfile
-    container_name: sukyai-story
-    restart: unless-stopped
-    environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sukyai}:${POSTGRES_PASSWORD:-sukyai_secret}@sukyai-db:5432/sukyai_db
-      SECRET_KEY: ${SECRET_KEY}
-      S3_ENDPOINT_URL: http://sukyai-minio:9000
-      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-minioadmin}
-      S3_SECRET_KEY: ${S3_SECRET_KEY:-minioadmin}
-      S3_BUCKET: ${S3_BUCKET:-sukyai}
-      APP_ENV: ${APP_ENV:-development}
-      DEBUG: ${DEBUG:-false}
-    depends_on:
-      sukyai-db:
-        condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.story.rule=PathPrefix(`/api/v1/story`) || PathPrefix(`/api/v1/images`) || PathPrefix(`/api/v1/review-items`)"
-      - "traefik.http.services.story.loadbalancer.server.port=8000"
-    networks:
-      - sukyai_net
-
-  # ──────────────────────────────────────────────────────────
-  # 8. AI WORKER  (background job processor — no HTTP exposure)
-  # ──────────────────────────────────────────────────────────
-  sukyai-ai-worker:
+  # ── 8. AI Worker (no public port, background process) ─────────────────────
+  ai-worker:
     build:
       context: .
       dockerfile: services/ai-worker/Dockerfile
     container_name: sukyai-ai-worker
     restart: unless-stopped
-    command: python -m app.worker
+    command: ["python", "-m", "app.main"]
+    # Expose optional status port (job status API only, not routed by gateway by default)
+    ports:
+      - "8005:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sukyai}:${POSTGRES_PASSWORD:-sukyai_secret}@sukyai-db:5432/sukyai_db
-      NINEROUTER_API_KEY: ${NINEROUTER_API_KEY}
-      NINEROUTER_BASE_URL: ${NINEROUTER_BASE_URL}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/sukyai
+      SERVICE_TOKEN: ${SERVICE_TOKEN:-change-me-internal-service-token}
+      NINEROUTER_API_KEY: ${NINEROUTER_API_KEY:-}
+      NINEROUTER_BASE_URL: ${NINEROUTER_BASE_URL:-}
       LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
-      EMBED_MODEL: ${EMBED_MODEL:-intfloat/multilingual-e5-large}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-intfloat/multilingual-e5-large}
       IMAGE_MODEL: ${IMAGE_MODEL:-dall-e-3}
-      # Internal HTTP calls to peer services
-      RAG_SERVICE_URL: http://sukyai-rag:8000
-      STORY_SERVICE_URL: http://sukyai-story:8000
-      CONTENT_SERVICE_URL: http://sukyai-content:8000
-      S3_ENDPOINT_URL: http://sukyai-minio:9000
-      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-minioadmin}
-      S3_SECRET_KEY: ${S3_SECRET_KEY:-minioadmin}
+      AUTH_SERVICE_URL: http://auth-service:8001
+      CONTENT_SERVICE_URL: http://content-service:8002
+      RAG_SERVICE_URL: http://rag-service:8003
+      STORY_SERVICE_URL: http://story-service:8004
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
       S3_BUCKET: ${S3_BUCKET:-sukyai}
       WORKER_ID: ${WORKER_ID:-worker-001}
       WORKER_POLL_INTERVAL_SECONDS: ${WORKER_POLL_INTERVAL_SECONDS:-5}
       APP_ENV: ${APP_ENV:-development}
       DEBUG: ${DEBUG:-false}
     depends_on:
-      sukyai-db:
+      postgres:
         condition: service_healthy
-    # No traefik labels — worker không nhận HTTP từ bên ngoài
+      rag-service:
+        condition: service_started
+      story-service:
+        condition: service_started
+      content-service:
+        condition: service_started
     networks:
       - sukyai_net
