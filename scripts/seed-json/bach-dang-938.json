@@ -1,0 +1,358 @@
+{
+  "id": "event-bach-dang",
+  "slug": "chien-thang-bach-dang-938",
+  "title": "Chiến thắng Bạch Đằng năm 938",
+  "eraId": "era-bac-thuoc",
+  "eraSlug": "bac-thuoc",
+  "year": 938,
+  "gradeTags": [
+    "THCS",
+    "THPT"
+  ],
+  "type": "battle",
+  "featured": true,
+  "summary": "Ngô Quyền đánh bại quân Nam Hán, mở ra thời kỳ độc lập lâu dài.",
+  "excerpt": "Bãi cọc trên sông Bạch Đằng biến thuỷ triều thành thế trận quyết định.",
+  "image": "/images/generated/bach-dang.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Sông Bạch Đằng",
+  "actors": [
+    "Ngô Quyền"
+  ],
+  "opponent": "Quân Nam Hán",
+  "result": "Chấm dứt Bắc thuộc",
+  "theme": "war-strategy",
+  "relatedEventSlugs": [
+    "chien-thang-bach-dang-1288",
+    "thanh-co-co-loa"
+  ],
+  "characters": [
+    {
+      "id": "ngo-quyen",
+      "name": "Ngô Quyền",
+      "role": "Tướng quân — Người kết thúc Bắc thuộc",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Con rể Dương Đình Nghệ, nhanh chóng diệt phản tặc Kiều Công Tiễn rồi tập trung đối phó Nam Hán. Ông chọn sông Bạch Đằng làm chiến trường, lợi dụng thuỷ triều để bày thế trận quyết định, chấm dứt hơn 1000 năm Bắc thuộc.",
+      "quote": "\"Ngô Quyền không chỉ thắng một trận — ông mở ra một kỷ nguyên.\""
+    },
+    {
+      "id": "luu-hoang-thao",
+      "name": "Lưu Hoằng Tháo",
+      "role": "Con trai vua Nam Hán — chỉ huy quân xâm lược",
+      "side": "other",
+      "portrait": null,
+      "bio": "Hoàng tử nhà Nam Hán, được vua cha cử dẫn đại quân thuỷ bộ tiến vào Việt Nam. Tin chắc sẽ dễ dàng thu phục, nhưng tử trận ngay trên sông Bạch Đằng.",
+      "quote": null
+    },
+    {
+      "id": "kieu-cong-tien",
+      "name": "Kiều Công Tiễn",
+      "role": "Phản tặc — kẻ cầu cứu Nam Hán",
+      "side": "other",
+      "portrait": null,
+      "bio": "Tướng phản bội giết Dương Đình Nghệ (bố vợ Ngô Quyền) và cầu cứu nhà Nam Hán. Bị Ngô Quyền diệt trước khi quân Nam Hán kịp đến.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "bd938-1",
+      "year": "937",
+      "month": "Phản bội",
+      "title": "Kiều Công Tiễn giết Dương Đình Nghệ",
+      "description": "Kiều Công Tiễn giết Dương Đình Nghệ — thủ lĩnh dân tộc — để chiếm quyền, rồi cầu cứu nhà Nam Hán can thiệp.",
+      "mood": "tense"
+    },
+    {
+      "id": "bd938-2",
+      "year": "938",
+      "month": "Diệt phản",
+      "title": "Ngô Quyền diệt Kiều Công Tiễn",
+      "description": "Ngô Quyền nhanh chóng tiến quân diệt Kiều Công Tiễn, loại bỏ kẻ phản bội trước khi quân Nam Hán kịp sang.",
+      "mood": "rising"
+    },
+    {
+      "id": "bd938-3",
+      "year": "938",
+      "month": "Chuẩn bị",
+      "title": "Đóng cọc ngầm trên sông Bạch Đằng",
+      "description": "Ngô Quyền cho đóng hàng ngàn cọc gỗ lim, đầu bọc sắt nhọn, cắm sâu dưới lòng sông tại những vị trí thuỷ triều rút sâu nhất. Khi nước lên — cọc chìm. Khi nước rút — cọc nhô lên như hàm răng sắt.",
+      "mood": "preparation"
+    },
+    {
+      "id": "bd938-4",
+      "year": "938",
+      "month": "Dụ địch",
+      "title": "Quân nhẹ giả thua, dụ địch vượt bãi cọc",
+      "description": "Ngô Quyền bố trí thuyền nhẹ ra khiêu chiến rồi giả thua rút lui, dụ đoàn chiến thuyền Nam Hán vượt qua bãi cọc khi thuỷ triều đang lên.",
+      "mood": "rising"
+    },
+    {
+      "id": "bd938-5",
+      "year": "938",
+      "month": "Trận đánh",
+      "title": "Thuỷ triều rút — cọc nhô — thuyền vỡ",
+      "description": "Khi thuỷ triều rút, chiến thuyền Nam Hán mắc cạn trên bãi cọc, thân tàu bị đâm thủng. Ngô Quyền cho quân tổng tấn công. Lưu Hoằng Tháo tử trận ngay trên sông.",
+      "mood": "climax"
+    },
+    {
+      "id": "bd938-6",
+      "year": "938",
+      "month": "Chiến thắng",
+      "title": "Chấm dứt hơn 1000 năm Bắc thuộc",
+      "description": "Đại quân Nam Hán bị tiêu diệt gần như toàn bộ. Ngô Quyền xưng vương, đóng đô ở Cổ Loa. Việt Nam bước vào kỷ nguyên tự chủ vĩnh viễn.",
+      "mood": "victory"
+    }
+  ],
+  "climaxScene": {
+    "title": "Trận Bạch Đằng 938",
+    "backgroundImage": "/images/generated/bach-dang.png",
+    "phaseImages": [
+      "/images/generated/bach-dang.png",
+      "/images/generated/bach-dang.png",
+      "/images/generated/bach-dang.png"
+    ],
+    "phases": [
+      {
+        "id": "bd938-p1",
+        "label": "Chuẩn bị: Đóng cọc ngầm",
+        "summary": "Hàng ngàn cọc gỗ bọc sắt cắm dưới lòng sông — bẫy chết vô hình.",
+        "description": "Ngô Quyền cho đóng hàng ngàn cọc gỗ lim, đầu bọc sắt nhọn. Khi thuỷ triều lên, cọc chìm hoàn toàn dưới mặt nước — vô hình với mắt thường.\\n\\nĐây là kiệt tác quân sự: lợi dụng địa hình và thuỷ triều tự nhiên để biến yếu thành mạnh.",
+        "keyDetail": "Cọc được đóng tại vị trí thuỷ triều rút sâu nhất — khi nước rút, cọc nhô lên như hàm răng sắt."
+      },
+      {
+        "id": "bd938-p2",
+        "label": "Dụ địch: Thuyền nhẹ giả thua",
+        "summary": "Quân ta giả thua, dụ chiến thuyền Nam Hán vượt qua bãi cọc.",
+        "description": "Ngô Quyền bố trí thuyền nhẹ ra khiêu chiến. Quân Nam Hán thấy quân ta ít, lập tức truy đuổi. Chiến thuyền lớn của Nam Hán ào ào vượt qua bãi cọc khi thuỷ triều đang lên.\\n\\nLưu Hoằng Tháo không biết rằng bên dưới thân tàu là bẫy chết.",
+        "keyDetail": "Mọi thứ đã được tính toán chính xác theo chu kỳ thuỷ triều — chỉ chờ nước rút."
+      },
+      {
+        "id": "bd938-p3",
+        "label": "Quyết chiến: Thuỷ triều rút",
+        "summary": "Cọc nhô lên, thuyền vỡ tan — Lưu Hoằng Tháo tử trận.",
+        "description": "Khi thuỷ triều rút, chiến thuyền Nam Hán bị mắc cạn trên bãi cọc. Thân tàu bị đâm thủng, quân lính hoảng loạn. Ngô Quyền cho quân tổng tấn công từ mọi phía.\\n\\nLưu Hoằng Tháo tử trận ngay trên sông. Đại quân Nam Hán bị tiêu diệt gần như toàn bộ. Hơn 1000 năm Bắc thuộc chấm dứt trong một buổi chiều.",
+        "keyDetail": "Thuỷ triều rút, cọc nhô lên, thuyền giặc vỡ tan — một ngàn năm Bắc thuộc chấm dứt."
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "bd938-hs1",
+        "x": 40,
+        "y": 50,
+        "label": "Bãi cọc ngầm",
+        "description": "Hàng ngàn cọc gỗ lim bọc sắt nhọn, cắm sâu dưới lòng sông — vô hình khi thuỷ triều lên."
+      },
+      {
+        "id": "bd938-hs2",
+        "x": 70,
+        "y": 35,
+        "label": "Vị trí phục kích",
+        "description": "Quân Ngô Quyền mai phục hai bên bờ sông, chờ thuỷ triều rút để tổng tấn công."
+      },
+      {
+        "id": "bd938-hs3",
+        "x": 30,
+        "y": 30,
+        "label": "Cửa sông Bạch Đằng",
+        "description": "Nơi chiến thuyền Nam Hán tiến vào — bị dụ vào sâu qua bãi cọc."
+      }
+    ]
+  },
+  "aftermath": {
+    "title": "Kết quả trận Bạch Đằng 938",
+    "stats": [
+      {
+        "label": "Kẻ thù",
+        "value": "Nam Hán",
+        "sublabel": "bị tiêu diệt"
+      },
+      {
+        "label": "Lưu Hoằng Tháo",
+        "value": "Tử trận",
+        "sublabel": "trên sông"
+      },
+      {
+        "label": "Bắc thuộc",
+        "value": "1000+ năm",
+        "sublabel": "chấm dứt"
+      },
+      {
+        "label": "Kết quả",
+        "value": "Độc lập",
+        "sublabel": "vĩnh viễn"
+      }
+    ],
+    "before": {
+      "title": "Trước trận Bạch Đằng",
+      "items": [
+        "Hơn 1000 năm Bắc thuộc",
+        "Kiều Công Tiễn phản bội, cầu cứu Nam Hán",
+        "Nam Hán cử đại quân xâm lược",
+        "Tương quan lực lượng bất lợi cho ta"
+      ]
+    },
+    "after": {
+      "title": "Sau trận Bạch Đằng",
+      "items": [
+        "Chấm dứt hoàn toàn Bắc thuộc",
+        "Ngô Quyền xưng vương, lập nhà Ngô",
+        "Việt Nam bước vào kỷ nguyên tự chủ",
+        "Chiến thuật cọc ngầm trở thành kiệt tác quân sự"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "Ngô Quyền đóng cọc ngầm trên sông Bạch Đằng, lợi dụng thuỷ triều tiêu diệt hoàn toàn đại quân Nam Hán. Lưu Hoằng Tháo tử trận. Hơn 1000 năm Bắc thuộc chấm dứt.",
+    "whyItMatters": "Đây là trận đánh chấm dứt hoàn toàn hơn 1000 năm Bắc thuộc, mở ra kỷ nguyên tự chủ vĩnh viễn cho dân tộc Việt. Chiến thuật cọc ngầm được coi là kiệt tác quân sự — lợi dụng thiên nhiên để biến yếu thành mạnh.",
+    "lesson": "Chiến thắng không đến từ sức mạnh vượt trội, mà từ trí tuệ và sự hiểu biết về thiên nhiên. Ngô Quyền không có đại quân — ông có hiểu biết về thuỷ triều, về lòng sông, và về thời cơ. Đó là bài học vượt thời đại."
+  },
+  "quiz": [
+    {
+      "id": "bd938-q1",
+      "question": "Ngô Quyền dùng chiến thuật gì để đánh bại Nam Hán?",
+      "options": [
+        "Phục kích trên bộ",
+        "Đóng cọc ngầm dưới sông",
+        "Đốt lương thảo",
+        "Tấn công bằng voi chiến"
+      ],
+      "correct": 1,
+      "explanation": "Ngô Quyền cho đóng cọc gỗ bọc sắt dưới lòng sông, lợi dụng thuỷ triều tiêu diệt chiến thuyền Nam Hán."
+    },
+    {
+      "id": "bd938-q2",
+      "question": "Trận Bạch Đằng 938 chấm dứt điều gì?",
+      "options": [
+        "Thời kỳ Văn Lang",
+        "Hơn 1000 năm Bắc thuộc",
+        "Nhà Trần",
+        "Chiến tranh Nguyên Mông"
+      ],
+      "correct": 1,
+      "explanation": "Chiến thắng Bạch Đằng 938 chấm dứt hoàn toàn hơn 1000 năm Bắc thuộc."
+    },
+    {
+      "id": "bd938-q3",
+      "question": "Lưu Hoằng Tháo là ai?",
+      "options": [
+        "Tướng Ngô Quyền",
+        "Con vua Nam Hán",
+        "Kẻ phản bội",
+        "Vua Âu Lạc"
+      ],
+      "correct": 1,
+      "explanation": "Lưu Hoằng Tháo là hoàng tử nhà Nam Hán, chỉ huy đại quân xâm lược và tử trận trên sông Bạch Đằng."
+    }
+  ],
+  "story": {
+    "templateType": "battle",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Sáng sớm mùa đông năm 938, sương mù phủ kín sông Bạch Đằng. Dưới mặt nước, hàng ngàn cọc gỗ bọc sắt đã được cắm sẵn — chờ thuỷ triều rút. Ngô Quyền biến dòng sông thành bẫy chết, và lịch sử ngàn năm Bắc thuộc sắp kết thúc."
+          },
+          {
+            "type": "quote",
+            "quote": "Ngô Quyền không chỉ thắng một trận — ông mở ra một kỷ nguyên.",
+            "source": "Đại Việt sử ký toàn thư"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Kiều Công Tiễn — một tướng phản bội — giết Dương Đình Nghệ và cầu cứu nhà Nam Hán. Vua Nam Hán cử con trai Lưu Hoằng Tháo dẫn đại quân thuỷ bộ tiến vào Việt Nam."
+          },
+          {
+            "type": "text",
+            "body": "Ngô Quyền — con rể Dương Đình Nghệ — nhanh chóng diệt Kiều Công Tiễn rồi tập trung toàn lực đối phó Nam Hán. Ông chọn sông Bạch Đằng làm chiến trường — nơi thuỷ triều lên xuống mạnh nhất."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Năm",
+                "value": "938"
+              },
+              {
+                "label": "Chiến trường",
+                "value": "Sông Bạch Đằng"
+              },
+              {
+                "label": "Vũ khí bí mật",
+                "value": "Bãi cọc ngầm bọc sắt"
+              },
+              {
+                "label": "Kết quả",
+                "value": "Chấm dứt Bắc thuộc"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Thử Thách",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Ngô Quyền ra lệnh đóng hàng ngàn cọc gỗ lim, đầu bọc sắt nhọn, cắm dưới lòng sông ở những vị trí thuỷ triều rút sâu nhất. Khi nước lên, cọc chìm dưới mặt nước — vô hình. Khi nước rút, cọc nhô lên như hàm răng sắt."
+          },
+          {
+            "type": "text",
+            "body": "Ông bố trí quân nhẹ giả thua, dụ đoàn chiến thuyền Nam Hán vượt qua bãi cọc khi thuỷ triều đang lên. Mọi thứ đã sẵn sàng — chỉ chờ nước rút."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Bước Ngoặt",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Khi thuỷ triều rút, chiến thuyền Nam Hán bị mắc cạn trên bãi cọc. Thân tàu bị đâm thủng, quân lính hoảng loạn. Ngô Quyền cho quân tổng tấn công. Lưu Hoằng Tháo tử trận ngay trên sông. Đại quân Nam Hán bị tiêu diệt gần như toàn bộ."
+          },
+          {
+            "type": "quote",
+            "quote": "Thuỷ triều rút, cọc nhô lên, thuyền giặc vỡ tan — một ngàn năm Bắc thuộc chấm dứt trong một buổi chiều.",
+            "source": "Việt sử lược"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Chiến thắng Bạch Đằng 938 chấm dứt hơn 1000 năm Bắc thuộc. Ngô Quyền xưng vương, đóng đô ở Cổ Loa — mở ra thời kỳ độc lập kéo dài cho đến ngày nay."
+          },
+          {
+            "type": "text",
+            "body": "Chiến thuật cọc ngầm trên sông Bạch Đằng được coi là kiệt tác quân sự — lợi dụng địa hình và thuỷ triều tự nhiên để biến yếu thành mạnh, ít thắng nhiều."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Bạch Đằng 938 dạy rằng chiến thắng không đến từ sức mạnh vượt trội, mà từ trí tuệ và sự hiểu biết về thiên nhiên. Ngô Quyền không có đại quân — ông có hiểu biết về thuỷ triều, về lòng sông, và về thời cơ. Đó là bài học vượt thời đại."
+          }
+        ]
+      }
+    ]
+  }
+}

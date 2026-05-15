@@ -1,0 +1,330 @@
+{
+  "id": "event-hai-ba-trung",
+  "slug": "khoi-nghia-hai-ba-trung",
+  "title": "Khởi nghĩa Hai Bà Trưng",
+  "eraId": "era-bac-thuoc",
+  "eraSlug": "bac-thuoc",
+  "year": 40,
+  "gradeTags": [
+    "TH",
+    "THCS",
+    "THPT"
+  ],
+  "type": "movement",
+  "featured": true,
+  "summary": "Cuộc khởi nghĩa lớn đầu tiên chống ách đô hộ phương Bắc.",
+  "excerpt": "Từ Mê Linh, tiếng trống khởi nghĩa lan khắp các quận huyện.",
+  "image": "/images/generated/hai-ba-trung.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Mê Linh",
+  "actors": [
+    "Trưng Trắc",
+    "Trưng Nhị"
+  ],
+  "opponent": "Nhà Đông Hán (Tô Định)",
+  "theme": "dark-cinematic",
+  "relatedEventSlugs": [
+    "khoi-nghia-ba-trieu",
+    "chien-thang-bach-dang-938"
+  ],
+  "characters": [
+    {
+      "id": "trung-trac",
+      "name": "Trưng Trắc",
+      "role": "Thủ lĩnh khởi nghĩa — Trưng Nữ Vương",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Con gái lạc tướng Mê Linh, chồng là Thi Sách bị thái thú Tô Định giết. Bà phất cờ khởi nghĩa, chiếm 65 thành trì, xưng vương — vị nữ vương đầu tiên của Việt Nam.",
+      "quote": "\"Một xin rửa sạch nước thù, hai xin đem lại nghiệp xưa họ Hùng.\""
+    },
+    {
+      "id": "trung-nhi",
+      "name": "Trưng Nhị",
+      "role": "Nữ tướng — em gái Trưng Trắc",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Em gái Trưng Trắc, cùng chị lãnh đạo cuộc khởi nghĩa. Hai chị em chiến đấu bên nhau đến phút cuối cùng, tuẫn tiết cùng nhau trên dòng sông Hát.",
+      "quote": null
+    },
+    {
+      "id": "to-dinh",
+      "name": "Tô Định",
+      "role": "Thái thú Giao Chỉ",
+      "side": "other",
+      "portrait": null,
+      "bio": "Thái thú nhà Đông Hán cai trị Giao Chỉ tàn bạo, giết Thi Sách để dập tắt mầm phản kháng. Bị nghĩa quân đánh bại, phải bỏ chạy về Trung Quốc.",
+      "quote": null
+    },
+    {
+      "id": "ma-vien",
+      "name": "Mã Viện",
+      "role": "Danh tướng nhà Hán",
+      "side": "other",
+      "portrait": null,
+      "bio": "Danh tướng lão luyện được nhà Hán cử sang dẹp khởi nghĩa Hai Bà Trưng năm 42 với đại quân áp đảo.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "hbt-1",
+      "year": "~39",
+      "month": "Trước khởi nghĩa",
+      "title": "Tô Định giết Thi Sách",
+      "description": "Thái thú Tô Định giết Thi Sách — chồng Trưng Trắc, con trai lạc tướng Chu Diên — để dập tắt mầm phản kháng. Cái chết ấy không dập tắt mà châm ngòi cuộc khởi nghĩa.",
+      "mood": "tense"
+    },
+    {
+      "id": "hbt-2",
+      "year": "40",
+      "month": "Mùa xuân",
+      "title": "Trưng Trắc phất cờ khởi nghĩa",
+      "description": "Trưng Trắc liên kết các lạc tướng khắp Giao Chỉ, Cửu Chân, Nhật Nam. Từ Mê Linh, bà phất cờ — hàng ngàn nghĩa quân đồng loạt hưởng ứng.",
+      "mood": "rising"
+    },
+    {
+      "id": "hbt-3",
+      "year": "40",
+      "month": "Mùa xuân",
+      "title": "65 thành trì nổi dậy",
+      "description": "Chỉ trong vài tháng, nghĩa quân chiếm 65 thành trì. Tô Định bỏ chạy về Trung Quốc. Lần đầu tiên sau 200 năm Bắc thuộc, người Việt làm chủ đất nước.",
+      "mood": "victory"
+    },
+    {
+      "id": "hbt-4",
+      "year": "40",
+      "month": "Xưng vương",
+      "title": "Trưng Trắc xưng vương",
+      "description": "Trưng Trắc xưng vương, đóng đô ở Mê Linh. Bà trở thành vị nữ vương đầu tiên trong lịch sử Việt Nam, trị vì 3 năm tự chủ.",
+      "mood": "victory"
+    },
+    {
+      "id": "hbt-5",
+      "year": "42",
+      "month": "Phản kích",
+      "title": "Mã Viện dẫn đại quân sang",
+      "description": "Nhà Hán cử Mã Viện — danh tướng lão luyện — dẫn đại quân gấp nhiều lần, trang bị vượt trội, tiến xuống dẹp khởi nghĩa.",
+      "mood": "tension"
+    },
+    {
+      "id": "hbt-6",
+      "year": "43",
+      "month": "Trận Lãng Bạc",
+      "title": "Hai Bà Trưng tuẫn tiết",
+      "description": "Trận quyết chiến ở Lãng Bạc. Quân Hai Bà Trưng chiến đấu dũng cảm nhưng không chống nổi lực lượng áp đảo. Hai Bà tuẫn tiết — giữ trọn khí tiết.",
+      "mood": "climax"
+    }
+  ],
+  "aftermath": {
+    "title": "Kết quả khởi nghĩa Hai Bà Trưng",
+    "stats": [
+      {
+        "label": "Thành trì nổi dậy",
+        "value": "65",
+        "sublabel": "thành"
+      },
+      {
+        "label": "Thời gian tự chủ",
+        "value": "3 năm",
+        "sublabel": "(40–43)"
+      },
+      {
+        "label": "Nữ tướng",
+        "value": "Hàng chục",
+        "sublabel": "nữ tướng lãnh đạo"
+      },
+      {
+        "label": "Ý nghĩa",
+        "value": "Tiền lệ",
+        "sublabel": "cho khởi nghĩa tiếp theo"
+      }
+    ],
+    "before": {
+      "title": "Trước khởi nghĩa",
+      "items": [
+        "Hơn 200 năm Bắc thuộc",
+        "Tô Định cai trị tàn bạo",
+        "Thuế nặng, lao dịch, đàn áp lạc tướng",
+        "Thi Sách bị giết để dập phản kháng"
+      ]
+    },
+    "after": {
+      "title": "Sau khởi nghĩa",
+      "items": [
+        "3 năm tự chủ — tiền lệ lịch sử",
+        "Hình ảnh Hai Bà trở thành biểu tượng bất diệt",
+        "Các cuộc nổi dậy tiếp nối suốt ngàn năm",
+        "Đường phố Hai Bà Trưng khắp cả nước"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "Năm 40, Trưng Trắc và Trưng Nhị phất cờ khởi nghĩa từ Mê Linh, chiếm 65 thành trì, xưng vương. 3 năm sau, Mã Viện dẫn đại quân sang dẹp — Hai Bà tuẫn tiết.",
+    "whyItMatters": "Đây là cuộc khởi nghĩa lớn đầu tiên chống Bắc thuộc, thiết lập tiền lệ: người Việt có thể đánh đổ ách đô hộ. Hình ảnh hai vị nữ vương trở thành biểu tượng vĩnh viễn của tinh thần bất khuất.",
+    "lesson": "Sức mạnh không nằm ở quân số mà ở khả năng đoàn kết một dân tộc. Khi nỗi đau cá nhân hòa cùng khát vọng tự do, sức mạnh ấy có thể lay chuyển cả đế chế. Dũng khí không phân biệt giới tính."
+  },
+  "quiz": [
+    {
+      "id": "hbt-q1",
+      "question": "Ai là thái thú cai trị Giao Chỉ khi Hai Bà Trưng khởi nghĩa?",
+      "options": [
+        "Mã Viện",
+        "Tô Định",
+        "Triệu Đà",
+        "Sĩ Nhiếp"
+      ],
+      "correct": 1,
+      "explanation": "Tô Định là thái thú nhà Đông Hán cai trị tàn bạo, giết Thi Sách — nguyên nhân trực tiếp dẫn đến khởi nghĩa."
+    },
+    {
+      "id": "hbt-q2",
+      "question": "Nghĩa quân Hai Bà Trưng chiếm được bao nhiêu thành trì?",
+      "options": [
+        "25",
+        "45",
+        "65",
+        "85"
+      ],
+      "correct": 2,
+      "explanation": "Chỉ trong vài tháng, nghĩa quân chiếm 65 thành trì, đánh đuổi Tô Định."
+    },
+    {
+      "id": "hbt-q3",
+      "question": "Trưng Trắc đóng đô ở đâu sau khi xưng vương?",
+      "options": [
+        "Cổ Loa",
+        "Mê Linh",
+        "Thăng Long",
+        "Phong Châu"
+      ],
+      "correct": 1,
+      "explanation": "Trưng Trắc xưng vương và đóng đô ở Mê Linh — quê hương của hai chị em."
+    },
+    {
+      "id": "hbt-q4",
+      "question": "Nhà Hán cử ai sang dẹp khởi nghĩa Hai Bà Trưng?",
+      "options": [
+        "Tô Định",
+        "Triệu Đà",
+        "Mã Viện",
+        "Lục Dận"
+      ],
+      "correct": 2,
+      "explanation": "Mã Viện — danh tướng lão luyện nhà Hán — được cử dẫn đại quân sang năm 42."
+    }
+  ],
+  "story": {
+    "templateType": "movement",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Năm 40 sau Công nguyên, giữa đêm Mê Linh, một người phụ nữ bước lên bệ cao dưới ánh đuốc. Bà phất cờ, hàng ngàn nghĩa quân đồng loạt hô vang. Lần đầu tiên sau hơn 200 năm Bắc thuộc, người Việt đứng dậy — và người dẫn đầu là hai chị em."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/hai-ba-trung-battle.png",
+            "caption": "Hai Bà Trưng cưỡi voi ra trận — biểu tượng bất khuất muôn đời"
+          },
+          {
+            "type": "quote",
+            "quote": "Một xin rửa sạch nước thù, hai xin đem lại nghiệp xưa họ Hùng, ba kẻo oan ức lòng chồng, bốn xin vẻn vẹn sở công lênh này.",
+            "source": "Lời thề Hai Bà Trưng"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Dưới ách đô hộ nhà Đông Hán, thái thú Tô Định cai trị tàn bạo: thuế nặng, lao dịch, đàn áp các lạc tướng. Thi Sách — chồng Trưng Trắc — bị Tô Định giết để dập tắt mầm phản kháng."
+          },
+          {
+            "type": "text",
+            "body": "Nhưng cái chết ấy không dập tắt — nó châm ngòi. Trưng Trắc không chọn phục thù cá nhân mà biến nỗi đau thành khởi nghĩa dân tộc. Bà liên kết các lạc tướng khắp Giao Chỉ, Cửu Chân, Nhật Nam."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Năm khởi nghĩa",
+                "value": "Mùa xuân năm 40"
+              },
+              {
+                "label": "Quân số",
+                "value": "65 thành trì hưởng ứng"
+              },
+              {
+                "label": "Kinh đô",
+                "value": "Mê Linh"
+              },
+              {
+                "label": "Thời gian tự chủ",
+                "value": "3 năm (40–43)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Thử Thách",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Chỉ trong vài tháng, nghĩa quân chiếm 65 thành trì. Tô Định bỏ chạy về Trung Quốc. Trưng Trắc xưng vương, đóng đô ở Mê Linh. Lần đầu tiên, một phụ nữ trở thành nguyên thủ quốc gia Việt Nam."
+          },
+          {
+            "type": "text",
+            "body": "Nhưng nhà Hán không chấp nhận mất Giao Chỉ. Năm 42, Mã Viện — danh tướng lão luyện — được cử xuống phía Nam với đạo quân lớn gấp nhiều lần, trang bị vượt trội."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Bước Ngoặt",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Trận quyết chiến diễn ra ở Lãng Bạc. Quân Hai Bà Trưng chiến đấu dũng cảm nhưng không chống nổi lực lượng áp đảo của Mã Viện. Trưng Trắc và Trưng Nhị tuẫn tiết — giữ trọn khí tiết của người anh hùng dân tộc."
+          },
+          {
+            "type": "quote",
+            "quote": "Hai Bà Trưng mất nhưng ý chí của cuộc khởi nghĩa không bao giờ tắt trong lòng người Việt.",
+            "source": "Đại Việt sử ký toàn thư"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Dù thất bại về quân sự, cuộc khởi nghĩa thiết lập tiền lệ: người Việt có thể đánh đổ ách đô hộ. Từ đây, các cuộc nổi dậy tiếp nối suốt ngàn năm Bắc thuộc."
+          },
+          {
+            "type": "text",
+            "body": "Hình ảnh Hai Bà cưỡi voi ra trận trở thành biểu tượng bất diệt. Gần như mỗi thành phố Việt Nam đều có đường phố mang tên Hai Bà Trưng — lời nhắc rằng dũng khí không phân biệt giới tính."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Khởi nghĩa Hai Bà Trưng dạy rằng: sức mạnh không chỉ nằm ở quân số, mà ở khả năng đoàn kết một dân tộc. Hai chị em từ Mê Linh đã chứng minh: khi nỗi đau cá nhân hoà cùng khát vọng tự do, sức mạnh ấy có thể lay chuyển cả một đế chế."
+          }
+        ]
+      }
+    ]
+  }
+}

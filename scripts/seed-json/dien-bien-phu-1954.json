@@ -1,0 +1,392 @@
+{
+  "id": "event-dien-bien-phu-1954",
+  "slug": "chien-thang-dien-bien-phu-1954",
+  "title": "Chiến thắng Điện Biên Phủ năm 1954",
+  "eraId": "era-chong-phap",
+  "eraSlug": "khang-chien-chong-phap",
+  "year": 1954,
+  "gradeTags": [
+    "THCS",
+    "THPT"
+  ],
+  "type": "battle",
+  "featured": true,
+  "summary": "Chiến thắng \"lừng lẫy năm châu, chấn động địa cầu\" — kết thúc 9 năm kháng chiến chống thực dân Pháp.",
+  "excerpt": "Lá cờ đỏ sao vàng tung bay trên nóc hầm De Castries — chín năm kháng chiến kết thúc trong 56 ngày đêm.",
+  "image": "/images/generated/dien-bien-phu-hero.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Thung lũng Điện Biên Phủ",
+  "actors": [
+    "Đại tướng Võ Nguyên Giáp",
+    "Chủ tịch Hồ Chí Minh"
+  ],
+  "opponent": "Quân viễn chinh Pháp",
+  "result": "Việt Nam chiến thắng",
+  "theme": "war-strategy",
+  "relatedEventSlugs": [
+    "chien-thang-bach-dang-1288"
+  ],
+  "characters": [
+    {
+      "id": "vo-nguyen-giap",
+      "name": "Võ Nguyên Giáp",
+      "role": "Tổng tư lệnh",
+      "side": "viet-minh",
+      "portrait": null,
+      "bio": "Đại tướng đầu tiên của Quân đội Nhân dân Việt Nam. Ông chỉ huy chiến dịch Điện Biên Phủ — trận đánh quyết định kết thúc chế độ thực dân Pháp tại Đông Dương.",
+      "quote": "\"Thần tốc, thần tốc hơn nữa; táo bạo, táo bạo hơn nữa.\""
+    },
+    {
+      "id": "ho-chi-minh",
+      "name": "Hồ Chí Minh",
+      "role": "Chủ tịch nước",
+      "side": "viet-minh",
+      "portrait": null,
+      "bio": "Người lãnh đạo tối cao của cuộc kháng chiến. Chỉ thị chiến lược \"Đánh chắc, tiến chắc\" cho chiến dịch Điện Biên Phủ.",
+      "quote": null
+    },
+    {
+      "id": "de-castries",
+      "name": "De Castries",
+      "role": "Chỉ huy tập đoàn cứ điểm",
+      "side": "phap",
+      "portrait": null,
+      "bio": "Đại tá chỉ huy tập đoàn cứ điểm Điện Biên Phủ. Bị bắt sống khi hầm chỉ huy thất thủ ngày 7/5/1954.",
+      "quote": null
+    },
+    {
+      "id": "navarre",
+      "name": "Henri Navarre",
+      "role": "Tổng tư lệnh Pháp tại Đông Dương",
+      "side": "phap",
+      "portrait": null,
+      "bio": "Tác giả \"Kế hoạch Navarre\" — xây dựng Điện Biên Phủ thành pháo đài bất khả xâm phạm. Kế hoạch thất bại hoàn toàn.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "dbp-1",
+      "year": "1953",
+      "month": "Tháng 11",
+      "title": "Pháp nhảy dù xuống Điện Biên Phủ",
+      "description": "Quân Pháp nhảy dù chiếm thung lũng Điện Biên Phủ, xây dựng tập đoàn cứ điểm mạnh nhất Đông Dương với 49 cứ điểm.",
+      "mood": "tense"
+    },
+    {
+      "id": "dbp-2",
+      "year": "1954",
+      "month": "Tháng 1",
+      "title": "Thay đổi phương châm: \"Đánh chắc, tiến chắc\"",
+      "description": "Đại tướng Võ Nguyên Giáp quyết định thay đổi phương châm từ \"đánh nhanh, thắng nhanh\" sang \"đánh chắc, tiến chắc\" — quyết định lịch sử.",
+      "mood": "preparation"
+    },
+    {
+      "id": "dbp-3",
+      "year": "1954",
+      "month": "Tháng 1–3",
+      "title": "Kéo pháo vào trận địa",
+      "description": "Hàng vạn dân công kéo pháo nặng hàng tấn vượt đèo, qua núi, đưa lên các sườn đồi bao quanh lòng chảo — điều Pháp cho là bất khả thi.",
+      "mood": "rising"
+    },
+    {
+      "id": "dbp-4",
+      "year": "1954",
+      "month": "Ngày 13/3",
+      "title": "Đợt tấn công thứ nhất",
+      "description": "Pháo binh Việt Nam khai hỏa. Cứ điểm Him Lam thất thủ. Đại tá pháo binh Pháp Piroth tự sát vì bất lực trước hỏa lực Việt Nam.",
+      "mood": "climax"
+    },
+    {
+      "id": "dbp-5",
+      "year": "1954",
+      "month": "Tháng 3–4",
+      "title": "Đợt tấn công thứ hai",
+      "description": "Quân ta đào hào vây lấn, siết chặt vòng vây. Nhiều cứ điểm trên các đồi phía đông lần lượt bị tiêu diệt.",
+      "mood": "tension"
+    },
+    {
+      "id": "dbp-6",
+      "year": "1954",
+      "month": "Ngày 7/5",
+      "title": "Tổng tấn công — De Castries đầu hàng",
+      "description": "Đợt tổng công kích cuối cùng. Lá cờ đỏ sao vàng tung bay trên nóc hầm De Castries. Toàn bộ tập đoàn cứ điểm thất thủ. 16.200 quân Pháp bị bắt.",
+      "mood": "victory"
+    }
+  ],
+  "climaxScene": {
+    "title": "Trận địa Điện Biên Phủ",
+    "backgroundImage": "/images/generated/dien-bien-phu-hero.png",
+    "phaseImages": [
+      "/images/generated/dien-bien-phu-hero.png",
+      "/images/generated/dien-bien-phu-artillery.png",
+      "/images/generated/dien-bien-phu-hero.png",
+      "/images/generated/parchment.png"
+    ],
+    "phases": [
+      {
+        "id": "dbp-phase-1",
+        "label": "Đợt 1: Tiêu diệt cứ điểm ngoại vi",
+        "summary": "Pháo binh khai hỏa — Him Lam, Độc Lập thất thủ trong 5 ngày.",
+        "description": "Ngày 13/3/1954, pháo binh Việt Nam bất ngờ khai hỏa từ các sườn núi. Quân Pháp choáng váng — họ không tin Việt Minh có thể đưa pháo lên núi.\\n\\nCứ điểm Him Lam — được coi là \"bất khả xâm phạm\" — thất thủ chỉ sau vài giờ. Đại tá Piroth, chỉ huy pháo binh Pháp, tự sát vì bất lực.",
+        "keyDetail": "Hàng vạn dân công đã kéo pháo 105mm nặng hàng tấn vượt qua các con đèo hiểm trở — điều Pháp cho là hoàn toàn bất khả thi."
+      },
+      {
+        "id": "dbp-phase-2",
+        "label": "Đợt 2: Đào hào vây lấn",
+        "summary": "Chiến thuật đào hào — siết chặt vòng vây quanh lòng chảo.",
+        "description": "Sau đợt 1, Đại tướng Giáp chuyển sang chiến thuật \"đào hào vây lấn\". Hàng trăm km giao thông hào được đào, cắt ngang sân bay — cắt đứt đường tiếp tế duy nhất của Pháp.\\n\\nQuân ta lần lượt tiêu diệt các cứ điểm trên dãy đồi phía đông. Mỗi ngày, vòng vây siết chặt hơn.",
+        "keyDetail": "Tổng chiều dài hào đào trong chiến dịch ước tính lên tới hàng trăm km — một công trình kỳ vĩ."
+      },
+      {
+        "id": "dbp-phase-3",
+        "label": "Đợt 3: Tổng công kích",
+        "summary": "Tổng tấn công — De Castries đầu hàng, cờ đỏ sao vàng bay trên nóc hầm.",
+        "description": "Ngày 1/5/1954, đợt tổng công kích bắt đầu. Quân ta tấn công đồng loạt tất cả các cứ điểm còn lại.\\n\\nChiều 7/5, Tiểu đoàn 312 đánh thẳng vào Sở chỉ huy. De Castries và toàn bộ ban tham mưu bị bắt sống. Lá cờ đỏ sao vàng tung bay trên nóc hầm. 16.200 quân Pháp bị bắt. Chiến thắng trọn vẹn.",
+        "keyDetail": "56 ngày đêm chiến đấu — từ 13/3 đến 7/5/1954 — kết thúc 9 năm kháng chiến chống Pháp."
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "dbp-hs-1",
+        "x": 50,
+        "y": 50,
+        "label": "Hầm De Castries",
+        "description": "Sở chỉ huy trung tâm tập đoàn cứ điểm. Nơi De Castries bị bắt sống ngày 7/5/1954."
+      },
+      {
+        "id": "dbp-hs-2",
+        "x": 30,
+        "y": 30,
+        "label": "Đồi Him Lam",
+        "description": "Cứ điểm ngoại vi mạnh nhất, thất thủ đêm 13/3 — mở màn chiến dịch."
+      },
+      {
+        "id": "dbp-hs-3",
+        "x": 70,
+        "y": 40,
+        "label": "Sân bay Mường Thanh",
+        "description": "Đường tiếp tế duy nhất của Pháp. Bị cắt đứt hoàn toàn bởi hệ thống hào."
+      },
+      {
+        "id": "dbp-hs-4",
+        "x": 25,
+        "y": 60,
+        "label": "Trận địa pháo Việt Nam",
+        "description": "Pháo được đặt trên sườn núi, ngụy trang kỹ — Pháp không thể phản pháo hiệu quả."
+      }
+    ]
+  },
+  "aftermath": {
+    "title": "Kết quả chiến dịch Điện Biên Phủ",
+    "stats": [
+      {
+        "label": "Quân Pháp bị bắt",
+        "value": "16.200",
+        "sublabel": "binh sĩ"
+      },
+      {
+        "label": "Thời gian",
+        "value": "56",
+        "sublabel": "ngày đêm"
+      },
+      {
+        "label": "Cứ điểm bị tiêu diệt",
+        "value": "49",
+        "sublabel": "cứ điểm"
+      },
+      {
+        "label": "Ý nghĩa",
+        "value": "Kết thúc",
+        "sublabel": "9 năm kháng chiến"
+      }
+    ],
+    "before": {
+      "title": "Trước chiến dịch",
+      "items": [
+        "Pháp tự tin Điện Biên Phủ bất khả xâm phạm",
+        "Kế hoạch Navarre nhằm giành thắng lợi quyết định",
+        "49 cứ điểm kiên cố với hàng rào kẽm gai",
+        "Pháp kiểm soát đường không — tiếp tế liên tục"
+      ]
+    },
+    "after": {
+      "title": "Sau chiến dịch",
+      "items": [
+        "Toàn bộ tập đoàn cứ điểm bị tiêu diệt",
+        "Pháp ký Hiệp định Genève — rút quân khỏi Đông Dương",
+        "Chấm dứt chế độ thực dân Pháp tại Việt Nam",
+        "Cổ vũ phong trào giải phóng dân tộc trên thế giới"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "Quân đội Việt Nam dưới sự chỉ huy của Đại tướng Võ Nguyên Giáp đã tiêu diệt hoàn toàn tập đoàn cứ điểm Điện Biên Phủ sau 56 ngày đêm chiến đấu.",
+    "whyItMatters": "Chiến thắng này buộc Pháp ký Hiệp định Genève, công nhận độc lập và chủ quyền của Việt Nam. Đây là lần đầu tiên một dân tộc thuộc địa đánh bại quân đội thực dân trong trận chiến quy mô lớn.",
+    "lesson": "Điện Biên Phủ dạy rằng: ý chí quyết tâm và sáng tạo chiến thuật có thể vượt qua mọi ưu thế vũ khí. Quyết định \"đánh chắc, tiến chắc\" của Đại tướng Giáp là bài học kinh điển về nghệ thuật quân sự."
+  },
+  "quiz": [
+    {
+      "id": "dbp-q1",
+      "question": "Ai là Tổng tư lệnh chiến dịch Điện Biên Phủ?",
+      "options": [
+        "Hồ Chí Minh",
+        "Võ Nguyên Giáp",
+        "Phạm Văn Đồng",
+        "Trường Chinh"
+      ],
+      "correct": 1,
+      "explanation": "Đại tướng Võ Nguyên Giáp là Tổng tư lệnh trực tiếp chỉ huy chiến dịch Điện Biên Phủ."
+    },
+    {
+      "id": "dbp-q2",
+      "question": "Chiến dịch Điện Biên Phủ kéo dài bao lâu?",
+      "options": [
+        "30 ngày",
+        "45 ngày",
+        "56 ngày",
+        "100 ngày"
+      ],
+      "correct": 2,
+      "explanation": "Chiến dịch kéo dài 56 ngày đêm, từ 13/3 đến 7/5/1954."
+    },
+    {
+      "id": "dbp-q3",
+      "question": "Phương châm tác chiến quyết định của chiến dịch là gì?",
+      "options": [
+        "Đánh nhanh, thắng nhanh",
+        "Đánh chắc, tiến chắc",
+        "Tốc chiến tốc thắng",
+        "Vây thành diệt viện"
+      ],
+      "correct": 1,
+      "explanation": "Đại tướng Giáp đã thay đổi phương châm từ \"đánh nhanh\" sang \"đánh chắc, tiến chắc\" — quyết định thay đổi cục diện."
+    }
+  ],
+  "story": {
+    "templateType": "battle",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Chiều 7 tháng 5 năm 1954. Lá cờ đỏ sao vàng tung bay trên nóc hầm De Castries. 56 ngày đêm chiến đấu — chín năm kháng chiến — kết thúc trong khoảnh khắc lá cờ được cắm xuống. \"Pháo đài bất khả xâm phạm\" đã sụp đổ."
+          },
+          {
+            "type": "quote",
+            "quote": "Lừng lẫy năm châu, chấn động địa cầu.",
+            "source": "Hồ Chí Minh"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Năm 1953, tướng Navarre — tổng tư lệnh Pháp tại Đông Dương — xây dựng tập đoàn cứ điểm Điện Biên Phủ với 49 cứ điểm, 16.200 quân, hàng rào kẽm gai dày đặc. Ông tuyên bố đây là \"pháo đài bất khả xâm phạm\"."
+          },
+          {
+            "type": "text",
+            "body": "Nhưng Đại tướng Võ Nguyên Giáp đã nhìn thấy điểm yếu chí tử: thung lũng Điện Biên Phủ nằm sâu trong lòng chảo, bao quanh bởi núi cao. Ai kiểm soát được đỉnh núi — sẽ kiểm soát trận địa."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Năm",
+                "value": "1954"
+              },
+              {
+                "label": "Chiến trường",
+                "value": "Điện Biên Phủ"
+              },
+              {
+                "label": "Chỉ huy Việt Nam",
+                "value": "Đại tướng Võ Nguyên Giáp"
+              },
+              {
+                "label": "Đối thủ",
+                "value": "Quân Pháp (De Castries)"
+              },
+              {
+                "label": "Phương châm",
+                "value": "Đánh chắc, tiến chắc"
+              },
+              {
+                "label": "Kết quả",
+                "value": "Chiến thắng trọn vẹn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Diễn Biến",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Quyết định lịch sử nhất của chiến dịch không phải trên chiến trường — mà trong phòng họp. Đại tướng Giáp đã thay đổi phương châm từ \"đánh nhanh, thắng nhanh\" sang \"đánh chắc, tiến chắc\". Quyết định này cứu hàng vạn sinh mạng và đảm bảo chiến thắng."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/dien-bien-phu-artillery.png",
+            "caption": "Dân công kéo pháo vượt đèo — điều Pháp cho là bất khả thi"
+          },
+          {
+            "type": "text",
+            "body": "Hàng vạn dân công đã làm điều mà Pháp cho là bất khả thi: kéo pháo 105mm nặng hàng tấn vượt đèo, qua núi, đưa lên các sườn đồi bao quanh lòng chảo. Mỗi khẩu pháo được đặt trong hầm riêng, ngụy trang kỹ — Pháp không thể phát hiện và phản pháo."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Cao Trào",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Ngày 13/3/1954, trận địa pháo Việt Nam đồng loạt khai hỏa. Quân Pháp choáng váng. Him Lam thất thủ ngay đêm đầu tiên. Đại tá Piroth tự sát. Từ đó, vòng vây siết chặt mỗi ngày."
+          },
+          {
+            "type": "text",
+            "body": "Chiều 7/5, đợt tổng công kích cuối cùng. Tiểu đoàn 312 đánh thẳng vào hầm chỉ huy. De Castries và toàn bộ ban tham mưu bị bắt sống. Lá cờ đỏ sao vàng tung bay — chín năm kháng chiến kết thúc."
+          },
+          {
+            "type": "quote",
+            "quote": "Các anh hãy chiến đấu đến cùng. Chúc các anh may mắn.",
+            "source": "Điện cuối cùng từ Paris gửi De Castries"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Thất bại tại Điện Biên Phủ buộc Pháp ngồi vào bàn đàm phán. Hiệp định Genève được ký ngày 21/7/1954, công nhận độc lập và chủ quyền của Việt Nam, Lào và Campuchia."
+          },
+          {
+            "type": "text",
+            "body": "Chiến thắng Điện Biên Phủ vang dội khắp thế giới, trở thành biểu tượng của phong trào giải phóng dân tộc. Đây là lần đầu tiên một quốc gia thuộc địa đánh bại hoàn toàn quân đội thực dân trong một trận chiến quy mô lớn."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Điện Biên Phủ dạy rằng: ý chí quyết tâm và sáng tạo chiến thuật có thể vượt qua mọi ưu thế vũ khí. Quyết định \"đánh chắc, tiến chắc\" của Đại tướng Giáp — dũng cảm thay đổi kế hoạch giữa chừng — là bài học kinh điển."
+          }
+        ]
+      }
+    ]
+  }
+}

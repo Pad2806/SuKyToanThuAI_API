@@ -1,0 +1,329 @@
+{
+  "id": "event-hung-vuong",
+  "slug": "hung-vuong-dung-nuoc",
+  "title": "Các Vua Hùng dựng nước",
+  "eraId": "era-van-lang-au-lac",
+  "eraSlug": "van-lang-au-lac",
+  "year": -2879,
+  "startYear": -2879,
+  "endYear": -258,
+  "gradeTags": [
+    "TH",
+    "THCS"
+  ],
+  "type": "dynasty",
+  "featured": true,
+  "summary": "Truyền thuyết về thời đại Hùng Vương và nền Văn Lang.",
+  "excerpt": "Từ miền trung du, câu chuyện dựng nước mở đầu ký ức cộng đồng Việt.",
+  "image": "/images/generated/hung-vuong.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Phong Châu",
+  "actors": [
+    "Các Vua Hùng"
+  ],
+  "theme": "parchment-scroll",
+  "relatedEventSlugs": [
+    "thanh-co-co-loa",
+    "truyen-thuyet-son-tinh-thuy-tinh"
+  ],
+  "characters": [
+    {
+      "id": "lac-long-quan",
+      "name": "Lạc Long Quân",
+      "role": "Thủy tổ — con Rồng",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Theo truyền thuyết, Lạc Long Quân thuộc dòng dõi Rồng, sống dưới nước. Ông kết hôn với Âu Cơ, sinh ra bọc trăm trứng — biểu tượng cho nguồn gốc chung của người Việt.",
+      "quote": "\"Năm mươi con theo cha xuống biển, năm mươi con theo mẹ lên núi.\""
+    },
+    {
+      "id": "au-co",
+      "name": "Âu Cơ",
+      "role": "Thủy tổ — con Tiên",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Âu Cơ thuộc dòng dõi Tiên, sống trên núi. Bà sinh bọc trăm trứng, nở thành trăm người con — tổ tiên của người Bách Việt. Con cả được tôn làm Hùng Vương thứ nhất.",
+      "quote": null
+    },
+    {
+      "id": "hung-vuong-1",
+      "name": "Hùng Vương thứ nhất",
+      "role": "Vua sáng lập nước Văn Lang",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Con trưởng của Lạc Long Quân và Âu Cơ, được tôn lên làm vua đầu tiên, đặt tên nước là Văn Lang, đóng đô ở Phong Châu (Phú Thọ ngày nay).",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "hv-1",
+      "year": "~2879 TCN",
+      "month": "Khởi thủy",
+      "title": "Lạc Long Quân kết duyên Âu Cơ",
+      "description": "Truyền thuyết kể Lạc Long Quân (dòng Rồng) và Âu Cơ (dòng Tiên) kết hôn, sinh bọc trăm trứng nở thành trăm con — khởi nguồn dân tộc Việt.",
+      "mood": "rising"
+    },
+    {
+      "id": "hv-2",
+      "year": "~2879 TCN",
+      "month": "Lập quốc",
+      "title": "Nước Văn Lang ra đời",
+      "description": "Con trưởng được tôn làm Hùng Vương thứ nhất. Nước Văn Lang chia thành 15 bộ, kinh đô đặt tại Phong Châu — vùng trung du sông Hồng.",
+      "mood": "preparation"
+    },
+    {
+      "id": "hv-3",
+      "year": "~2000 TCN",
+      "month": "Phát triển",
+      "title": "Văn hóa Đông Sơn hình thành",
+      "description": "Người Lạc Việt phát triển nghề đúc đồng, tạo ra trống đồng Đông Sơn — kiệt tác nghệ thuật và biểu tượng quyền lực thiêng liêng.",
+      "mood": "rising"
+    },
+    {
+      "id": "hv-4",
+      "year": "~1000 TCN",
+      "month": "Thịnh vượng",
+      "title": "Nền nông nghiệp lúa nước phát triển",
+      "description": "Cư dân Văn Lang phát triển kỹ thuật canh tác lúa nước, xây dựng hệ thống đê điều chống lũ — nền tảng của văn minh nông nghiệp Việt Nam.",
+      "mood": "preparation"
+    },
+    {
+      "id": "hv-5",
+      "year": "~500 TCN",
+      "month": "Suy yếu",
+      "title": "Áp lực từ phương Bắc gia tăng",
+      "description": "Các bộ tộc Âu Việt từ phía bắc gây áp lực. Nước Văn Lang dần suy yếu sau 18 đời Hùng Vương trị vì.",
+      "mood": "tension"
+    },
+    {
+      "id": "hv-6",
+      "year": "258 TCN",
+      "month": "Chuyển giao",
+      "title": "Thục Phán thay thế Hùng Vương",
+      "description": "Thục Phán hợp nhất Âu Việt và Lạc Việt thành nước Âu Lạc, dời đô về Cổ Loa. Kết thúc thời đại Hùng Vương nhưng di sản Văn Lang trường tồn.",
+      "mood": "climax"
+    }
+  ],
+  "aftermath": {
+    "title": "Di sản thời đại Hùng Vương",
+    "stats": [
+      {
+        "label": "Số đời vua",
+        "value": "18",
+        "sublabel": "đời Hùng Vương"
+      },
+      {
+        "label": "Thời gian",
+        "value": "~2600",
+        "sublabel": "năm"
+      },
+      {
+        "label": "Di sản",
+        "value": "Trống đồng",
+        "sublabel": "Đông Sơn"
+      },
+      {
+        "label": "Ngày Quốc lễ",
+        "value": "10/3",
+        "sublabel": "Âm lịch"
+      }
+    ],
+    "before": {
+      "title": "Trước Văn Lang",
+      "items": [
+        "Các bộ lạc Lạc Việt sống riêng rẽ",
+        "Chưa có nhà nước tổ chức",
+        "Nông nghiệp sơ khai",
+        "Chưa có hệ thống văn hóa thống nhất"
+      ]
+    },
+    "after": {
+      "title": "Di sản để lại",
+      "items": [
+        "Nền văn minh Đông Sơn rực rỡ",
+        "Tín ngưỡng thờ cúng Hùng Vương",
+        "Truyền thống lúa nước ngàn năm",
+        "Ý thức cội nguồn \"con Rồng cháu Tiên\""
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "18 đời Hùng Vương dựng nên nước Văn Lang — nhà nước đầu tiên của người Việt, với kinh đô Phong Châu và nền văn hóa Đông Sơn rực rỡ.",
+    "whyItMatters": "Thời đại Hùng Vương tạo nên nền tảng bản sắc dân tộc: truyền thuyết \"con Rồng cháu Tiên\" cho mỗi người Việt một gốc gác chung. Ngày Giỗ Tổ Hùng Vương trở thành Quốc lễ — minh chứng sức sống bền bỉ qua ngàn năm.",
+    "lesson": "Một dân tộc không bắt đầu bằng chiến tranh mà bằng việc cùng nhau canh tác, cùng nhau đối mặt thiên nhiên, cùng nhau kể chuyện. Ký ức chung là sợi dây bền nhất kết nối một cộng đồng."
+  },
+  "quiz": [
+    {
+      "id": "hv-q1",
+      "question": "Nước Văn Lang đóng đô ở đâu?",
+      "options": [
+        "Cổ Loa",
+        "Phong Châu",
+        "Thăng Long",
+        "Huế"
+      ],
+      "correct": 1,
+      "explanation": "Kinh đô của nước Văn Lang là Phong Châu, nay thuộc tỉnh Phú Thọ."
+    },
+    {
+      "id": "hv-q2",
+      "question": "Trống đồng Đông Sơn thuộc nền văn hóa nào?",
+      "options": [
+        "Văn Lang",
+        "Âu Lạc",
+        "Chăm Pa",
+        "Phù Nam"
+      ],
+      "correct": 0,
+      "explanation": "Trống đồng Đông Sơn là sản phẩm tiêu biểu của nền văn hóa thời Hùng Vương — nước Văn Lang."
+    },
+    {
+      "id": "hv-q3",
+      "question": "Theo truyền thuyết, ai là mẹ của người Việt?",
+      "options": [
+        "Mị Nương",
+        "Âu Cơ",
+        "Mỵ Châu",
+        "Bà Triệu"
+      ],
+      "correct": 1,
+      "explanation": "Âu Cơ (dòng Tiên) kết hôn với Lạc Long Quân (dòng Rồng), sinh bọc trăm trứng — tổ tiên người Việt."
+    },
+    {
+      "id": "hv-q4",
+      "question": "Thời đại Hùng Vương trải qua bao nhiêu đời vua?",
+      "options": [
+        "10 đời",
+        "15 đời",
+        "18 đời",
+        "20 đời"
+      ],
+      "correct": 2,
+      "explanation": "Có 18 đời Hùng Vương trị vì nước Văn Lang, từ khoảng 2879 TCN đến 258 TCN."
+    }
+  ],
+  "story": {
+    "templateType": "dynasty",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Hãy hình dung một buổi hội trên miền trung du: trống đồng vang, các làng ven sông cùng hướng về một trung tâm chung. Từ đó, ký ức Hùng Vương mở ra như lời kể đầu tiên về đất nước."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/hung-vuong-ceremony.png",
+            "caption": "Lễ hội Hùng Vương — nghi thức kết nối cộng đồng từ ngàn xưa"
+          },
+          {
+            "type": "quote",
+            "quote": "Dù ai đi ngược về xuôi, nhớ ngày giỗ Tổ mùng Mười tháng Ba.",
+            "source": "Ca dao Việt Nam"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Khoảng 2879 TCN, vùng trung du sông Hồng hình thành một liên minh các bộ lạc Lạc Việt. Truyền thuyết kể rằng Lạc Long Quân và Âu Cơ sinh bọc trăm trứng, nở thành một trăm con — biểu tượng cho nguồn gốc chung của người Việt."
+          },
+          {
+            "type": "text",
+            "body": "Nước Văn Lang ra đời với kinh đô Phong Châu, chia thành 15 bộ. Người Lạc Việt canh tác lúa nước, đúc trống đồng Đông Sơn, và phát triển một nền văn hoá riêng biệt giữa vùng Đông Nam Á cổ đại."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Kinh đô",
+                "value": "Phong Châu (Phú Thọ)"
+              },
+              {
+                "label": "Thời gian",
+                "value": "2879 – 258 TCN"
+              },
+              {
+                "label": "Số đời vua",
+                "value": "18 đời Hùng Vương"
+              },
+              {
+                "label": "Nền văn hoá",
+                "value": "Đông Sơn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Thử Thách",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Giữa vùng đồng bằng châu thổ, thiên nhiên vừa là nguồn sống vừa là mối đe doạ thường trực. Lũ lụt hàng năm buộc cộng đồng phải hợp sức xây đê, đắp đập — từ đó hình thành tinh thần cộng đồng đặc trưng của người Việt."
+          },
+          {
+            "type": "text",
+            "body": "Truyền thuyết Sơn Tinh – Thuỷ Tinh phản ánh cuộc chiến không ngừng giữa con người và thiên nhiên. Mỗi mùa nước dâng, mỗi lần đê vỡ, cộng đồng lại siết chặt, tìm cách thích nghi và chinh phục."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Bước Ngoặt",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Sự ra đời của trống đồng Đông Sơn đánh dấu bước nhảy vọt. Không chỉ là nhạc cụ, trống đồng còn là biểu tượng quyền lực, vật thiêng liêng kết nối con người với trời đất. Mặt trống khắc hình mặt trời, chim Lạc, người chèo thuyền — một bản đồ tư tưởng của cả nền văn minh."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/dong-son-drum.png",
+            "caption": "Trống đồng Đông Sơn — bản đồ tư tưởng của nền văn minh Văn Lang"
+          },
+          {
+            "type": "quote",
+            "quote": "Trống đồng là linh hồn của Văn Lang — nơi tiếng vọng của tổ tiên không bao giờ tắt.",
+            "source": "Nhà sử học Đào Duy Anh"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Sau 18 đời, nước Văn Lang dần suy yếu trước áp lực từ phương Bắc. Thục Phán — thủ lĩnh bộ tộc Âu Việt — hợp nhất hai nước thành Âu Lạc, dời đô về Cổ Loa. Một chương kết thúc, chương mới bắt đầu."
+          },
+          {
+            "type": "text",
+            "body": "Nhưng di sản Hùng Vương không mất đi. Ngày Giỗ Tổ Hùng Vương (mùng 10 tháng 3 Âm lịch) vẫn được giữ gìn qua hàng ngàn năm, trở thành ngày Quốc lễ — minh chứng cho sức sống bền bỉ của ký ức dân tộc."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Thời đại Hùng Vương dạy ta rằng một dân tộc không bắt đầu bằng vũ khí hay chiến tranh, mà bằng việc cùng nhau canh tác, cùng nhau đối mặt với thiên nhiên, cùng nhau kể chuyện quanh ngọn lửa."
+          },
+          {
+            "type": "text",
+            "body": "Câu chuyện Lạc Long Quân – Âu Cơ không phải lịch sử theo nghĩa sách giáo khoa, nhưng nó mang sức mạnh lớn hơn: nó cho mỗi người Việt một gốc gác chung, một lý do để thuộc về nhau — bất kể đi ngược hay về xuôi."
+          }
+        ]
+      }
+    ]
+  }
+}

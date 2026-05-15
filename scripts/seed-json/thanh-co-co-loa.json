@@ -1,0 +1,321 @@
+{
+  "id": "event-co-loa",
+  "slug": "thanh-co-co-loa",
+  "title": "Thành Cổ Loa của An Dương Vương",
+  "eraId": "era-van-lang-au-lac",
+  "eraSlug": "van-lang-au-lac",
+  "year": -257,
+  "gradeTags": [
+    "THCS",
+    "THPT"
+  ],
+  "type": "culture",
+  "featured": true,
+  "summary": "Cổ Loa thể hiện kỹ thuật quân sự và tổ chức nhà nước Âu Lạc.",
+  "excerpt": "Vòng thành xoắn ốc kể chuyện về phòng thủ, quyền lực và bi kịch.",
+  "image": "/images/generated/co-loa.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Cổ Loa",
+  "actors": [
+    "An Dương Vương",
+    "Cao Lỗ"
+  ],
+  "opponent": "Triệu Đà (Nam Việt)",
+  "theme": "royal-court",
+  "relatedEventSlugs": [
+    "hung-vuong-dung-nuoc",
+    "chien-thang-bach-dang-938"
+  ],
+  "characters": [
+    {
+      "id": "an-duong-vuong",
+      "name": "An Dương Vương",
+      "role": "Vua nước Âu Lạc",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Thục Phán — người hợp nhất Âu Việt và Lạc Việt thành nước Âu Lạc. Xây dựng thành Cổ Loa và sở hữu nỏ thần liên châu. Mất nước vì tin lầm Trọng Thuỷ.",
+      "quote": null
+    },
+    {
+      "id": "cao-lo",
+      "name": "Cao Lỗ",
+      "role": "Tướng quân — kiến trúc sư Cổ Loa",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Tướng tài của An Dương Vương, người thiết kế thành Cổ Loa với cấu trúc ba vòng xoắn ốc và chế tạo nỏ thần liên châu — vũ khí bí mật của Âu Lạc.",
+      "quote": "\"Thành vững không bằng lòng người không nao.\""
+    },
+    {
+      "id": "my-chau",
+      "name": "Mỵ Châu",
+      "role": "Công chúa Âu Lạc",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Con gái An Dương Vương, kết hôn với Trọng Thuỷ. Vô tình tiết lộ bí mật nỏ thần, dẫn đến sự sụp đổ của Âu Lạc. Máu nàng hoá thành ngọc trai.",
+      "quote": null
+    },
+    {
+      "id": "trong-thuy",
+      "name": "Trọng Thuỷ",
+      "role": "Con trai Triệu Đà — gián điệp",
+      "side": "other",
+      "portrait": null,
+      "bio": "Con trai Triệu Đà, được cử sang cầu hôn Mỵ Châu để đánh cắp bí mật nỏ thần. Sau khi Mỵ Châu chết, hối hận tự vẫn theo.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "cl-1",
+      "year": "257 TCN",
+      "month": "Lập quốc",
+      "title": "Thục Phán lập nước Âu Lạc",
+      "description": "Thục Phán đánh bại Hùng Vương thứ 18, hợp nhất Âu Việt và Lạc Việt, xưng hiệu An Dương Vương, dời đô về Cổ Loa.",
+      "mood": "rising"
+    },
+    {
+      "id": "cl-2",
+      "year": "~255 TCN",
+      "month": "Xây dựng",
+      "title": "Xây thành Cổ Loa",
+      "description": "Tướng Cao Lỗ thiết kế thành Cổ Loa với 3 vòng xoắn ốc, chu vi thành ngoại khoảng 8km, hào nước liên kết với sông Hoàng Giang.",
+      "mood": "preparation"
+    },
+    {
+      "id": "cl-3",
+      "year": "~250 TCN",
+      "month": "Vũ khí",
+      "title": "Chế tạo nỏ thần liên châu",
+      "description": "Cao Lỗ chế tạo nỏ thần có thể bắn nhiều mũi tên cùng lúc — vũ khí bí mật khiến quân Triệu Đà nhiều lần đại bại.",
+      "mood": "rising"
+    },
+    {
+      "id": "cl-4",
+      "year": "~210 TCN",
+      "month": "Gián điệp",
+      "title": "Trọng Thuỷ cầu hôn Mỵ Châu",
+      "description": "Triệu Đà cử con trai Trọng Thuỷ cầu hôn Mỵ Châu. An Dương Vương tin tưởng, gả con gái — không biết rằng đây là kế sách gián điệp.",
+      "mood": "tension"
+    },
+    {
+      "id": "cl-5",
+      "year": "~208 TCN",
+      "month": "Phản bội",
+      "title": "Trọng Thuỷ đánh tráo lẫy nỏ",
+      "description": "Trọng Thuỷ lấy được bí mật nỏ thần từ Mỵ Châu, đánh tráo lẫy nỏ rồi báo về cho Triệu Đà — Âu Lạc mất vũ khí tối thượng.",
+      "mood": "climax"
+    },
+    {
+      "id": "cl-6",
+      "year": "207 TCN",
+      "month": "Thất thủ",
+      "title": "Cổ Loa thất thủ",
+      "description": "Triệu Đà tấn công, nỏ thần không còn linh nghiệm. An Dương Vương chạy về phía biển, chém Mỵ Châu khi nhận ra sự thật. Nước Âu Lạc sụp đổ.",
+      "mood": "climax"
+    }
+  ],
+  "aftermath": {
+    "title": "Hệ quả sự kiện Cổ Loa",
+    "stats": [
+      {
+        "label": "Cấu trúc",
+        "value": "3 vòng",
+        "sublabel": "xoắn ốc"
+      },
+      {
+        "label": "Chu vi thành ngoại",
+        "value": "~8 km",
+        "sublabel": ""
+      },
+      {
+        "label": "Mũi tên khai quật",
+        "value": "Hàng ngàn",
+        "sublabel": "tên đồng"
+      },
+      {
+        "label": "Hệ quả",
+        "value": "1000+ năm",
+        "sublabel": "Bắc thuộc"
+      }
+    ],
+    "before": {
+      "title": "Khi Cổ Loa còn vững",
+      "items": [
+        "Nỏ thần liên châu đánh bại mọi cuộc tấn công",
+        "Triệu Đà nhiều lần thất bại quân sự",
+        "Âu Lạc là quốc gia hùng mạnh khu vực",
+        "Ba vòng thành xoắn ốc bất khả xâm phạm"
+      ]
+    },
+    "after": {
+      "title": "Sau khi Cổ Loa thất thủ",
+      "items": [
+        "Âu Lạc sáp nhập vào Nam Việt",
+        "Mở ra hơn 1000 năm Bắc thuộc",
+        "Bi kịch Mỵ Châu – Trọng Thuỷ thành bài học muôn đời",
+        "Thành Cổ Loa trở thành di tích khảo cổ quan trọng"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "An Dương Vương xây thành Cổ Loa và sở hữu nỏ thần liên châu, nhưng mất cảnh giác trước kế gián điệp của Triệu Đà. Cổ Loa thất thủ, mở ra thời kỳ Bắc thuộc.",
+    "whyItMatters": "Cổ Loa là pháo đài lớn nhất Đông Nam Á thời đồng thau, chứng minh trình độ quân sự và tổ chức nhà nước của người Việt cổ. Bi kịch Mỵ Châu – Trọng Thuỷ trở thành bài học kinh điển.",
+    "lesson": "Sức mạnh quân sự không đủ nếu thiếu sự tỉnh táo chính trị. Một toà thành vững chắc nhất vẫn sụp đổ khi kẻ thù đến bằng con đường lòng tin thay vì chiến trận."
+  },
+  "quiz": [
+    {
+      "id": "cl-q1",
+      "question": "Thành Cổ Loa có bao nhiêu vòng thành?",
+      "options": [
+        "2 vòng",
+        "3 vòng",
+        "4 vòng",
+        "5 vòng"
+      ],
+      "correct": 1,
+      "explanation": "Thành Cổ Loa có cấu trúc 3 vòng thành xoắn ốc: thành ngoại, thành trung và thành nội."
+    },
+    {
+      "id": "cl-q2",
+      "question": "Ai là người chế tạo nỏ thần liên châu?",
+      "options": [
+        "An Dương Vương",
+        "Cao Lỗ",
+        "Thục Phán",
+        "Trọng Thuỷ"
+      ],
+      "correct": 1,
+      "explanation": "Tướng Cao Lỗ là người thiết kế thành Cổ Loa và chế tạo nỏ thần liên châu."
+    },
+    {
+      "id": "cl-q3",
+      "question": "Vì sao Cổ Loa thất thủ?",
+      "options": [
+        "Quân ít",
+        "Thành yếu",
+        "Bí mật nỏ thần bị đánh cắp",
+        "Nội chiến"
+      ],
+      "correct": 2,
+      "explanation": "Trọng Thuỷ đánh tráo lẫy nỏ thần sau khi lấy được bí mật từ Mỵ Châu — khiến vũ khí bí mật trở nên vô dụng."
+    }
+  ],
+  "story": {
+    "templateType": "dynasty",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Một toà thành xoắn ốc ba vòng, bao quanh bởi hào nước sâu, mọc lên giữa đồng bằng sông Hồng. Đây không phải công trình phòng thủ thông thường — đây là lời tuyên bố chủ quyền bằng đất đá và trí tuệ quân sự."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/co-loa-aerial.png",
+            "caption": "Cấu trúc ba vòng xoắn ốc của thành Cổ Loa — nhìn từ trên cao"
+          },
+          {
+            "type": "quote",
+            "quote": "Thành Cổ Loa là pháo đài lớn nhất Đông Nam Á thời kỳ đồng thau.",
+            "source": "Khảo cổ học Việt Nam"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Năm 257 TCN, Thục Phán đánh bại Hùng Vương thứ 18, hợp nhất Âu Việt và Lạc Việt thành nước Âu Lạc. Ông xưng hiệu An Dương Vương và dời kinh đô từ Phong Châu về Cổ Loa (Đông Anh, Hà Nội ngày nay)."
+          },
+          {
+            "type": "text",
+            "body": "Tướng Cao Lỗ được giao nhiệm vụ thiết kế thành. Ông sáng tạo hệ thống phòng thủ ba lớp: thành ngoại, thành trung, thành nội — mỗi vòng đều có hào nước liên kết với sông Hoàng Giang, biến toà thành thành một pháo đài thuỷ chiến."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Năm xây dựng",
+                "value": "Khoảng 257 TCN"
+              },
+              {
+                "label": "Cấu trúc",
+                "value": "3 vòng thành xoắn ốc"
+              },
+              {
+                "label": "Chu vi thành ngoại",
+                "value": "~8 km"
+              },
+              {
+                "label": "Vũ khí đặc biệt",
+                "value": "Nỏ thần liên châu"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Thử Thách",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Triệu Đà — vua Nam Việt — nhiều lần cất quân xâm lấn Âu Lạc nhưng đều thất bại trước hệ thống phòng thủ Cổ Loa và vũ khí nỏ thần liên châu của Cao Lỗ."
+          },
+          {
+            "type": "text",
+            "body": "Không thắng được trên chiến trường, Triệu Đà chuyển sang kế sách gián điệp: cử con trai Trọng Thuỷ sang cầu hôn Mỵ Châu — con gái An Dương Vương. Một cuộc chiến mới bắt đầu — không bằng gươm giáo mà bằng lòng tin."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Bước Ngoặt",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Trọng Thuỷ lấy được bí mật nỏ thần, đánh tráo lẫy nỏ. Khi Triệu Đà tấn công lần nữa, nỏ thần không còn linh nghiệm. Cổ Loa thất thủ. An Dương Vương ôm con gái chạy về phía biển, cuối cùng chém Mỵ Châu khi nhận ra sự thật — máu nàng chảy xuống biển, ngọc trai hoá thành."
+          },
+          {
+            "type": "quote",
+            "quote": "Bi kịch Mỵ Châu – Trọng Thuỷ không phải chuyện tình — đó là bài học về cái giá của sự mất cảnh giác.",
+            "source": "Đại Việt sử ký toàn thư"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Âu Lạc sụp đổ, mở ra thời kỳ Bắc thuộc kéo dài hơn ngàn năm. Nhưng thành Cổ Loa vẫn đứng đó — dấu tích khảo cổ cho thấy kỹ thuật xây thành, đúc đồng của người Việt cổ đã đạt trình độ đáng kinh ngạc."
+          },
+          {
+            "type": "text",
+            "body": "Hàng ngàn mũi tên đồng được khai quật tại Cổ Loa chứng minh: trước khi mất nước, tổ tiên ta đã sở hữu công nghệ quân sự ngang tầm khu vực."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Cổ Loa dạy rằng sức mạnh quân sự không đủ nếu thiếu sự tỉnh táo chính trị. Một toà thành vững chắc nhất vẫn có thể sụp đổ khi kẻ thù đến bằng con đường lòng tin thay vì chiến trận."
+          },
+          {
+            "type": "text",
+            "body": "Câu chuyện Mỵ Châu – Trọng Thuỷ vẫn vang vọng như lời nhắc nhở: lịch sử không chỉ thuộc về những người chiến thắng, mà còn thuộc về những bài học đau đớn nhất."
+          }
+        ]
+      }
+    ]
+  }
+}

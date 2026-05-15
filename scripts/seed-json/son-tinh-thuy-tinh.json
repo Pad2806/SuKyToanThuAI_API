@@ -1,0 +1,251 @@
+{
+  "id": "event-son-tinh-thuy-tinh",
+  "slug": "truyen-thuyet-son-tinh-thuy-tinh",
+  "title": "Sơn Tinh - Thuỷ Tinh",
+  "eraId": "era-van-lang-au-lac",
+  "eraSlug": "van-lang-au-lac",
+  "year": -2500,
+  "gradeTags": [
+    "TH"
+  ],
+  "type": "culture",
+  "featured": false,
+  "summary": "Truyền thuyết lý giải lũ lụt và khát vọng chế ngự thiên nhiên.",
+  "excerpt": "Một câu chuyện dân gian soi chiếu đời sống cư dân nông nghiệp.",
+  "image": "/images/generated/hung-vuong.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Vùng sông Hồng",
+  "actors": [
+    "Sơn Tinh",
+    "Thuỷ Tinh",
+    "Mị Nương"
+  ],
+  "theme": "parchment-scroll",
+  "relatedEventSlugs": [
+    "hung-vuong-dung-nuoc",
+    "thanh-co-co-loa"
+  ],
+  "characters": [
+    {
+      "id": "son-tinh",
+      "name": "Sơn Tinh",
+      "role": "Thần Núi — Chúa non cao",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Thần Núi Tản Viên, đại diện cho sức mạnh của đất liền và núi rừng. Đem sính lễ đến trước, cưới Mị Nương. Mỗi năm Thuỷ Tinh dâng nước, Sơn Tinh lại nâng núi lên cao.",
+      "quote": "\"Nước dâng đến đâu, núi dâng đến đó.\""
+    },
+    {
+      "id": "thuy-tinh",
+      "name": "Thuỷ Tinh",
+      "role": "Thần Nước — Vua mặt biển",
+      "side": "other",
+      "portrait": null,
+      "bio": "Thần Nước, đại diện cho sức mạnh thiên nhiên không thể khuất phục. Thua cuộc cầu hôn, nổi giận dâng nước đánh Sơn Tinh mỗi năm — biểu tượng cho lũ lụt sông Hồng.",
+      "quote": null
+    },
+    {
+      "id": "mi-nuong",
+      "name": "Mị Nương",
+      "role": "Công chúa — Con gái Hùng Vương thứ 18",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Con gái xinh đẹp của Hùng Vương thứ 18. Được gả cho Sơn Tinh — người đem sính lễ đến trước. Cuộc hôn nhân này trở thành nguyên cớ cho cuộc chiến vĩnh viễn giữa Núi và Nước.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "st-1",
+      "year": "~2500 TCN",
+      "month": "Cầu hôn",
+      "title": "Hai vị thần đến cầu hôn Mị Nương",
+      "description": "Sơn Tinh — chúa non cao — và Thuỷ Tinh — vua mặt nước — cùng đến cầu hôn Mị Nương. Vua Hùng ra điều kiện: ai mang sính lễ đến trước sẽ được cưới.",
+      "mood": "rising"
+    },
+    {
+      "id": "st-2",
+      "year": "~2500 TCN",
+      "month": "Sính lễ",
+      "title": "Sơn Tinh đến trước",
+      "description": "Sơn Tinh mang sính lễ quý hiếm (voi chín ngà, gà chín cựa, ngựa chín hồng mao) đến trước. Vua Hùng gả Mị Nương cho Sơn Tinh, rước về núi Tản Viên.",
+      "mood": "victory"
+    },
+    {
+      "id": "st-3",
+      "year": "~2500 TCN",
+      "month": "Nổi giận",
+      "title": "Thuỷ Tinh dâng nước đánh Sơn Tinh",
+      "description": "Thuỷ Tinh đến sau, thua cuộc. Nổi giận hô mưa gọi gió, dâng nước ngập đồng bằng, quyết đánh Sơn Tinh để giành lại Mị Nương.",
+      "mood": "tension"
+    },
+    {
+      "id": "st-4",
+      "year": "Mỗi năm",
+      "month": "Mùa lũ",
+      "title": "Cuộc chiến vĩnh viễn giữa Núi và Nước",
+      "description": "Nước dâng bao nhiêu, núi cao bấy nhiêu. Sơn Tinh luôn thắng nhưng Thuỷ Tinh không bao giờ ngừng. Mỗi mùa mưa, cuộc chiến lại tái diễn — giống hệt lũ lụt sông Hồng.",
+      "mood": "climax"
+    }
+  ],
+  "aftermath": {
+    "title": "Ý nghĩa truyền thuyết",
+    "stats": [
+      {
+        "label": "Thần thoại",
+        "value": "Vĩnh cửu",
+        "sublabel": "Cuộc chiến không hồi kết"
+      },
+      {
+        "label": "Phản ánh",
+        "value": "Lũ lụt",
+        "sublabel": "Sông Hồng hàng năm"
+      },
+      {
+        "label": "Bài học",
+        "value": "Thích nghi",
+        "sublabel": "Chung sống với thiên nhiên"
+      },
+      {
+        "label": "Di sản",
+        "value": "Hệ đê",
+        "sublabel": "Sông Hồng"
+      }
+    ],
+    "before": {
+      "title": "Thực tế phản ánh",
+      "items": [
+        "Đồng bằng sông Hồng màu mỡ nhưng lũ lụt",
+        "Cư dân phải đối mặt lũ hàng năm",
+        "Thiên nhiên vừa ban phát vừa đe doạ",
+        "Cần tổ chức cộng đồng để sinh tồn"
+      ]
+    },
+    "after": {
+      "title": "Di sản văn hóa",
+      "items": [
+        "Tinh thần chống lũ trở thành bản sắc Việt",
+        "Hệ thống đê điều từ thời Hùng Vương",
+        "Xã hội nông nghiệp gắn kết cộng đồng",
+        "Truyền thuyết sống mãi trong dân gian"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "Sơn Tinh và Thuỷ Tinh tranh nhau cưới Mị Nương. Sơn Tinh thắng, Thuỷ Tinh dâng nước trả thù — cuộc chiến lặp lại mỗi mùa lũ, mãi mãi không dứt.",
+    "whyItMatters": "Truyền thuyết phản ánh thực tế sống của cư dân đồng bằng sông Hồng: lũ lụt hàng năm buộc con người phải tổ chức cộng đồng, xây đê, đào kênh — nền tảng xã hội nông nghiệp Việt Nam.",
+    "lesson": "Người Việt không chờ thiên nhiên ban ơn — họ chủ động đối đầu, thích nghi, và biến mối đe doạ thành động lực. Tinh thần ấy sống trong mỗi mùa lũ, mỗi con đê, mỗi cánh đồng xanh."
+  },
+  "quiz": [
+    {
+      "id": "st-q1",
+      "question": "Vua Hùng ra điều kiện gì để gả Mị Nương?",
+      "options": [
+        "Ai mạnh hơn",
+        "Ai mang sính lễ đến trước",
+        "Ai thắng trận",
+        "Ai giàu hơn"
+      ],
+      "correct": 1,
+      "explanation": "Vua Hùng ra điều kiện: ai mang sính lễ đến trước sẽ được cưới Mị Nương."
+    },
+    {
+      "id": "st-q2",
+      "question": "Sơn Tinh biểu tượng cho điều gì?",
+      "options": [
+        "Biển cả",
+        "Núi rừng và đất liền",
+        "Bầu trời",
+        "Mặt trăng"
+      ],
+      "correct": 1,
+      "explanation": "Sơn Tinh (Thần Núi) đại diện cho sức mạnh của núi rừng, đất liền — đối lập với Thuỷ Tinh (Thần Nước)."
+    },
+    {
+      "id": "st-q3",
+      "question": "Truyền thuyết này phản ánh hiện tượng tự nhiên nào?",
+      "options": [
+        "Động đất",
+        "Lũ lụt sông Hồng",
+        "Núi lửa",
+        "Hạn hán"
+      ],
+      "correct": 1,
+      "explanation": "Cuộc chiến giữa Sơn Tinh và Thuỷ Tinh phản ánh hiện tượng lũ lụt hàng năm trên sông Hồng."
+    }
+  ],
+  "story": {
+    "templateType": "culture",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Mỗi năm, nước sông Hồng dâng lên, nhấn chìm ruộng đồng và làng mạc. Người xưa nhìn cơn lũ và tự hỏi: ai đang giận dữ phía bên kia mặt nước? Từ câu hỏi ấy, truyền thuyết Sơn Tinh – Thuỷ Tinh ra đời."
+          },
+          {
+            "type": "quote",
+            "quote": "Nước dâng đến đâu, núi dâng đến đó — ý chí con người không bao giờ thua thiên nhiên.",
+            "source": "Truyền thuyết Việt Nam"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Vua Hùng thứ 18 có con gái Mị Nương xinh đẹp. Hai vị thần cùng đến cầu hôn: Sơn Tinh — chúa non cao, và Thuỷ Tinh — vua mặt nước. Vua ra điều kiện: ai mang sính lễ đến trước sẽ được cưới công chúa."
+          },
+          {
+            "type": "text",
+            "body": "Sơn Tinh đến trước, rước Mị Nương về núi Tản Viên. Thuỷ Tinh thua cuộc, nổi giận dâng nước đánh Sơn Tinh — cuộc chiến giữa núi và nước bắt đầu, và sẽ lặp lại mỗi năm."
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Thử Thách",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Thuỷ Tinh hô mưa gọi gió, dâng nước ngập đồng bằng. Sơn Tinh nâng núi lên cao, chặn từng đợt sóng. Cuộc chiến không phân thắng bại — nước dâng bao nhiêu, núi cao bấy nhiêu. Cư dân ven sông phải học cách sống chung với lũ."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Bước Ngoặt",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Sơn Tinh luôn thắng — nhưng Thuỷ Tinh không bao giờ ngừng. Mỗi mùa mưa, cuộc chiến lại tái diễn. Đây không phải câu chuyện về một chiến thắng, mà về một cuộc đấu tranh vĩnh viễn — giống hệt cuộc chiến thực sự của người Việt với lũ lụt sông Hồng."
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Truyền thuyết phản ánh thực tế: đồng bằng sông Hồng là vùng đất màu mỡ nhưng luôn bị đe doạ bởi lũ. Từ thời Hùng Vương, người Việt đã xây đê, đào kênh, và tổ chức cộng đồng để chống lũ — nền tảng của xã hội nông nghiệp Việt Nam."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Sơn Tinh – Thuỷ Tinh dạy rằng người Việt không chờ thiên nhiên ban ơn — họ chủ động đối đầu, thích nghi, và biến mối đe doạ thành động lực. Tinh thần ấy vẫn sống trong mỗi mùa lũ, mỗi con đê, mỗi cánh đồng xanh sau mùa nước rút."
+          }
+        ]
+      }
+    ]
+  }
+}

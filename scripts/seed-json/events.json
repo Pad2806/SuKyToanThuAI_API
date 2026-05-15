@@ -1,0 +1,787 @@
+[
+  {
+    "id": "event-hung-vuong",
+    "slug": "hung-vuong-dung-nuoc",
+    "title": "Các Vua Hùng dựng nước",
+    "eraId": "era-van-lang-au-lac",
+    "eraSlug": "van-lang-au-lac",
+    "year": -2879,
+    "startYear": -2879,
+    "endYear": -258,
+    "gradeTags": [
+      "TH",
+      "THCS"
+    ],
+    "type": "dynasty",
+    "featured": true,
+    "summary": "Truyền thuyết về thời đại Hùng Vương và nền Văn Lang.",
+    "excerpt": "Từ miền trung du, câu chuyện dựng nước mở đầu ký ức cộng đồng Việt.",
+    "image": "/images/generated/hung-vuong.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Phong Châu",
+    "actors": [
+      "Các Vua Hùng"
+    ],
+    "story": {
+      "templateType": "universal",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Hãy hình dung một buổi hội trên miền trung du: trống đồng vang, các làng ven sông cùng hướng về một trung tâm chung. Từ đó, ký ức Hùng Vương mở ra như lời kể đầu tiên về đất nước."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hung-vuong-ceremony.png",
+              "caption": "Lễ hội trống đồng — nghi thức cộng đồng thời Hùng Vương"
+            },
+            {
+              "type": "quote",
+              "quote": "Dù ai đi ngược về xuôi, nhớ ngày giỗ Tổ mùng Mười tháng Ba.",
+              "source": "Ca dao Việt Nam"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Khoảng 2879 TCN, vùng trung du sông Hồng hình thành một liên minh các bộ lạc Lạc Việt. Truyền thuyết kể rằng Lạc Long Quân và Âu Cơ sinh bọc trăm trứng, nở thành một trăm con — biểu tượng cho nguồn gốc chung của người Việt."
+            },
+            {
+              "type": "text",
+              "body": "Nước Văn Lang ra đời với kinh đô Phong Châu, chia thành 15 bộ. Người Lạc Việt canh tác lúa nước, đúc trống đồng Đông Sơn, và phát triển một nền văn hoá riêng biệt giữa vùng Đông Nam Á cổ đại."
+            },
+            {
+              "type": "quick-facts",
+              "title": "Dữ kiện nhanh",
+              "items": [
+                {
+                  "label": "Kinh đô",
+                  "value": "Phong Châu (Phú Thọ)"
+                },
+                {
+                  "label": "Thời gian",
+                  "value": "2879 – 258 TCN"
+                },
+                {
+                  "label": "Số đời vua",
+                  "value": "18 đời Hùng Vương"
+                },
+                {
+                  "label": "Nền văn hoá",
+                  "value": "Đông Sơn"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Giữa vùng đồng bằng châu thổ, thiên nhiên vừa là nguồn sống vừa là mối đe doạ thường trực. Lũ lụt hàng năm buộc cộng đồng phải hợp sức xây đê, đắp đập — từ đó hình thành tinh thần cộng đồng đặc trưng của người Việt."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hung-vuong.png",
+              "caption": "Cảnh sinh hoạt thời Hùng Vương — ruộng bậc thang và làng ven sông"
+            },
+            {
+              "type": "text",
+              "body": "Truyền thuyết Sơn Tinh – Thuỷ Tinh phản ánh cuộc chiến không ngừng giữa con người và thiên nhiên. Mỗi mùa nước dâng, mỗi lần đê vỡ, cộng đồng lại siết chặt, tìm cách thích nghi và chinh phục."
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Sự ra đời của trống đồng Đông Sơn đánh dấu bước nhảy vọt. Không chỉ là nhạc cụ, trống đồng còn là biểu tượng quyền lực, vật thiêng liêng kết nối con người với trời đất. Mặt trống khắc hình mặt trời, chim Lạc, người chèo thuyền — một bản đồ tư tưởng của cả nền văn minh."
+            },
+            {
+              "type": "quote",
+              "quote": "Trống đồng là linh hồn của Văn Lang — nơi tiếng vọng của tổ tiên không bao giờ tắt.",
+              "source": "Nhà sử học Đào Duy Anh"
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Sau 18 đời, nước Văn Lang dần suy yếu trước áp lực từ phương Bắc. Thục Phán — thủ lĩnh bộ tộc Âu Việt — hợp nhất hai nước thành Âu Lạc, dời đô về Cổ Loa. Một chương kết thúc, chương mới bắt đầu."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/co-loa.png",
+              "caption": "Thành Cổ Loa — kinh đô Âu Lạc, dấu tích chuyển giao quyền lực"
+            },
+            {
+              "type": "text",
+              "body": "Nhưng di sản Hùng Vương không mất đi. Ngày Giỗ Tổ Hùng Vương (mùng 10 tháng 3 Âm lịch) vẫn được giữ gìn qua hàng ngàn năm, trở thành ngày Quốc lễ — minh chứng cho sức sống bền bỉ của ký ức dân tộc."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Thời đại Hùng Vương dạy ta rằng một dân tộc không bắt đầu bằng vũ khí hay chiến tranh, mà bằng việc cùng nhau canh tác, cùng nhau đối mặt với thiên nhiên, cùng nhau kể chuyện quanh ngọn lửa."
+            },
+            {
+              "type": "text",
+              "body": "Câu chuyện Lạc Long Quân – Âu Cơ không phải lịch sử theo nghĩa sách giáo khoa, nhưng nó mang sức mạnh lớn hơn: nó cho mỗi người Việt một gốc gác chung, một lý do để thuộc về nhau — bất kể đi ngược hay về xuôi."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event-co-loa",
+    "slug": "thanh-co-co-loa",
+    "title": "Thành Cổ Loa của An Dương Vương",
+    "eraId": "era-van-lang-au-lac",
+    "eraSlug": "van-lang-au-lac",
+    "year": -257,
+    "gradeTags": [
+      "THCS",
+      "THPT"
+    ],
+    "type": "culture",
+    "featured": true,
+    "summary": "Cổ Loa thể hiện kỹ thuật quân sự và tổ chức nhà nước Âu Lạc.",
+    "excerpt": "Vòng thành xoắn ốc kể chuyện về phòng thủ, quyền lực và bi kịch.",
+    "image": "/images/generated/co-loa.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Cổ Loa",
+    "actors": [
+      "An Dương Vương",
+      "Cao Lỗ"
+    ],
+    "story": {
+      "templateType": "dynasty",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Một toà thành xoắn ốc ba vòng, bao quanh bởi hào nước sâu, mọc lên giữa đồng bằng sông Hồng. Đây không phải công trình phòng thủ thông thường — đây là lời tuyên bố chủ quyền bằng đất đá và trí tuệ quân sự."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/co-loa-aerial.png",
+              "caption": "Thành Cổ Loa nhìn từ trên cao — ba vòng xoắn ốc bao quanh kinh đô"
+            },
+            {
+              "type": "quote",
+              "quote": "Thành Cổ Loa là pháo đài lớn nhất Đông Nam Á thời kỳ đồng thau.",
+              "source": "Khảo cổ học Việt Nam"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Năm 257 TCN, Thục Phán đánh bại Hùng Vương thứ 18, hợp nhất Âu Việt và Lạc Việt thành nước Âu Lạc. Ông xưng hiệu An Dương Vương và dời kinh đô từ Phong Châu về Cổ Loa (Đông Anh, Hà Nội ngày nay)."
+            },
+            {
+              "type": "text",
+              "body": "Tướng Cao Lỗ được giao nhiệm vụ thiết kế thành. Ông sáng tạo hệ thống phòng thủ ba lớp: thành ngoại, thành trung, thành nội — mỗi vòng đều có hào nước liên kết với sông Hoàng Giang, biến toà thành thành một pháo đài thuỷ chiến."
+            },
+            {
+              "type": "quick-facts",
+              "title": "Dữ kiện nhanh",
+              "items": [
+                {
+                  "label": "Năm xây dựng",
+                  "value": "Khoảng 257 TCN"
+                },
+                {
+                  "label": "Cấu trúc",
+                  "value": "3 vòng thành xoắn ốc"
+                },
+                {
+                  "label": "Chu vi thành ngoại",
+                  "value": "~8 km"
+                },
+                {
+                  "label": "Vũ khí đặc biệt",
+                  "value": "Nỏ thần liên châu"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Triệu Đà — vua Nam Việt — nhiều lần cất quân xâm lấn Âu Lạc nhưng đều thất bại trước hệ thống phòng thủ Cổ Loa và vũ khí nỏ thần liên châu của Cao Lỗ. Mỗi mũi tên bắn ra đều mang theo công nghệ quân sự vượt thời đại."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/co-loa.png",
+              "caption": "Hệ thống phòng thủ thành Cổ Loa với hào nước liên hoàn"
+            },
+            {
+              "type": "text",
+              "body": "Không thắng được trên chiến trường, Triệu Đà chuyển sang kế sách gián điệp: cử con trai Trọng Thuỷ sang cầu hôn Mỵ Châu — con gái An Dương Vương. Một cuộc chiến mới bắt đầu — không bằng gươm giáo mà bằng lòng tin."
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Trọng Thuỷ lấy được bí mật nỏ thần, đánh tráo lẫy nỏ. Khi Triệu Đà tấn công lần nữa, nỏ thần không còn linh nghiệm. Cổ Loa thất thủ. An Dương Vương ôm con gái chạy về phía biển, cuối cùng chém Mỵ Châu khi nhận ra sự thật — máu nàng chảy xuống biển, ngọc trai hoá thành."
+            },
+            {
+              "type": "quote",
+              "quote": "Bi kịch Mỵ Châu – Trọng Thuỷ không phải chuyện tình — đó là bài học về cái giá của sự mất cảnh giác.",
+              "source": "Đại Việt sử ký toàn thư"
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Âu Lạc sụp đổ, mở ra thời kỳ Bắc thuộc kéo dài hơn ngàn năm. Nhưng thành Cổ Loa vẫn đứng đó — dấu tích khảo cổ cho thấy kỹ thuật xây thành, đúc đồng của người Việt cổ đã đạt trình độ đáng kinh ngạc."
+            },
+            {
+              "type": "text",
+              "body": "Hàng ngàn mũi tên đồng được khai quật tại Cổ Loa chứng minh: trước khi mất nước, tổ tiên ta đã sở hữu công nghệ quân sự ngang tầm khu vực."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Cổ Loa dạy rằng sức mạnh quân sự không đủ nếu thiếu sự tỉnh táo chính trị. Một toà thành vững chắc nhất vẫn có thể sụp đổ khi kẻ thù đến bằng con đường lòng tin thay vì chiến trận."
+            },
+            {
+              "type": "text",
+              "body": "Câu chuyện Mỵ Châu – Trọng Thuỷ vẫn vang vọng như lời nhắc nhở: lịch sử không chỉ thuộc về những người chiến thắng, mà còn thuộc về những bài học đau đớn nhất."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event-son-tinh-thuy-tinh",
+    "slug": "truyen-thuyet-son-tinh-thuy-tinh",
+    "title": "Sơn Tinh - Thuỷ Tinh",
+    "eraId": "era-van-lang-au-lac",
+    "eraSlug": "van-lang-au-lac",
+    "year": -2500,
+    "gradeTags": [
+      "TH"
+    ],
+    "type": "culture",
+    "featured": false,
+    "summary": "Truyền thuyết lý giải lũ lụt và khát vọng chế ngự thiên nhiên.",
+    "excerpt": "Một câu chuyện dân gian soi chiếu đời sống cư dân nông nghiệp.",
+    "image": "/images/generated/hung-vuong.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Vùng sông Hồng",
+    "actors": [
+      "Sơn Tinh",
+      "Thuỷ Tinh",
+      "Mị Nương"
+    ],
+    "story": {
+      "templateType": "culture",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Mỗi năm, nước sông Hồng dâng lên, nhấn chìm ruộng đồng và làng mạc. Người xưa nhìn cơn lũ và tự hỏi: ai đang giận dữ phía bên kia mặt nước? Từ câu hỏi ấy, truyền thuyết Sơn Tinh – Thuỷ Tinh ra đời."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hung-vuong.png",
+              "caption": "Vùng trung du sông Hồng — nơi sinh ra truyền thuyết Sơn Tinh Thuỷ Tinh"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Vua Hùng thứ 18 có con gái Mị Nương xinh đẹp. Hai vị thần cùng đến cầu hôn: Sơn Tinh — chúa non cao, và Thuỷ Tinh — vua mặt nước. Vua ra điều kiện: ai mang sính lễ đến trước sẽ được cưới công chúa."
+            },
+            {
+              "type": "text",
+              "body": "Sơn Tinh đến trước, rước Mị Nương về núi Tản Viên. Thuỷ Tinh thua cuộc, nổi giận dâng nước đánh Sơn Tinh — cuộc chiến giữa núi và nước bắt đầu, và sẽ lặp lại mỗi năm."
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Thuỷ Tinh hô mưa gọi gió, dâng nước ngập đồng bằng. Sơn Tinh nâng núi lên cao, chặn từng đợt sóng. Cuộc chiến không phân thắng bại — nước dâng bao nhiêu, núi cao bấy nhiêu. Cư dân ven sông phải học cách sống chung với lũ."
+            },
+            {
+              "type": "quote",
+              "quote": "Nước dâng đến đâu, núi dâng đến đó — ý chí con người không bao giờ thua thiên nhiên.",
+              "source": "Truyền thuyết Việt Nam"
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Sơn Tinh luôn thắng — nhưng Thuỷ Tinh không bao giờ ngừng. Mỗi mùa mưa, cuộc chiến lại tái diễn. Đây không phải câu chuyện về một chiến thắng, mà về một cuộc đấu tranh vĩnh viễn — giống hệt cuộc chiến thực sự của người Việt với lũ lụt sông Hồng."
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Truyền thuyết phản ánh thực tế: đồng bằng sông Hồng là vùng đất màu mỡ nhưng luôn bị đe doạ bởi lũ. Từ thời Hùng Vương, người Việt đã xây đê, đào kênh, và tổ chức cộng đồng để chống lũ — nền tảng của xã hội nông nghiệp Việt Nam."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Sơn Tinh – Thuỷ Tinh dạy rằng người Việt không chờ thiên nhiên ban ơn — họ chủ động đối đầu, thích nghi, và biến mối đe doạ thành động lực. Tinh thần ấy vẫn sống trong mỗi mùa lũ, mỗi con đê, mỗi cánh đồng xanh sau mùa nước rút."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event-hai-ba-trung",
+    "slug": "khoi-nghia-hai-ba-trung",
+    "title": "Khởi nghĩa Hai Bà Trưng",
+    "eraId": "era-bac-thuoc",
+    "eraSlug": "bac-thuoc",
+    "year": 40,
+    "gradeTags": [
+      "TH",
+      "THCS",
+      "THPT"
+    ],
+    "type": "movement",
+    "featured": true,
+    "summary": "Cuộc khởi nghĩa lớn đầu tiên chống ách đô hộ phương Bắc.",
+    "excerpt": "Từ Mê Linh, tiếng trống khởi nghĩa lan khắp các quận huyện.",
+    "image": "/images/generated/hai-ba-trung.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Mê Linh",
+    "actors": [
+      "Trưng Trắc",
+      "Trưng Nhị"
+    ],
+    "story": {
+      "templateType": "movement",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Năm 40 sau Công nguyên, giữa đêm Mê Linh, một người phụ nữ bước lên bệ cao dưới ánh đuốc. Bà phất cờ, hàng ngàn nghĩa quân đồng loạt hô vang. Lần đầu tiên sau hơn 200 năm Bắc thuộc, người Việt đứng dậy — và người dẫn đầu là hai chị em."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hai-ba-trung-battle.png",
+              "caption": "Hai Bà Trưng cưỡi voi dẫn đầu đoàn quân tiến đánh thành Luy Lâu"
+            },
+            {
+              "type": "quote",
+              "quote": "Tôi muốn cưỡi cơn gió mạnh, đạp luồng sóng dữ, chém cá kình ngoài biển Đông.",
+              "source": "Lời truyền tụng của Bà Triệu, phản ánh tinh thần thời đại"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Dưới ách đô hộ nhà Đông Hán, thái thú Tô Định cai trị tàn bạo: thuế nặng, lao dịch, đàn áp các lạc tướng. Thi Sách — chồng Trưng Trắc, con trai lạc tướng Chu Diên — bị Tô Định giết để dập tắt mầm phản kháng."
+            },
+            {
+              "type": "text",
+              "body": "Nhưng cái chết ấy không dập tắt — nó châm ngòi. Trưng Trắc không chọn phục thù cá nhân mà biến nỗi đau thành khởi nghĩa dân tộc. Bà liên kết các lạc tướng khắp Giao Chỉ, Cửu Chân, Nhật Nam — một mạng lưới chưa từng có."
+            },
+            {
+              "type": "quick-facts",
+              "title": "Dữ kiện nhanh",
+              "items": [
+                {
+                  "label": "Năm khởi nghĩa",
+                  "value": "Mùa xuân năm 40"
+                },
+                {
+                  "label": "Quân số",
+                  "value": "65 thành trì hưởng ứng"
+                },
+                {
+                  "label": "Kinh đô",
+                  "value": "Mê Linh"
+                },
+                {
+                  "label": "Thời gian tự chủ",
+                  "value": "3 năm (40–43)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Chỉ trong vài tháng, nghĩa quân chiếm 65 thành trì. Tô Định bỏ chạy về Trung Quốc. Trưng Trắc xưng vương, đóng đô ở Mê Linh. Lần đầu tiên, một phụ nữ trở thành nguyên thủ quốc gia Việt Nam."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hai-ba-trung.png",
+              "caption": "Đội quân Hai Bà Trưng — trong đó có nhiều nữ tướng lãnh đạo các cánh quân"
+            },
+            {
+              "type": "text",
+              "body": "Nhưng nhà Hán không chấp nhận mất Giao Chỉ. Năm 42, Mã Viện — danh tướng lão luyện — được cử xuống phía Nam với đạo quân lớn gấp nhiều lần, trang bị vượt trội."
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Trận quyết chiến diễn ra ở Lãng Bạc (khu vực Hà Nội ngày nay). Quân Hai Bà Trưng chiến đấu dũng cảm nhưng không chống nổi lực lượng áp đảo của Mã Viện. Trưng Trắc và Trưng Nhị tuẫn tiết — giữ trọn khí tiết của người anh hùng dân tộc."
+            },
+            {
+              "type": "quote",
+              "quote": "Hai Bà Trưng mất nhưng ý chí của cuộc khởi nghĩa không bao giờ tắt trong lòng người Việt.",
+              "source": "Đại Việt sử ký toàn thư"
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Dù thất bại về quân sự, cuộc khởi nghĩa Hai Bà Trưng thiết lập một tiền lệ: người Việt có thể đánh đổ ách đô hộ, dù là tạm thời. Từ đây, các cuộc nổi dậy tiếp nối suốt ngàn năm Bắc thuộc."
+            },
+            {
+              "type": "text",
+              "body": "Hình ảnh Hai Bà cưỡi voi ra trận trở thành biểu tượng bất diệt. Ngày nay, gần như mỗi thành phố Việt Nam đều có đường phố mang tên Hai Bà Trưng — lời nhắc nhở rằng dũng khí không phân biệt giới tính."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Khởi nghĩa Hai Bà Trưng dạy rằng: sức mạnh không chỉ nằm ở quân số, mà ở khả năng đoàn kết một dân tộc. Hai chị em từ Mê Linh đã chứng minh: khi nỗi đau cá nhân hoà cùng khát vọng tự do, sức mạnh ấy có thể lay chuyển cả một đế chế."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event-ba-trieu",
+    "slug": "khoi-nghia-ba-trieu",
+    "title": "Khởi nghĩa Bà Triệu",
+    "eraId": "era-bac-thuoc",
+    "eraSlug": "bac-thuoc",
+    "year": 248,
+    "gradeTags": [
+      "THCS",
+      "THPT"
+    ],
+    "type": "movement",
+    "featured": false,
+    "summary": "Bà Triệu lãnh đạo cuộc nổi dậy mạnh mẽ ở Cửu Chân.",
+    "excerpt": "Hình tượng người nữ tướng trở thành biểu tượng ý chí độc lập.",
+    "image": "/images/generated/hai-ba-trung.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Cửu Chân",
+    "actors": [
+      "Bà Triệu"
+    ],
+    "story": {
+      "templateType": "movement",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "\"Tôi muốn cưỡi cơn gió mạnh, đạp luồng sóng dữ, chém cá kình ngoài biển Đông, quét sạch bờ cõi, cứu dân ra khỏi vũng lầy, chứ không chịu khom lưng làm tì thiếp cho người.\" — Lời tuyên bố ấy vang lên từ một cô gái 19 tuổi ở Cửu Chân."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/hai-ba-trung.png",
+              "caption": "Hình tượng nữ tướng Bà Triệu — biểu tượng ý chí bất khuất"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Năm 248, nhà Đông Ngô cai trị Giao Châu hà khắc. Triệu Thị Trinh — mồ côi cha mẹ từ nhỏ, được anh trai nuôi lớn — từ sớm đã bộc lộ khí chất phi thường. Bà tập hợp nghĩa quân trong rừng núi Thanh Hoá."
+            },
+            {
+              "type": "text",
+              "body": "Khi anh trai khuyên can, bà đáp lại bằng câu nói lịch sử nổi tiếng. Bà không chờ ai cứu, không chờ thời cơ — bà tạo ra thời cơ của riêng mình."
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Bà Triệu dẫn quân từ Thanh Hoá, đánh nhiều trận khiến quân Ngô khiếp sợ. Tương truyền, bà mặc áo giáp vàng, cưỡi voi trắng, xung trận đầu tiên. Quân Ngô gọi bà là 'Nhụy Kiều Tướng quân' — nữ tướng xinh đẹp mà đáng sợ."
+            },
+            {
+              "type": "quote",
+              "quote": "Bà Triệu cưỡi voi xung trận, quân Ngô tan vỡ chạy dài — không dám nhìn lại.",
+              "source": "Sử ký"
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Nhà Ngô cử Lục Dận — một danh tướng — đem đại quân sang dẹp. Trước lực lượng áp đảo, Bà Triệu chiến đấu đến cùng nhưng cuối cùng thất bại. Bà tự vẫn trên núi Tùng, khi mới 23 tuổi — ngắn ngủi nhưng rực rỡ."
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Cuộc khởi nghĩa thất bại nhưng tinh thần Bà Triệu không bao giờ tắt. Sau khi bà mất, dân gian truyền rằng bà hiển linh giúp dân trong những trận bão. Đền thờ Bà Triệu ở Thanh Hoá vẫn được hương khói đến ngày nay."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Bà Triệu chứng minh: tuổi tác, giới tính, hoàn cảnh không phải rào cản cho ý chí. Một cô gái 19 tuổi mồ côi có thể làm rung chuyển cả một đế chế — nếu bà dám đứng lên khi chưa ai dám."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event-bach-dang",
+    "slug": "chien-thang-bach-dang-938",
+    "title": "Chiến thắng Bạch Đằng năm 938",
+    "eraId": "era-bac-thuoc",
+    "eraSlug": "bac-thuoc",
+    "year": 938,
+    "gradeTags": [
+      "THCS",
+      "THPT"
+    ],
+    "type": "battle",
+    "featured": true,
+    "summary": "Ngô Quyền đánh bại quân Nam Hán, mở ra thời kỳ độc lập lâu dài.",
+    "excerpt": "Bãi cọc trên sông Bạch Đằng biến thuỷ triều thành thế trận quyết định.",
+    "image": "/images/generated/bach-dang.png",
+    "fallbackImage": "/images/generated/parchment.png",
+    "location": "Sông Bạch Đằng",
+    "actors": [
+      "Ngô Quyền"
+    ],
+    "story": {
+      "templateType": "battle",
+      "beats": [
+        {
+          "type": "hook",
+          "title": "Khoảnh Khắc",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Sáng sớm mùa đông năm 938, sương mù phủ kín sông Bạch Đằng. Dưới mặt nước, hàng ngàn cọc gỗ bọc sắt đã được cắm sẵn — chờ thuỷ triều rút. Ngô Quyền biến dòng sông thành bẫy chết, và lịch sử ngàn năm Bắc thuộc sắp kết thúc."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/bach-dang-naval.png",
+              "caption": "Trận Bạch Đằng 938 — cọc ngầm phá tan chiến thuyền Nam Hán"
+            },
+            {
+              "type": "quote",
+              "quote": "Ngô Quyền không chỉ thắng một trận — ông mở ra một kỷ nguyên.",
+              "source": "Đại Việt sử ký toàn thư"
+            }
+          ]
+        },
+        {
+          "type": "setup",
+          "title": "Bối Cảnh",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Kiều Công Tiễn — một tướng phản bội — giết Dương Đình Nghệ và cầu cứu nhà Nam Hán. Vua Nam Hán cử con trai Lưu Hoằng Tháo dẫn đại quân thuỷ bộ tiến vào Việt Nam, tin rằng sẽ dễ dàng thu phục."
+            },
+            {
+              "type": "text",
+              "body": "Ngô Quyền — con rể Dương Đình Nghệ — nhanh chóng diệt Kiều Công Tiễn rồi tập trung toàn lực đối phó Nam Hán. Ông chọn sông Bạch Đằng (vùng Quảng Ninh ngày nay) làm chiến trường — nơi thuỷ triều lên xuống mạnh nhất."
+            },
+            {
+              "type": "quick-facts",
+              "title": "Dữ kiện nhanh",
+              "items": [
+                {
+                  "label": "Năm",
+                  "value": "938"
+                },
+                {
+                  "label": "Chiến trường",
+                  "value": "Sông Bạch Đằng"
+                },
+                {
+                  "label": "Vũ khí bí mật",
+                  "value": "Bãi cọc ngầm bọc sắt"
+                },
+                {
+                  "label": "Kết quả",
+                  "value": "Chấm dứt Bắc thuộc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rising",
+          "title": "Thử Thách",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Ngô Quyền ra lệnh đóng hàng ngàn cọc gỗ lim, đầu bọc sắt nhọn, cắm dưới lòng sông ở những vị trí thuỷ triều rút sâu nhất. Khi nước lên, cọc chìm dưới mặt nước — vô hình. Khi nước rút, cọc nhô lên như hàm răng sắt."
+            },
+            {
+              "type": "image",
+              "image": "/images/generated/bach-dang.png",
+              "caption": "Bãi cọc Bạch Đằng — thiên la địa võng dưới mặt nước"
+            },
+            {
+              "type": "text",
+              "body": "Ông bố trí quân nhẹ giả thua, dụ đoàn chiến thuyền Nam Hán vượt qua bãi cọc khi thuỷ triều đang lên. Mọi thứ đã sẵn sàng — chỉ chờ nước rút."
+            }
+          ]
+        },
+        {
+          "type": "climax",
+          "title": "Bước Ngoặt",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Khi thuỷ triều rút, chiến thuyền Nam Hán bị mắc cạn trên bãi cọc. Thân tàu bị đâm thủng, quân lính hoảng loạn. Ngô Quyền cho quân tổng tấn công. Lưu Hoằng Tháo tử trận ngay trên sông. Đại quân Nam Hán bị tiêu diệt gần như toàn bộ."
+            },
+            {
+              "type": "quote",
+              "quote": "Thuỷ triều rút, cọc nhô lên, thuyền giặc vỡ tan — một ngàn năm Bắc thuộc chấm dứt trong một buổi chiều.",
+              "source": "Việt sử lược"
+            }
+          ]
+        },
+        {
+          "type": "falling",
+          "title": "Hệ Quả",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Chiến thắng Bạch Đằng 938 chấm dứt hơn 1000 năm Bắc thuộc. Ngô Quyền xưng vương, đóng đô ở Cổ Loa — mở ra thời kỳ độc lập kéo dài cho đến ngày nay. Việt Nam chính thức bước vào kỷ nguyên tự chủ."
+            },
+            {
+              "type": "text",
+              "body": "Chiến thuật cọc ngầm trên sông Bạch Đằng được coi là kiệt tác quân sự — lợi dụng địa hình và thuỷ triều tự nhiên để biến yếu thành mạnh, ít thắng nhiều."
+            }
+          ]
+        },
+        {
+          "type": "takeaway",
+          "title": "Bài Học",
+          "blocks": [
+            {
+              "type": "text",
+              "body": "Bạch Đằng 938 dạy rằng chiến thắng không đến từ sức mạnh vượt trội, mà từ trí tuệ và sự hiểu biết về thiên nhiên. Ngô Quyền không có đại quân — ông có hiểu biết về thuỷ triều, về lòng sông, và về thời cơ. Đó là bài học vượt thời đại."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

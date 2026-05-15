@@ -1,0 +1,422 @@
+{
+  "id": "event-bach-dang-1288",
+  "slug": "chien-thang-bach-dang-1288",
+  "title": "Chiến thắng Bạch Đằng năm 1288",
+  "eraId": "era-dai-viet",
+  "eraSlug": "nha-tran",
+  "year": 1288,
+  "gradeTags": [
+    "THCS",
+    "THPT"
+  ],
+  "type": "battle",
+  "featured": true,
+  "summary": "Trần Hưng Đạo đại phá quân Nguyên trên sông Bạch Đằng, kết thúc 30 năm chống xâm lược Mông–Nguyên.",
+  "excerpt": "Khi thủy triều rút, cả đạo thủy quân Nguyên rơi vào chiếc bẫy không thể thoát.",
+  "image": "/images/generated/bach-dang-1288-hero.png",
+  "fallbackImage": "/images/generated/parchment.png",
+  "location": "Sông Bạch Đằng",
+  "actors": [
+    "Trần Hưng Đạo",
+    "Trần Khánh Dư"
+  ],
+  "opponent": "Quân Nguyên – Mông",
+  "result": "Đại Việt chiến thắng",
+  "characters": [
+    {
+      "id": "tran-hung-dao",
+      "name": "Trần Hưng Đạo",
+      "role": "Tổng chỉ huy Đại Việt",
+      "side": "dai-viet",
+      "portrait": "/images/generated/tran-hung-dao-portrait.png",
+      "bio": "Hưng Đạo Đại Vương Trần Quốc Tuấn, tài năng quân sự lỗi lạc bậc nhất lịch sử Việt Nam. Ông ba lần đánh bại quân Nguyên–Mông, viết \"Hịch tướng sĩ\" truyền cảm hứng cho toàn quân.",
+      "quote": "\"Bệ hạ muốn hàng, hãy chém đầu thần trước đã.\""
+    },
+    {
+      "id": "tran-khanh-du",
+      "name": "Trần Khánh Dư",
+      "role": "Tướng phục kích Vân Đồn",
+      "side": "dai-viet",
+      "portrait": null,
+      "bio": "Tướng chỉ huy trận Vân Đồn, cắt đứt đường lương thực của quân Nguyên, buộc đạo quân thủy phải rút lui qua sông Bạch Đằng.",
+      "quote": "\"Chặn lương thực — giặc tự tan.\""
+    },
+    {
+      "id": "oa-luong-hop-thai",
+      "name": "Ô Mã Nhi",
+      "role": "Tổng chỉ huy thủy quân Nguyên",
+      "side": "nguyen-mong",
+      "portrait": null,
+      "bio": "Danh tướng hải quân Nguyên–Mông, chỉ huy đội chiến thuyền lớn. Bị bắt sống trong trận Bạch Đằng 1288.",
+      "quote": null
+    },
+    {
+      "id": "thoat-hoan",
+      "name": "Thoát Hoan",
+      "role": "Tổng tư lệnh viễn chinh Nguyên",
+      "side": "nguyen-mong",
+      "portrait": null,
+      "bio": "Hoàng tử nhà Nguyên, tổng tư lệnh đạo quân xâm lược Đại Việt lần 3. Phải rút quân qua đường bộ sau khi thủy quân bị tiêu diệt trên sông Bạch Đằng.",
+      "quote": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "step-1",
+      "year": "1287",
+      "month": "Cuối năm",
+      "title": "Quân Nguyên tiến vào Đại Việt",
+      "description": "Thoát Hoan dẫn 30 vạn quân, Ô Mã Nhi chỉ huy đạo thủy quân từ biển tiến vào sông Bạch Đằng.",
+      "icon": "⚔️",
+      "mood": "tense"
+    },
+    {
+      "id": "step-2",
+      "year": "1288",
+      "month": "Tháng 1",
+      "title": "Trần Khánh Dư chặn lương ở Vân Đồn",
+      "description": "Đoàn thuyền lương bị phục kích tại Vân Đồn. Quân Nguyên mất nguồn tiếp tế chiến lược.",
+      "icon": "🚢",
+      "mood": "rising"
+    },
+    {
+      "id": "step-3",
+      "year": "1288",
+      "month": "Tháng 2",
+      "title": "Quân Đại Việt chuẩn bị trận địa cọc ngầm",
+      "description": "Trần Hưng Đạo cho đóng hàng ngàn cọc gỗ lim bọc sắt dưới lòng sông Bạch Đằng ở đoạn nước sâu, triều lên cao.",
+      "icon": "🪵",
+      "mood": "preparation"
+    },
+    {
+      "id": "step-4",
+      "year": "1288",
+      "month": "Tháng 3",
+      "title": "Thủy triều lên, cọc chìm dưới nước",
+      "description": "Khi triều lên, bãi cọc vô hình. Quân Đại Việt giả thua dụ chiến thuyền Nguyên tiến sâu vào trận địa.",
+      "icon": "🌊",
+      "mood": "tension"
+    },
+    {
+      "id": "step-5",
+      "year": "1288",
+      "month": "Ngày 9/4",
+      "title": "Thủy triều rút — cọc gỗ lộ ra",
+      "description": "Khi triều rút, hàng ngàn cọc nhọn nhô lên. Chiến thuyền Nguyên bị đâm thủng, mắc cạn, không thể tiến hay lui.",
+      "icon": "⬇️",
+      "mood": "climax"
+    },
+    {
+      "id": "step-6",
+      "year": "1288",
+      "month": "Ngày 9/4",
+      "title": "Đại Việt phản công toàn diện",
+      "description": "Quân Đại Việt tổng tấn công từ hai bên bờ sông. Ô Mã Nhi bị bắt sống. Đạo thủy quân Nguyên bị tiêu diệt hoàn toàn.",
+      "icon": "🏆",
+      "mood": "victory"
+    }
+  ],
+  "climaxScene": {
+    "title": "Trận địa Bạch Đằng",
+    "backgroundImage": "/images/generated/bach-dang-battle-map.png",
+    "phases": [
+      {
+        "id": "phase-tide-high",
+        "label": "Thủy triều lên",
+        "summary": "Nước dâng cao, bãi cọc chìm hoàn toàn — hạm đội Nguyên tiến vào không nghi ngờ.",
+        "description": "Trần Hưng Đạo đã nghiên cứu kỹ quy luật thủy triều trên sông Bạch Đằng suốt nhiều tháng. Ông biết rằng khi triều lên, mực nước dâng cao hơn đầu cọc tới vài thước — hoàn toàn vô hình với bất kỳ đoàn thuyền nào.\n\nKhi thủy triều lên cao nhất, hàng ngàn cọc gỗ lim bọc sắt nhọn chìm sâu dưới mặt nước. Mặt sông phẳng lặng như không có gì. Đạo chiến thuyền lớn của Ô Mã Nhi, với hàng trăm tàu chiến, lướt qua bãi cọc mà không hề hay biết mình đang tiến vào chiếc bẫy chết người.",
+        "keyDetail": "Chênh lệch thủy triều sông Bạch Đằng lên tới 3–4 mét, đủ để che hoàn toàn bãi cọc dài hàng trăm mét."
+      },
+      {
+        "id": "phase-lure",
+        "label": "Dụ địch",
+        "summary": "Quân Đại Việt giả thua — kéo toàn bộ hạm đội Nguyên vượt qua bãi cọc.",
+        "description": "Trần Hưng Đạo bố trí một đội thuyền nhẹ ra khiêu chiến rồi giả vờ thua chạy ngược dòng sông. Ô Mã Nhi — vốn tự tin với lực lượng áp đảo — ra lệnh đuổi theo, dẫn toàn bộ hạm đội vượt qua khu vực bãi cọc ngầm.\n\nĐây là bước quyết định nhất: khi triều đang lên, quân Nguyên tiến sâu vào thượng nguồn mà không biết rằng con đường rút lui duy nhất — chính đoạn sông họ vừa đi qua — đã trở thành bẫy. Mỗi chiếc thuyền Nguyên vượt qua bãi cọc là thêm một chiếc thuyền bị kẹt khi nước rút.",
+        "keyDetail": "Chiến thuật \"dụ địch\" đã được Ngô Quyền sử dụng thành công trên chính sông Bạch Đằng năm 938 — Trần Hưng Đạo kế thừa và nâng tầm chiến thuật này."
+      },
+      {
+        "id": "phase-tide-low",
+        "label": "Thủy triều rút",
+        "summary": "Nước rút nhanh — hàng ngàn cọc nhọn nhô lên, đâm xuyên chiến thuyền Nguyên.",
+        "description": "Thời khắc quyết định đã đến. Thủy triều bắt đầu rút với tốc độ nhanh. Mực nước hạ xuống, lộ ra bãi cọc gỗ lim bọc sắt dày đặc — mỗi cọc dài 2–3 mét, đầu nhọn hướng lên trời.\n\nChiến thuyền lớn của quân Nguyên — vốn ngồn ngộn nặng nề — bị dòng nước kéo vào bãi cọc. Thân tàu bị đâm thủng từ dưới, nước tràn vào. Những chiếc thuyền cố quay đầu thì mắc cạn, chồng chất lên nhau. Trong vài khắc, toàn bộ hạm đội rơi vào hỗn loạn — không thể tiến, không thể lùi, không thể sửa chữa.",
+        "keyDetail": "Cọc được cắm chéo theo hướng xuôi dòng, nên thuyền vào dễ nhưng khi triều rút, cọc đâm xuyên đáy thuyền — một thiết kế cực kỳ tinh vi."
+      },
+      {
+        "id": "phase-attack",
+        "label": "Tổng tấn công",
+        "summary": "Quân Đại Việt tổng tấn công — hỏa công, cận chiến, bắt sống Ô Mã Nhi.",
+        "description": "Khi hạm đội Nguyên hoàn toàn mắc kẹt trên bãi cọc, Trần Hưng Đạo phất cờ ra lệnh tổng tấn công. Quân Đại Việt — đã mai phục sẵn từ hai bên bờ sông — đổ ra như thác.\n\nHỏa công được triển khai: thuyền lửa được thả xuôi dòng, đốt cháy những chiến thuyền Nguyên đang mắc cạn. Lửa lan nhanh, khói đen bao phủ mặt sông. Quân Đại Việt dùng thuyền nhỏ áp sát, tấn công cận chiến. Ô Mã Nhi — tổng chỉ huy thủy quân Nguyên — bị bắt sống cùng hàng trăm binh sĩ. Hơn 400 chiến thuyền bị phá hủy hoặc thu giữ. Toàn bộ đạo thủy quân Nguyên bị tiêu diệt trong một buổi chiều.",
+        "keyDetail": "Ô Mã Nhi sau đó bị giải về Thăng Long. Thoát Hoan mất hoàn toàn lực lượng hải quân, buộc phải rút quân bộ về nước."
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "hs-stakes",
+        "x": 50,
+        "y": 55,
+        "label": "Bãi cọc ngầm",
+        "description": "Hàng ngàn cọc gỗ lim bọc sắt nhọn, cắm ngầm dưới lòng sông. Khi triều rút, chúng trở thành bẫy chết cho chiến thuyền lớn."
+      },
+      {
+        "id": "hs-river",
+        "x": 50,
+        "y": 35,
+        "label": "Sông Bạch Đằng",
+        "description": "Dòng sông chảy ra vịnh Bắc Bộ, chênh lệch thủy triều rất lớn — yếu tố quyết định cho chiến thuật cọc ngầm."
+      },
+      {
+        "id": "hs-ambush",
+        "x": 20,
+        "y": 45,
+        "label": "Phục binh Đại Việt",
+        "description": "Quân Đại Việt mai phục trong rừng rậm và trên bờ sông, chờ thời cơ thủy triều rút để tổng tấn công."
+      },
+      {
+        "id": "hs-fleet",
+        "x": 78,
+        "y": 40,
+        "label": "Hạm đội Nguyên",
+        "description": "Đạo chiến thuyền lớn do Ô Mã Nhi chỉ huy, bị dụ vào sâu trong sông khi triều đang lên."
+      },
+      {
+        "id": "hs-fire",
+        "x": 45,
+        "y": 65,
+        "label": "Hỏa công",
+        "description": "Quân Đại Việt dùng lửa thiêu những chiến thuyền bị mắc cạn trên bãi cọc, tạo cảnh hỗn loạn."
+      }
+    ]
+  },
+  "aftermath": {
+    "title": "Kết quả trận Bạch Đằng 1288",
+    "stats": [
+      {
+        "label": "Quân Nguyên bị bắt",
+        "value": "400+",
+        "sublabel": "chiến thuyền"
+      },
+      {
+        "label": "Tướng giặc bị bắt sống",
+        "value": "Ô Mã Nhi",
+        "sublabel": "và nhiều tướng khác"
+      },
+      {
+        "label": "Kết thúc",
+        "value": "30 năm",
+        "sublabel": "chống xâm lược Mông–Nguyên"
+      },
+      {
+        "label": "Ý nghĩa",
+        "value": "Bảo vệ",
+        "sublabel": "nền độc lập Đại Việt"
+      }
+    ],
+    "before": {
+      "title": "Trước trận",
+      "items": [
+        "Quân Nguyên–Mông 3 lần xâm lược Đại Việt",
+        "Đạo thủy quân lớn từ biển tiến vào",
+        "Nguồn lương thực dồi dào (trước Vân Đồn)",
+        "Thoát Hoan tự tin chiến thắng"
+      ]
+    },
+    "after": {
+      "title": "Sau trận",
+      "items": [
+        "Thủy quân Nguyên bị tiêu diệt hoàn toàn",
+        "Thoát Hoan rút quân, không dám quay lại",
+        "Nhà Nguyên từ bỏ tham vọng chinh phục Đại Việt",
+        "Đại Việt vào thời kỳ thịnh vượng"
+      ]
+    }
+  },
+  "takeaway": {
+    "happened": "Trần Hưng Đạo dùng chiến thuật cọc ngầm trên sông Bạch Đằng, lợi dụng thủy triều tiêu diệt toàn bộ thủy quân Nguyên. Ô Mã Nhi bị bắt sống, Thoát Hoan rút chạy.",
+    "whyItMatters": "Chiến thắng này kết thúc 30 năm Đại Việt chống xâm lược Mông–Nguyên (1258–1288) — đế chế quân sự hùng mạnh nhất thế giới thời bấy giờ. Đại Việt là một trong số ít quốc gia chiến thắng quân Mông Cổ.",
+    "lesson": "Bạch Đằng 1288 dạy rằng: trí tuệ thắng sức mạnh. Hiểu biết về thiên nhiên (thủy triều), địa hình (sông), và tâm lý đối thủ (dụ địch) — tạo nên chiến thắng không cần quân số vượt trội."
+  },
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Ai là tổng chỉ huy quân Đại Việt trong trận Bạch Đằng 1288?",
+      "options": [
+        "Trần Nhân Tông",
+        "Trần Hưng Đạo",
+        "Trần Khánh Dư",
+        "Ngô Quyền"
+      ],
+      "correct": 1,
+      "explanation": "Trần Hưng Đạo (Hưng Đạo Đại Vương) là tổng chỉ huy toàn quân Đại Việt, người thiết kế chiến thuật cọc ngầm trên sông Bạch Đằng."
+    },
+    {
+      "id": "q2",
+      "question": "Yếu tố tự nhiên nào quyết định chiến thắng Bạch Đằng?",
+      "options": [
+        "Gió bão",
+        "Thủy triều",
+        "Động đất",
+        "Sương mù"
+      ],
+      "correct": 1,
+      "explanation": "Thủy triều lên che giấu bãi cọc ngầm, khi triều rút cọc nhô lên đâm thủng chiến thuyền Nguyên."
+    },
+    {
+      "id": "q3",
+      "question": "Trận Bạch Đằng 1288 kết thúc bao nhiêu năm chống xâm lược Mông–Nguyên?",
+      "options": [
+        "10 năm",
+        "20 năm",
+        "30 năm",
+        "50 năm"
+      ],
+      "correct": 2,
+      "explanation": "Từ lần xâm lược đầu tiên năm 1258 đến chiến thắng Bạch Đằng 1288 là 30 năm Đại Việt chống trả đế chế Mông–Nguyên."
+    },
+    {
+      "id": "q4",
+      "question": "Tướng nào của quân Nguyên bị bắt sống trong trận này?",
+      "options": [
+        "Thoát Hoan",
+        "Ô Mã Nhi",
+        "Hốt Tất Liệt",
+        "Toa Đô"
+      ],
+      "correct": 1,
+      "explanation": "Ô Mã Nhi — chỉ huy thủy quân Nguyên — bị bắt sống khi chiến thuyền mắc cạn trên bãi cọc."
+    }
+  ],
+  "story": {
+    "templateType": "battle",
+    "beats": [
+      {
+        "type": "hook",
+        "title": "Khoảnh Khắc",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Khi thủy triều rút, cả đạo thủy quân Nguyên rơi vào chiếc bẫy không thể thoát. Hàng ngàn cọc gỗ nhọn bọc sắt nhô lên từ lòng sông, đâm xuyên thân thuyền. Quân Đại Việt đổ ra từ hai bờ. Đó là ngày sông Bạch Đằng nhuộm máu — và 30 năm kháng chiến chống Mông–Nguyên kết thúc."
+          },
+          {
+            "type": "image",
+            "image": "/images/generated/bach-dang-1288-hero.png",
+            "caption": "Trận Bạch Đằng 1288 — chiến thuyền Nguyên mắc cạn trên bãi cọc ngầm"
+          },
+          {
+            "type": "quote",
+            "quote": "Khi thủy triều rút, cả đạo thủy quân Nguyên rơi vào chiếc bẫy không thể thoát.",
+            "source": "Đại Việt sử ký toàn thư"
+          }
+        ]
+      },
+      {
+        "type": "setup",
+        "title": "Bối Cảnh",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Năm 1287, nhà Nguyên — đế chế quân sự hùng mạnh nhất thế giới — phát động cuộc xâm lược Đại Việt lần thứ 3. Thoát Hoan dẫn 30 vạn quân bộ, Ô Mã Nhi chỉ huy đạo thủy quân hùng hậu từ biển vào."
+          },
+          {
+            "type": "text",
+            "body": "Nhưng Đại Việt đã hai lần đẩy lùi quân Nguyên (1258 và 1285). Trần Hưng Đạo — tác giả bản \"Hịch tướng sĩ\" bất hủ — đã chuẩn bị cho trận quyết chiến cuối cùng này trong nhiều năm."
+          },
+          {
+            "type": "quick-facts",
+            "title": "Dữ kiện nhanh",
+            "items": [
+              {
+                "label": "Năm",
+                "value": "1288"
+              },
+              {
+                "label": "Chiến trường",
+                "value": "Sông Bạch Đằng"
+              },
+              {
+                "label": "Chỉ huy Đại Việt",
+                "value": "Trần Hưng Đạo"
+              },
+              {
+                "label": "Đối thủ",
+                "value": "Quân Nguyên – Mông"
+              },
+              {
+                "label": "Vũ khí bí mật",
+                "value": "Bãi cọc ngầm bọc sắt"
+              },
+              {
+                "label": "Kết quả",
+                "value": "Đại Việt chiến thắng"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rising",
+        "title": "Diễn Biến",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Đầu năm 1288, Trần Khánh Dư phục kích đoàn thuyền lương Nguyên tại Vân Đồn, cắt đứt nguồn tiếp tế. Quân Nguyên lâm vào thế đói kém, buộc phải rút quân theo đường sông Bạch Đằng."
+          },
+          {
+            "type": "text",
+            "body": "Trần Hưng Đạo đã lường trước: ông cho đóng hàng ngàn cọc gỗ lim, đầu bọc sắt nhọn, cắm ngầm dưới lòng sông tại đoạn thủy triều lên xuống mạnh nhất. Khi nước lên — cọc chìm, vô hình. Khi nước rút — cọc nhô lên như hàm răng sắt."
+          },
+          {
+            "type": "text",
+            "body": "Ông bố trí quân nhẹ giả thua, dẫn toàn bộ hạm đội Nguyên vượt qua bãi cọc khi thủy triều đang lên. Mọi thứ đã sẵn sàng — chỉ chờ nước rút."
+          }
+        ]
+      },
+      {
+        "type": "climax",
+        "title": "Cao Trào",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Ngày 9 tháng 4 năm 1288. Thủy triều bắt đầu rút. Chiến thuyền Nguyên bị mắc cạn. Cọc gỗ nhô lên đâm xuyên thân tàu. Quân Nguyên hoảng loạn — không thể tiến, không thể lui."
+          },
+          {
+            "type": "text",
+            "body": "Trần Hưng Đạo ra lệnh tổng tấn công. Quân Đại Việt đổ ra từ hai bên bờ sông, dùng hỏa công thiêu thuyền giặc. Ô Mã Nhi bị bắt sống. Hàng trăm chiến thuyền bị phá hủy. Sông Bạch Đằng biến thành mồ chôn đạo quân viễn chinh hùng mạnh nhất thời đại."
+          },
+          {
+            "type": "quote",
+            "quote": "Thuỷ triều rút, cọc nhô lên, thuyền giặc vỡ tan — 30 năm chống Mông–Nguyên kết thúc trong một buổi chiều.",
+            "source": "Việt sử lược"
+          }
+        ]
+      },
+      {
+        "type": "falling",
+        "title": "Hệ Quả",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Mất toàn bộ thủy quân, Thoát Hoan buộc phải rút đại quân về nước theo đường bộ — bị quân Đại Việt truy kích suốt đường rút."
+          },
+          {
+            "type": "text",
+            "body": "Nhà Nguyên từ bỏ tham vọng chinh phục Đại Việt mãi mãi. Đại Việt dưới triều Trần bước vào thời kỳ thịnh vượng, trở thành một trong những quốc gia hùng mạnh nhất khu vực."
+          }
+        ]
+      },
+      {
+        "type": "takeaway",
+        "title": "Bài Học",
+        "blocks": [
+          {
+            "type": "text",
+            "body": "Chiến thắng Bạch Đằng 1288 dạy rằng: trí tuệ chiến lược thắng sức mạnh quân sự. Trần Hưng Đạo không có quân số vượt trội — ông có hiểu biết sâu sắc về thủy triều, lòng sông, tâm lý đối thủ, và thời cơ."
+          },
+          {
+            "type": "text",
+            "body": "Đại Việt — một quốc gia nhỏ bé — đã 3 lần đánh bại đế chế Mông Cổ, điều mà hầu hết các quốc gia trên thế giới thời đó không làm được. Bí quyết nằm ở: tinh thần đoàn kết, am hiểu quê hương, và nghệ thuật dùng binh."
+          }
+        ]
+      }
+    ]
+  }
+}
