@@ -13,6 +13,8 @@ class UserPage(Base):
     id: Mapped[UUID] = mapped_column(PgUUID(as_uuid=True), primary_key=True)
     user_id: Mapped[UUID] = mapped_column(PgUUID(as_uuid=True))
     title: Mapped[str] = mapped_column(String)
+    flow_type: Mapped[str] = mapped_column(String)
+    template_key: Mapped[str | None] = mapped_column(String)
     status: Mapped[str] = mapped_column(String)
 
 
@@ -22,4 +24,3 @@ class UserPageVersion(Base):
     id: Mapped[UUID] = mapped_column(PgUUID(as_uuid=True), primary_key=True)
     page_id: Mapped[UUID] = mapped_column(PgUUID(as_uuid=True))
     render_payload: Mapped[dict] = mapped_column(JSONB)
-

@@ -9,7 +9,5 @@ class ResearchRequest(BaseModel):
 class ResearchResponse(BaseModel):
     id: str
     title: str
-    content: str
-    sources: list[str]
-    template: str
-
+    status: str | None = None
+    renderPayload: dict | None = None

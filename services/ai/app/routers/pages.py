@@ -14,10 +14,11 @@ router = APIRouter(prefix="/pages", tags=["pages"])
 async def list_pages(
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
+    sourceMode: str | None = Query(default=None, pattern="^(research|creator)$"),
     current_user: CurrentUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db_session),
 ) -> list[dict]:
-    return await PageManager(db).list_pages(current_user.id, limit=limit, offset=offset)
+    return await PageManager(db).list_pages(current_user.id, limit=limit, offset=offset, source_mode=sourceMode)
 
 
 @router.get("/{page_id}")
@@ -30,4 +31,3 @@ async def get_page(
     if page is None:
         raise HTTPException(status_code=404, detail="Page not found")
     return page
-
