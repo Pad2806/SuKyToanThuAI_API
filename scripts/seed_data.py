@@ -3,7 +3,7 @@ import asyncio
 import asyncpg
 
 from seed_core_content import seed_eras, seed_event_grades, seed_events
-from seed_files import database_url, load_details, load_events, load_eras
+from seed_files import database_url, load_details, load_events, load_eras, validate_seed_references
 from seed_learning_content import seed_official_text_units, seed_textbook
 
 
@@ -13,6 +13,7 @@ async def main() -> None:
         eras = load_eras()
         events = load_events()
         details = load_details()
+        validate_seed_references(eras, events)
         await seed_eras(conn, eras)
         await seed_events(conn, events, details)
         await seed_event_grades(conn, events)
@@ -24,4 +25,3 @@ async def main() -> None:
 
 if __name__ == "__main__":
     asyncio.run(main())
-

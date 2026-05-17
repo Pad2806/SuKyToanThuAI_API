@@ -10,15 +10,25 @@ class Settings(BaseSettings):
     database_url: str = Field(
         default="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres"
     )
+    database_pool_size: int = 2
+    database_max_overflow: int = 0
+    database_pool_timeout: int = 10
+    database_pool_recycle_seconds: int = 1800
     jwt_secret_key: str = "change-me-in-production"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 15
     refresh_token_expire_days: int = 7
     redis_url: str = "redis://redis:6379/0"
-    openai_api_key: str = ""
-    openai_base_url: str = "https://api.9router.com/v1"
-    openai_embedding_model: str = "text-embedding-3-small"
-    openai_chat_model: str = "gpt-4o-mini"
+    ai_provider: str = "vertex"
+    google_genai_use_vertexai: bool = True
+    google_cloud_project: str = ""
+    google_cloud_location: str = "us-central1"
+    ai_draft_model: str = "gemini-2.5-pro"
+    ai_fast_model: str = "gemini-2.5-flash"
+    ai_embedding_model: str = "gemini-embedding-001"
+    ai_image_model: str = "imagen-3.0-generate-002"
+    gcs_event_asset_bucket: str = ""
+    gcs_source_bucket: str = ""
 
     @field_validator("database_url")
     @classmethod
@@ -37,4 +47,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-

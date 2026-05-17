@@ -1,10 +1,7 @@
 import asyncio
 import os
-from typing import Any
 
 import asyncpg
-import httpx
-
 from seed_files import database_url
 
 
@@ -25,7 +22,7 @@ async def main() -> None:
             for index, content in enumerate(split_chunks(unit["body"])):
                 chunk_id = await upsert_chunk(conn, document_id, unit, index, content)
                 chunks.append((chunk_id, content))
-        if os.getenv("OPENAI_API_KEY") and chunks:
+        if os.getenv("GOOGLE_CLOUD_PROJECT") and chunks:
             await embed_chunks(conn, chunks)
     finally:
         await conn.close()
@@ -82,7 +79,7 @@ async def upsert_chunk(
 
 
 async def embed_chunks(conn: asyncpg.Connection, chunks: list[tuple[str, str]]) -> None:
-    model = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+    model = os.getenv("AI_EMBEDDING_MODEL", "gemini-embedding-001")
     embeddings = await embed_texts([content for _, content in chunks], model)
     for (chunk_id, _), embedding in zip(chunks, embeddings, strict=False):
         await conn.execute(
@@ -102,15 +99,20 @@ async def embed_chunks(conn: asyncpg.Connection, chunks: list[tuple[str, str]]) 
 
 
 async def embed_texts(texts: list[str], model: str) -> list[list[float]]:
-    async with httpx.AsyncClient(
-        base_url=os.getenv("OPENAI_BASE_URL", "https://api.9router.com/v1").rstrip("/"),
-        headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"},
-        timeout=60.0,
-    ) as client:
-        response = await client.post("/embeddings", json={"model": model, "input": texts})
-        response.raise_for_status()
-        data: dict[str, Any] = response.json()
-        return [item["embedding"] for item in data["data"]]
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(
+        vertexai=True,
+        project=os.environ["GOOGLE_CLOUD_PROJECT"],
+        location=os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"),
+    )
+    response = await client.aio.models.embed_content(
+        model=model,
+        contents=texts,
+        config=types.EmbedContentConfig(output_dimensionality=1024),
+    )
+    return [list(item.values) for item in response.embeddings or []]
 
 
 def split_chunks(value: str, size: int = 1800) -> list[str]:

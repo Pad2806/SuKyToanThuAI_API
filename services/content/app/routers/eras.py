@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.routers.events import list_events
+from app.routers.events import find_events
 from app.routers.mappers import era_from_row
 from common.db.session import get_db_session
 
@@ -25,6 +25,5 @@ async def get_era(slug: str, db: AsyncSession = Depends(get_db_session)) -> dict
     if row is None:
         raise HTTPException(status_code=404, detail="Era not found")
     era = era_from_row(row)
-    era["events"] = await list_events(era=era["slug"], db=db)
+    era["events"] = await find_events(db, era=era["slug"])
     return era
-

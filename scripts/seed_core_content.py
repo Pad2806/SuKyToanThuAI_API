@@ -3,6 +3,7 @@ from typing import Any
 import asyncpg
 
 from seed_files import GRADE_IDS, jsonb
+from seed_quality import seed_event_status
 
 
 async def seed_eras(conn: asyncpg.Connection, eras: list[dict[str, Any]]) -> None:
@@ -42,6 +43,7 @@ async def seed_events(
 ) -> None:
     for event in events:
         merged = {**event, **details.get(event["slug"], {})}
+        merged["status"] = seed_event_status(merged)
         await _upsert_event(conn, merged)
         await seed_story_version(conn, merged)
 
@@ -55,12 +57,13 @@ async def seed_story_version(conn: asyncpg.Connection, event: dict[str, Any]) ->
         """
         INSERT INTO public.event_story_versions
           (event_id, version_number, status, story_json, published_at)
-        VALUES ($1, 1, 'published', $2::jsonb, now())
+        VALUES ($1, 1, $2, $3::jsonb, CASE WHEN $2 = 'published' THEN now() ELSE NULL END)
         ON CONFLICT (event_id, version_number) DO UPDATE SET
-          status='published', story_json=EXCLUDED.story_json,
-          published_at=now(), updated_at=now()
+          status=EXCLUDED.status, story_json=EXCLUDED.story_json,
+          published_at=EXCLUDED.published_at, updated_at=now()
         """,
         event["id"],
+        event["status"],
         jsonb(story),
     )
 
@@ -94,7 +97,7 @@ async def _upsert_event(conn: asyncpg.Connection, event: dict[str, Any]) -> None
            location, actors, opponent, result, theme, template_type,
            related_event_slugs, interactive_data, status)
         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,
-                $17,$18,$19,$20,$21,$22,$23::jsonb,'published')
+                $17,$18,$19,$20,$21,$22,$23::jsonb,$24)
         ON CONFLICT (id) DO UPDATE SET
           slug=EXCLUDED.slug, title=EXCLUDED.title, era_id=EXCLUDED.era_id,
           era_slug=EXCLUDED.era_slug, year=EXCLUDED.year,
@@ -107,7 +110,8 @@ async def _upsert_event(conn: asyncpg.Connection, event: dict[str, Any]) -> None
           result=EXCLUDED.result, theme=EXCLUDED.theme,
           template_type=EXCLUDED.template_type,
           related_event_slugs=EXCLUDED.related_event_slugs,
-          interactive_data=EXCLUDED.interactive_data, updated_at=now()
+          interactive_data=EXCLUDED.interactive_data, status=EXCLUDED.status,
+          updated_at=now()
         """,
         event["id"],
         event["slug"],
@@ -132,5 +136,5 @@ async def _upsert_event(conn: asyncpg.Connection, event: dict[str, Any]) -> None
         event.get("templateType") or event.get("story", {}).get("templateType", "universal"),
         event.get("relatedEventSlugs", []),
         jsonb(interactive),
+        event["status"],
     )
-

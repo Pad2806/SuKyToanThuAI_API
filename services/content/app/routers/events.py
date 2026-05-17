@@ -18,7 +18,26 @@ async def list_events(
     offset: int = Query(default=0, ge=0),
     db: AsyncSession = Depends(get_db_session),
 ) -> list[dict]:
-    where, params = _filters(era=era, grade=grade, event_type=type, featured=featured)
+    return await find_events(
+        db,
+        era=era,
+        grade=grade,
+        event_type=type,
+        featured=featured,
+        limit=limit,
+        offset=offset,
+    )
+
+async def find_events(
+    db: AsyncSession,
+    era: str | None = None,
+    grade: str | None = None,
+    event_type: str | None = None,
+    featured: bool | None = None,
+    limit: int = 100,
+    offset: int = 0,
+) -> list[dict]:
+    where, params = _filters(era=era, grade=grade, event_type=event_type, featured=featured)
     params.update({"limit": limit, "offset": offset})
     result = await db.execute(
         text(
@@ -39,7 +58,7 @@ async def featured_events(
     limit: int = Query(default=20, ge=1, le=100),
     db: AsyncSession = Depends(get_db_session),
 ) -> list[dict]:
-    return await list_events(featured=True, limit=limit, db=db)
+    return await find_events(db, featured=True, limit=limit, offset=0)
 
 
 @router.get("/{slug}")
@@ -125,4 +144,3 @@ def _filters(
         clauses.append("e.featured = :featured")
         params["featured"] = featured
     return " AND ".join(clauses), params
-

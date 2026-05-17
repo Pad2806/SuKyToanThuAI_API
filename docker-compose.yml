@@ -51,6 +51,7 @@ services:
     volumes:
       - ./services/content/app:/app/app
       - ./shared:/app/shared
+      - ./secrets:/app/secrets:ro
     ports:
       - "8002:8000"
     depends_on:

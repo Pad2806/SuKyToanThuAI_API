@@ -2,8 +2,8 @@
   "id": "event-bach-dang-1288",
   "slug": "chien-thang-bach-dang-1288",
   "title": "Chiến thắng Bạch Đằng năm 1288",
-  "eraId": "era-dai-viet",
-  "eraSlug": "nha-tran",
+  "eraId": "era-tran",
+  "eraSlug": "tran",
   "year": 1288,
   "gradeTags": [
     "THCS",
@@ -67,7 +67,7 @@
       "month": "Cuối năm",
       "title": "Quân Nguyên tiến vào Đại Việt",
       "description": "Thoát Hoan dẫn 30 vạn quân, Ô Mã Nhi chỉ huy đạo thủy quân từ biển tiến vào sông Bạch Đằng.",
-      "icon": "⚔️",
+      "icon": "âš”ï¸",
       "mood": "tense"
     },
     {
@@ -76,7 +76,7 @@
       "month": "Tháng 1",
       "title": "Trần Khánh Dư chặn lương ở Vân Đồn",
       "description": "Đoàn thuyền lương bị phục kích tại Vân Đồn. Quân Nguyên mất nguồn tiếp tế chiến lược.",
-      "icon": "🚢",
+      "icon": "ðŸš¢",
       "mood": "rising"
     },
     {
@@ -85,7 +85,7 @@
       "month": "Tháng 2",
       "title": "Quân Đại Việt chuẩn bị trận địa cọc ngầm",
       "description": "Trần Hưng Đạo cho đóng hàng ngàn cọc gỗ lim bọc sắt dưới lòng sông Bạch Đằng ở đoạn nước sâu, triều lên cao.",
-      "icon": "🪵",
+      "icon": "ðŸªµ",
       "mood": "preparation"
     },
     {
@@ -94,7 +94,7 @@
       "month": "Tháng 3",
       "title": "Thủy triều lên, cọc chìm dưới nước",
       "description": "Khi triều lên, bãi cọc vô hình. Quân Đại Việt giả thua dụ chiến thuyền Nguyên tiến sâu vào trận địa.",
-      "icon": "🌊",
+      "icon": "ðŸŒŠ",
       "mood": "tension"
     },
     {
@@ -103,7 +103,7 @@
       "month": "Ngày 9/4",
       "title": "Thủy triều rút — cọc gỗ lộ ra",
       "description": "Khi triều rút, hàng ngàn cọc nhọn nhô lên. Chiến thuyền Nguyên bị đâm thủng, mắc cạn, không thể tiến hay lui.",
-      "icon": "⬇️",
+      "icon": "â¬‡ï¸",
       "mood": "climax"
     },
     {
@@ -112,7 +112,7 @@
       "month": "Ngày 9/4",
       "title": "Đại Việt phản công toàn diện",
       "description": "Quân Đại Việt tổng tấn công từ hai bên bờ sông. Ô Mã Nhi bị bắt sống. Đạo thủy quân Nguyên bị tiêu diệt hoàn toàn.",
-      "icon": "🏆",
+      "icon": "ðŸ†",
       "mood": "victory"
     }
   ],
@@ -420,3 +420,4 @@
     ]
   }
 }
+
