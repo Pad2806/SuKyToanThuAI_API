@@ -10,15 +10,33 @@ class Settings(BaseSettings):
     database_url: str = Field(
         default="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres"
     )
+    database_pool_size: int = 2
+    database_max_overflow: int = 0
+    database_pool_timeout: int = 10
+    database_pool_recycle_seconds: int = 1800
     jwt_secret_key: str = "change-me-in-production"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 15
     refresh_token_expire_days: int = 7
     redis_url: str = "redis://redis:6379/0"
-    openai_api_key: str = ""
-    openai_base_url: str = "https://api.9router.com/v1"
-    openai_embedding_model: str = "text-embedding-3-small"
-    openai_chat_model: str = "gpt-4o-mini"
+    # Groq (keyword extraction — free)
+    groq_api_key: str = ""
+    groq_model: str = "llama-3.3-70b-versatile"
+    
+    # Google AI
+    google_api_key: str = ""
+    google_project_id: str = ""
+    google_location: str = "us-central1"
+    gemini_model: str = "gemini-2.5-flash"
+    vertex_gemini_model: str = "gemini-2.5-flash"
+    imagen_model: str = "imagen-3.0-generate-001"
+    imagen_backup_models: str = ""
+    image_backup_provider: str = "gemini,gemini_studio"
+    gemini_image_model: str = "gemini-2.5-flash-image"
+    gemini_image_location: str = "global"
+    # Google AI Studio (separate quota pool from Vertex AI)
+    gemini_studio_api_key: str = ""
+    gemini_studio_image_model: str = "gemini-2.5-flash-preview-05-20"
 
     @field_validator("database_url")
     @classmethod
@@ -37,4 +55,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-
