@@ -1,4 +1,18 @@
 import json
+import uuid as _uuid
+
+
+def _safe_uuid(val) -> str | None:
+    """Return val as string if it's a valid UUID, else None."""
+    if val is None:
+        return None
+    s = str(val)
+    try:
+        _uuid.UUID(s)
+        return s
+    except (ValueError, AttributeError):
+        NAMESPACE_SUKY = _uuid.UUID('12345678-1234-5678-1234-567812345678')
+        return str(_uuid.uuid5(NAMESPACE_SUKY, s))
 
 
 def page_summary(row) -> dict:
@@ -18,8 +32,22 @@ def page_summary(row) -> dict:
 
 
 def page_detail(row) -> dict:
+    # detail = page_summary(row)
+    # detail["renderPayload"] = row["render_payload"] or {}
+    from app.generation.story_event_normalizer import normalize_story_event_payload
+
     detail = page_summary(row)
-    detail["renderPayload"] = row["render_payload"] or {}
+    payload = row["render_payload"] or {}
+    event_data = payload.get("eventData") or {}
+    if event_data:
+        payload = normalize_story_event_payload(
+            payload,
+            event_data.get("title") or row["title"],
+            row["template_key"] or event_data.get("type") or "universal",
+            row["flow_type"],
+            (row["source_payload"] or {}).get("sourceMode") or payload.get("sourceMode") or "research",
+        )
+    detail["renderPayload"] = payload
     return detail
 
 

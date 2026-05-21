@@ -28,6 +28,24 @@ class Settings(BaseSettings):
     ai_embedding_model: str = "gemini-embedding-001"
     ai_image_model: str = "imagen-3.0-generate-002"
 
+    # Groq (keyword extraction — free)
+    groq_api_key: str = ""
+    groq_model: str = "llama-3.3-70b-versatile"
+    
+    # Google AI
+    google_api_key: str = ""
+    google_project_id: str = ""
+    google_location: str = "us-central1"
+    gemini_model: str = "gemini-2.5-flash"
+    vertex_gemini_model: str = "gemini-2.5-flash"
+    imagen_model: str = "imagen-3.0-generate-001"
+    imagen_backup_models: str = ""
+    image_backup_provider: str = "gemini,gemini_studio"
+    gemini_image_model: str = "gemini-2.5-flash-image"
+    gemini_image_location: str = "global"
+    # Google AI Studio (separate quota pool from Vertex AI)
+    gemini_studio_api_key: str = ""
+    gemini_studio_image_model: str = "gemini-2.5-flash-preview-05-20"
 
     @field_validator("database_url")
     @classmethod

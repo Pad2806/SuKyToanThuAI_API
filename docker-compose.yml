@@ -81,6 +81,7 @@ services:
     volumes:
       - ./services/ai/app:/app/app
       - ./shared:/app/shared
+      - ./static:/app/static
     ports:
       - "8003:8000"
     depends_on:

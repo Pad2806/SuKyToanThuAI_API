@@ -2,6 +2,7 @@ import re
 from typing import Any
 
 from app.generation.image_prompt_builder import build_image_assets
+from app.generation.research_llm_transform import llm_transform_research
 from app.generation.story_event_normalizer import normalize_story_event_payload
 from app.rag.retriever import ChunkResult
 from app.workspace.story_event_payload import story_event_shell
@@ -41,10 +42,61 @@ def payload_from_creator(parsed: dict[str, Any], template_key: str, coverage: di
 def payload_from_research(query: str, chunks: list[ChunkResult], template_key: str) -> dict[str, Any]:
     content = "\n".join(chunk.content[:900] for chunk in chunks)
     parsed = parse_creator_content(f"Tiêu đề: {query}\n{content}", template_key)
+def _clean_query(query: str) -> str:
+    """Strip command-like prefixes from user queries to produce a clean title."""
+    q = query.strip()
+    # Remove common command prefixes (case-insensitive Vietnamese)
+    prefixes = [
+        r"^tạo\s+trang\s+(về\s+)?",
+        r"^tạo\s+(về\s+)?",
+        r"^viết\s+(về\s+)?",
+        r"^tóm\s+tắt\s+(về\s+)?",
+        r"^cho\s+tôi\s+(biết\s+)?(về\s+)?",
+        r"^tìm\s+hiểu\s+(về\s+)?",
+        r"^nghiên\s+cứu\s+(về\s+)?",
+        r"^phân\s+tích\s+(về\s+)?",
+        r"^hãy\s+",
+        r"^giới\s+thiệu\s+(về\s+)?",
+    ]
+    for pattern in prefixes:
+        q = re.sub(pattern, "", q, flags=re.IGNORECASE).strip()
+    # Capitalize first letter
+    return q[0].upper() + q[1:] if q else query
+
+
+def payload_from_research_regex(query: str, chunks: list[ChunkResult], template_key: str) -> dict[str, Any]:
+    clean_title = _clean_query(query)
+    content = "\n".join(chunk.content[:900] for chunk in chunks)
+    parsed = parse_creator_content(f"{clean_title}\n{content}", template_key)
     coverage = {"missing": [], "omittedSections": [], "userAcceptedMissing": False}
     payload = _payload_from_parsed(parsed, template_key, "system_data", "research", coverage)
     payload["citations"] = [_citation(chunk) for chunk in chunks]
     return payload
+
+
+async def payload_from_research(query: str, chunks: list[ChunkResult], template_key: str) -> dict[str, Any]:
+    # Clean user query for professional title
+    clean_q = _clean_query(query)
+    # Try LLM first
+    llm_result = await llm_transform_research(clean_q, chunks, template_key)
+    if llm_result:
+        # Sanitize LLM output
+        llm_result = _sanitize_parsed(llm_result)
+
+        # Create a shell payload
+        payload = story_event_shell(llm_result["title"], template_key, "system_data", "research", llm_result.get("summary") or "")
+        
+        # Merge LLM result into eventData
+        payload["eventData"].update(llm_result)
+        
+        # Keep coverage and citations
+        payload["coverageReport"] = {"missing": [], "omittedSections": [], "userAcceptedMissing": False}
+        payload["citations"] = [_citation(chunk) for chunk in chunks]
+        
+        return normalize_story_event_payload(payload, llm_result["title"], template_key, "system_data", "research")
+        
+    # Fallback to regex parser
+    return payload_from_research_regex(query, chunks, template_key)
 
 
 def _payload_from_parsed(parsed: dict[str, Any], template_key: str, flow_type: str, source_mode: str, coverage: dict[str, Any]) -> dict[str, Any]:
@@ -82,9 +134,29 @@ def _beats(parsed: dict[str, Any], omitted: set[str]) -> list[dict[str, Any]]:
 
 
 def _climax_scene(parsed: dict[str, Any]) -> dict[str, Any] | None:
-    if not parsed.get("climax"):
+    # if not parsed.get("climax"):
+    #     return None
+    # return {"title": "Khoảnh khắc trọng tâm", "backgroundImage": "/images/generated/parchment.png", "phases": [{"id": "phase-1", "label": "Trọng tâm", "summary": parsed["climax"][:120], "description": parsed["climax"]}], "hotspots": []}
+    # """Build climaxScene from AI-generated data with multi-phase support."""
+    scene = parsed.get("climaxScene")
+    if scene and isinstance(scene, dict) and scene.get("phases"):
+        # AI returned a full climaxScene object — use it directly
+        return {
+            "title": scene.get("title") or "Khoảnh khắc trọng tâm",
+            "backgroundImage": scene.get("backgroundImage"),
+            "phases": scene["phases"][:3],  # Max 3 phases
+            "hotspots": scene.get("hotspots") or [],
+        }
+    # Fallback: wrap single climax text into one phase
+    climax_text = parsed.get("climax")
+    if not climax_text:
         return None
-    return {"title": "Khoảnh khắc trọng tâm", "backgroundImage": "/images/generated/parchment.png", "phases": [{"id": "phase-1", "label": "Trọng tâm", "summary": parsed["climax"][:120], "description": parsed["climax"]}], "hotspots": []}
+    return {
+        "title": "Khoảnh khắc trọng tâm",
+        "backgroundImage": None,
+        "phases": [{"id": "phase-1", "label": "Trọng tâm", "summary": climax_text[:120], "description": climax_text}],
+        "hotspots": [],
+    }
 
 
 def _aftermath(parsed: dict[str, Any]) -> dict[str, Any] | None:
@@ -134,3 +206,45 @@ def _split(value: str | None) -> list[str]:
 
 def _slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "character"
+
+
+# ── Text sanitization ────────────────────────────────────────────
+
+_LABEL_PREFIXES = re.compile(
+    r'^["\']?\s*(?:Tiêu đề|Khoảnh Khắc|Sự kiện|Tóm tắt|Mô tả|Bối cảnh)\s*[:：]\s*',
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _strip_label(text: str | None) -> str | None:
+    """Remove label prefixes like 'Tiêu đề:' from text."""
+    if not text:
+        return text
+    return _LABEL_PREFIXES.sub('', text).strip()
+
+
+def _sanitize_parsed(parsed: dict[str, Any]) -> dict[str, Any]:
+    """Strip label prefixes from all user-facing text fields."""
+    for key in ('title', 'summary', 'excerpt', 'climax', 'aftermath', 'result'):
+        if isinstance(parsed.get(key), str):
+            parsed[key] = _strip_label(parsed[key])
+
+    # Clean actors — should be short names, not sentences
+    if isinstance(parsed.get('actors'), list):
+        parsed['actors'] = [a for a in parsed['actors'] if len(a) < 40]
+
+    # Clean characters
+    for char in parsed.get('characters', []):
+        if isinstance(char, dict):
+            for field in ('name', 'bio', 'role'):
+                if isinstance(char.get(field), str):
+                    char[field] = _strip_label(char[field])
+
+    # Clean takeaway
+    tw = parsed.get('takeaway')
+    if isinstance(tw, dict):
+        for field in ('happened', 'whyItMatters', 'lesson'):
+            if isinstance(tw.get(field), str):
+                tw[field] = _strip_label(tw[field])
+
+    return parsed

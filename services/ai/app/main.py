@@ -1,7 +1,9 @@
 from datetime import UTC, datetime
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.routers import creator, pages, research
 
@@ -14,6 +16,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve AI-generated images as static files (under /ai-generated/ to avoid conflict with frontend public/images/)
+static_dir = os.path.join(os.getcwd(), "static", "images", "generated")
+os.makedirs(static_dir, exist_ok=True)
+app.mount("/ai-generated", StaticFiles(directory=static_dir), name="generated-images")
 
 
 @app.get("/")
