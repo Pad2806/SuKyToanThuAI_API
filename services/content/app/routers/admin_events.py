@@ -11,11 +11,11 @@ from app.schemas.admin_events import (
     EventFactsUpdate,
     EventStatus,
     InteractionsUpdate,
+    LessonAssign,
     StoryUpdate,
 )
 from app.services import admin_asset_repository as assets
 from app.services import admin_event_repository as repo
-from app.services.event_asset_slots import slot_templates
 from app.services.story_event_normalizer import normalize_story
 from common.auth.dependencies import CurrentUser, require_admin
 from common.db.session import get_db_session
@@ -36,7 +36,7 @@ async def get_options(
     db: AsyncSession = Depends(get_db_session),
     _: CurrentUser = Depends(require_admin),
 ) -> dict:
-    return {**await repo.list_admin_options(db), "slotTemplates": slot_templates()}
+    return await repo.list_admin_options(db)
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
@@ -82,10 +82,12 @@ async def get_event(
 ) -> dict:
     event = await _require_event(db, event_id)
     story = await repo.get_latest_story(db, event["id"])
+    lesson = await repo.get_event_lesson(db, event["id"])
     return {
         "event": event,
         "story": story,
         "assets": await assets.list_asset_slots(db, event["id"]),
+        "lesson": lesson,
     }
 
 
@@ -184,6 +186,23 @@ async def review_asset_slot(
     except ValueError as exc:
         await db.rollback()
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.patch("/{event_id}/lesson")
+async def assign_lesson(
+    event_id: str,
+    payload: LessonAssign,
+    db: AsyncSession = Depends(get_db_session),
+    _: CurrentUser = Depends(require_admin),
+) -> dict:
+    event = await _require_event(db, event_id)
+    try:
+        result = await repo.assign_event_lesson(db, event["id"], payload.lesson_id)
+        await db.commit()
+        return {"lesson": result}
+    except ValueError as exc:
+        await db.rollback()
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 async def _require_event(db: AsyncSession, event_id: str) -> dict:

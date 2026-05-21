@@ -8,10 +8,10 @@ from app.schemas.admin_events import DraftRequest
 from app.services import admin_asset_repository as assets
 from app.services import admin_event_repository as events
 from app.services.admin_draft_generator import AdminDraftGenerator
-from app.services.event_asset_slots import required_slots
+from app.services.event_asset_slots import expand_slots_for_event, required_slots
 from app.services.event_publication_service import archive, publish, quality_report, submit_review
-from app.services.gcs_asset_store import GcsAssetStore
-from app.services.image_prompt_service import build_prompt
+from app.services.local_asset_store import LocalAssetStore
+from app.services.image_prompt_service import build_image_request, build_image_request_attempts, is_people_safety_block
 from app.services.imagen_client import ImagenClient
 from common.auth.dependencies import CurrentUser, require_admin
 from common.db.session import get_db_session
@@ -106,7 +106,7 @@ async def ensure_asset_slots(
     event = await _require_event(db, event_id)
     _ensure_editable(event)
     rows = []
-    for slot in required_slots(event.get("template_type")):
+    for slot in _expand_character_slots(event, await required_slots(db, event.get("template_type"))):
         rows.append(await assets.upsert_asset_slot(db, event["id"], slot))
     await db.commit()
     return rows
@@ -120,13 +120,28 @@ async def generate_asset_prompts(
 ) -> list[dict]:
     event = await _require_event(db, event_id)
     _ensure_editable(event)
+    prompt_event = await _event_with_latest_story(db, event)
     rows = await assets.list_asset_slots(db, event["id"])
     updates = []
     for slot in rows:
         if slot["status"] == "approved":
             continue
-        prompt = build_prompt(event, slot)
-        updates.append(await assets.update_asset_slot(db, event["id"], slot["id"], {"prompt": prompt, "status": "prompted"}))
+        try:
+            image_request = build_image_request(prompt_event, slot)
+        except ValueError as exc:
+            updates.append(await assets.update_asset_slot(
+                db,
+                event["id"],
+                slot["id"],
+                {"status": "rejected", "review_notes": str(exc), "image_url": "", "gcs_uri": ""},
+            ))
+            continue
+        updates.append(await assets.update_asset_slot(
+            db,
+            event["id"],
+            slot["id"],
+            {"prompt": image_request["prompt"], "status": "prompted", "image_url": "", "gcs_uri": ""},
+        ))
     await db.commit()
     return updates
 
@@ -146,10 +161,15 @@ async def generate_asset_image(
     if slot["status"] == "approved":
         raise HTTPException(status_code=409, detail="Approved assets cannot be regenerated")
     try:
-        prompt = slot.get("prompt") or build_prompt(event, slot)
-        raw = await ImagenClient().generate_image(prompt)
-        stored = GcsAssetStore().save_image(raw, event["id"], slot["slot_key"])
-        row = await assets.update_asset_slot(db, event["id"], slot_id, {**stored, "prompt": prompt, "status": "generated"})
+        prompt_event = await _event_with_latest_story(db, event)
+        image_request, raw = await _generate_with_safe_prompt_fallback(prompt_event, slot)
+        stored = LocalAssetStore().save_image(raw, event["id"], slot["slot_key"])
+        row = await assets.update_asset_slot(
+            db,
+            event["id"],
+            slot_id,
+            {**stored, "prompt": image_request["prompt"], "status": "generated"},
+        )
         await db.commit()
         return row
     except RuntimeError as exc:
@@ -173,9 +193,38 @@ def _ensure_editable(event: dict) -> None:
         raise HTTPException(status_code=409, detail="Event is not editable")
 
 
+async def _event_with_latest_story(db: AsyncSession, event: dict) -> dict:
+    story = await events.get_latest_story(db, event["id"])
+    story_json = (story or {}).get("story_json")
+    return {**event, "story_json": story_json} if story_json else event
+
+
 async def _list_sources(db: AsyncSession, event_id: str) -> list[dict]:
     result = await db.execute(
         text("SELECT * FROM public.rag_source_documents WHERE source_ref_type = 'admin_event_source' AND source_ref_id = :event_id AND status = 'ready'"),
         {"event_id": event_id},
     )
     return [dict(row) for row in result.mappings().all()]
+
+def _expand_character_slots(event: dict, slots: list[dict]) -> list[dict]:
+    return expand_slots_for_event(event, slots)
+
+async def _generate_with_safe_prompt_fallback(event: dict, slot: dict) -> tuple[dict, bytes]:
+    imagen = ImagenClient()
+    attempts = build_image_request_attempts(event, slot)
+    last_error: RuntimeError | None = None
+    for index, image_request in enumerate(attempts):
+        try:
+            raw = await imagen.generate_image(
+                image_request["prompt"],
+                negative_prompt=image_request["negative_prompt"],
+                person_generation=image_request["person_generation"],
+                enhance_prompt=image_request["enhance_prompt"],
+                aspect_ratio=image_request["aspect_ratio"],
+            )
+            return image_request, raw
+        except RuntimeError as exc:
+            last_error = exc
+            if index == len(attempts) - 1 or not is_people_safety_block(exc):
+                raise
+    raise last_error or RuntimeError("Imagen generation failed")

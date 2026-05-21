@@ -6,6 +6,14 @@ from seed_files import GRADE_IDS
 
 
 async def seed_textbook(conn: asyncpg.Connection, events: list[dict[str, Any]]) -> None:
+    # Skip if migration 009 already seeded detailed textbook data
+    count = await conn.fetchval(
+        "SELECT COUNT(*) FROM public.textbook_parts WHERE id LIKE 'p-%'"
+    )
+    if count and count > 0:
+        print(f"  ⏭  Textbook parts already seeded by migration ({count} parts), skipping legacy seed.")
+        return
+
     for tag, grade_id in GRADE_IDS.items():
         part_id = f"part-{tag.lower()}"
         await conn.execute(

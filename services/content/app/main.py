@@ -4,8 +4,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import admin_events, admin_sources, admin_workflow, eras, events, grades, internal, search, textbook
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI(title="SuKyAI Content Service", version="0.1.0")
+
+static_dir = os.environ.get("ASSET_STORAGE_PATH", os.path.join(os.path.dirname(__file__), "static"))
+os.makedirs(static_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 app.add_middleware(
     CORSMiddleware,

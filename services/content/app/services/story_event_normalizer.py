@@ -66,5 +66,13 @@ def _normalize_beat(beat: Any) -> dict[str, Any] | None:
     return {
         "type": beat["type"],
         "title": str(beat.get("title") or beat["type"]).strip(),
-        "blocks": [block for block in blocks if isinstance(block, dict)],
+        "blocks": [_normalize_block(block) for block in blocks if isinstance(block, dict)],
     }
+
+def _normalize_block(block: dict[str, Any]) -> dict[str, Any]:
+    next_block = dict(block)
+    if not next_block.get("body") and next_block.get("text"):
+        next_block["body"] = next_block["text"]
+    if not next_block.get("body") and next_block.get("description"):
+        next_block["body"] = next_block["description"]
+    return next_block

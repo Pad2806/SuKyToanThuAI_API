@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services import admin_asset_repository as assets
 from app.services import admin_event_repository as events
+from app.services.event_asset_slots import get_admin_template
 from app.services.event_quality_gate import validate_event_quality
 
 
@@ -15,12 +16,14 @@ async def quality_report(db: AsyncSession, event_id: str, sources: list[dict[str
         raise ValueError("Event not found")
     story = await events.get_latest_story(db, event["id"])
     slot_rows = await assets.list_asset_slots(db, event["id"])
+    template = await get_admin_template(db, event.get("template_type"))
     return validate_event_quality(
         event,
         story["story_json"] if story else None,
         slot_rows,
         sources,
         story.get("generation_metadata") if story else None,
+        template,
     )
 
 
@@ -31,12 +34,14 @@ async def submit_review(db: AsyncSession, event_id: str, sources: list[dict[str,
     story = await events.get_latest_story(db, event["id"])
     if story is None:
         raise ValueError("Story draft is required")
+    template = await get_admin_template(db, event.get("template_type"))
     report = validate_event_quality(
         event,
         story["story_json"],
         await assets.list_asset_slots(db, event["id"]),
         sources,
         story.get("generation_metadata") or {},
+        template,
     )
     missing = [key for key in ("facts", "story", "sources", "citations") if not report["requirements"].get(key)]
     if missing:
@@ -54,12 +59,14 @@ async def publish(db: AsyncSession, event_id: str, sources: list[dict[str, Any]]
     if story is None:
         raise ValueError("Story draft is required")
     slot_rows = await assets.list_asset_slots(db, event["id"])
+    template = await get_admin_template(db, event.get("template_type"))
     report = validate_event_quality(
         event,
         story["story_json"],
         slot_rows,
         sources,
         story.get("generation_metadata") or {},
+        template,
     )
     if not report["passed"]:
         return {"status": "blocked", "quality": report}

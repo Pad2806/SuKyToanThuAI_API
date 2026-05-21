@@ -6,6 +6,5 @@ pydantic-settings>=2.6.0
 redis>=5.2.0
 python-jose[cryptography]>=3.3.0
 google-genai>=1.33.0
-google-cloud-storage>=2.18.0
 pypdf>=5.1.0
 python-multipart>=0.0.17

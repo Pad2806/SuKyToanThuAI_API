@@ -81,6 +81,10 @@ class AssetReview(CamelModel):
     review_notes: str | None = None
 
 
+class LessonAssign(CamelModel):
+    lesson_id: str | None = None
+
+
 class SourceImportRequest(CamelModel):
     title: str = Field(min_length=2, max_length=240)
     text: str | None = None

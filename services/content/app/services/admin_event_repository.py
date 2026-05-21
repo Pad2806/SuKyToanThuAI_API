@@ -3,6 +3,8 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.services.event_asset_slots import list_admin_templates, slot_templates
+
 EVENT_COLUMNS = """
 id, slug, title, era_id, era_slug, year, start_year, end_year, grade_tags,
 type, featured, summary, excerpt, image, fallback_image, location, actors,
@@ -33,11 +35,119 @@ async def list_admin_options(db: AsyncSession) -> dict[str, Any]:
             """
         )
     )
+    templates = await list_admin_templates(db)
+    event_types = sorted({item.get("eventType") or "other" for item in templates})
+    grades_with_textbook = await _load_grades_with_textbook(db)
     return {
         "eras": [dict(row) for row in eras.mappings().all()],
-        "eventTypes": ["battle", "dynasty", "movement", "culture", "diplomacy", "other"],
-        "templateTypes": ["universal", "battle", "dynasty", "movement", "culture", "diplomacy"],
+        "eventTypes": event_types or ["other"],
+        "templateTypes": [item["templateType"] for item in templates],
+        "templates": templates,
+        "slotTemplates": slot_templates(templates),
+        "grades": grades_with_textbook,
     }
+
+
+async def _load_grades_with_textbook(db: AsyncSession) -> list[dict[str, Any]]:
+    """Load all grades with their textbook parts and lessons for admin dropdowns."""
+    grade_rows = await db.execute(
+        text("SELECT id, tag, label, order_index FROM public.grades ORDER BY order_index ASC")
+    )
+    grades = [dict(row) for row in grade_rows.mappings().all()]
+
+    part_rows = await db.execute(
+        text(
+            """
+            SELECT p.id, p.grade_id, p.part_number, p.title, p.order_index,
+                   l.id AS lesson_id, l.lesson_number, l.title AS lesson_title,
+                   l.order_index AS lesson_order, l.event_id
+            FROM public.textbook_parts p
+            LEFT JOIN public.textbook_lessons l ON l.part_id = p.id
+            ORDER BY p.order_index ASC, l.order_index ASC
+            """
+        )
+    )
+
+    parts_by_grade: dict[str, dict[str, dict]] = {}
+    for row in part_rows.mappings().all():
+        row = dict(row)
+        grade_id = row["grade_id"]
+        part_id = row["id"]
+        grade_parts = parts_by_grade.setdefault(grade_id, {})
+        part = grade_parts.setdefault(part_id, {
+            "id": part_id,
+            "partNumber": row["part_number"],
+            "title": row["title"],
+            "lessons": [],
+        })
+        if row["lesson_id"]:
+            part["lessons"].append({
+                "id": row["lesson_id"],
+                "lessonNumber": row["lesson_number"],
+                "title": row["lesson_title"],
+                "eventId": row["event_id"],
+            })
+
+    for grade in grades:
+        grade_parts = parts_by_grade.get(grade["id"], {})
+        grade["parts"] = list(grade_parts.values())
+
+    return grades
+
+
+async def get_event_lesson(db: AsyncSession, event_id: str) -> dict[str, Any] | None:
+    """Find the textbook lesson assigned to an event."""
+    result = await db.execute(
+        text(
+            """
+            SELECT l.id AS lesson_id, l.part_id, l.lesson_number, l.title AS lesson_title,
+                   p.grade_id, p.part_number, p.title AS part_title
+            FROM public.textbook_lessons l
+            JOIN public.textbook_parts p ON p.id = l.part_id
+            WHERE l.event_id = :event_id
+            LIMIT 1
+            """
+        ),
+        {"event_id": event_id},
+    )
+    row = result.mappings().first()
+    if row is None:
+        return None
+    return {
+        "lessonId": row["lesson_id"],
+        "partId": row["part_id"],
+        "gradeId": row["grade_id"],
+        "lessonNumber": row["lesson_number"],
+        "lessonTitle": row["lesson_title"],
+        "partNumber": row["part_number"],
+        "partTitle": row["part_title"],
+    }
+
+
+async def assign_event_lesson(
+    db: AsyncSession, event_id: str, lesson_id: str | None
+) -> dict[str, Any] | None:
+    """Assign or unassign an event to/from a textbook lesson."""
+    # Clear any existing assignment for this event
+    await db.execute(
+        text("UPDATE public.textbook_lessons SET event_id = NULL WHERE event_id = :event_id"),
+        {"event_id": event_id},
+    )
+    if not lesson_id:
+        return None
+    # Verify lesson exists
+    result = await db.execute(
+        text("SELECT id FROM public.textbook_lessons WHERE id = :lesson_id"),
+        {"lesson_id": lesson_id},
+    )
+    if result.scalar_one_or_none() is None:
+        raise ValueError("Lesson not found")
+    # Assign event to lesson
+    await db.execute(
+        text("UPDATE public.textbook_lessons SET event_id = :event_id WHERE id = :lesson_id"),
+        {"event_id": event_id, "lesson_id": lesson_id},
+    )
+    return await get_event_lesson(db, event_id)
 
 
 async def create_event(db: AsyncSession, data: dict[str, Any]) -> dict[str, Any]:
@@ -159,6 +269,7 @@ async def upsert_story(
 ) -> dict[str, Any]:
     await _require_editable_event(db, event_id)
     existing = await get_latest_story(db, event_id)
+    merged_metadata = _merge_generation_metadata(existing, generation_metadata)
     if existing and existing["status"] == "draft":
         result = await db.execute(
             text(
@@ -171,7 +282,7 @@ async def upsert_story(
                 RETURNING *
                 """
             ),
-            {"id": existing["id"], "story": json.dumps(story), "metadata": json.dumps(generation_metadata)},
+            {"id": existing["id"], "story": json.dumps(story), "metadata": json.dumps(merged_metadata)},
         )
         return dict(result.mappings().one())
 
@@ -189,10 +300,19 @@ async def upsert_story(
             "event_id": event_id,
             "version_number": version,
             "story": json.dumps(story),
-            "metadata": json.dumps(generation_metadata),
+            "metadata": json.dumps(merged_metadata),
         },
     )
     return dict(result.mappings().one())
+
+def _merge_generation_metadata(existing: dict[str, Any] | None, incoming: dict[str, Any]) -> dict[str, Any]:
+    current = (existing or {}).get("generation_metadata") or {}
+    merged = {**current, **(incoming or {})}
+    if current.get("citations") and not (incoming or {}).get("citations"):
+        merged["citations"] = current["citations"]
+    if current.get("coverageReport") and not (incoming or {}).get("coverageReport"):
+        merged["coverageReport"] = current["coverageReport"]
+    return merged
 
 
 async def update_interactions(db: AsyncSession, event_id: str, data: dict[str, Any]) -> dict[str, Any]:

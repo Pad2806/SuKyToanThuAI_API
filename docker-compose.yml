@@ -25,6 +25,8 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app/shared
+      - DATABASE_POOL_SIZE=0
+      - DATABASE_MAX_OVERFLOW=0
     volumes:
       - ./services/auth/app:/app/app
       - ./shared:/app/shared
@@ -48,10 +50,14 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app/shared
+      - ASSET_STORAGE_PATH=/app/assets
+      - DATABASE_POOL_SIZE=0
+      - DATABASE_MAX_OVERFLOW=0
     volumes:
       - ./services/content/app:/app/app
       - ./shared:/app/shared
       - ./secrets:/app/secrets:ro
+      - content-assets:/app/assets
     ports:
       - "8002:8000"
     depends_on:
@@ -70,6 +76,8 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app/shared
+      - DATABASE_POOL_SIZE=0
+      - DATABASE_MAX_OVERFLOW=0
     volumes:
       - ./services/ai/app:/app/app
       - ./shared:/app/shared
@@ -101,3 +109,6 @@ services:
         condition: service_healthy
       ai-service:
         condition: service_healthy
+
+volumes:
+  content-assets:

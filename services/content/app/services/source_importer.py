@@ -35,7 +35,15 @@ class SourceImporter:
             text("UPDATE public.rag_source_documents SET status = 'ready' WHERE id = :id"),
             {"id": document_id},
         )
-        return {"id": str(document_id), "title": title, "chunkCount": len(chunks), "status": "ready"}
+        return {
+            "id": str(document_id),
+            "title": title,
+            "chunkCount": len(chunks),
+            "status": "ready",
+            "extractionMethod": metadata.get("extractionMethod"),
+            "pageCount": metadata.get("pageCount"),
+            "warnings": metadata.get("warnings") or [],
+        }
 
     async def _create_document(
         self,

@@ -6,14 +6,12 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services import admin_event_repository as events
+from app.services.source_extraction_service import SourceExtractionService
 from app.services.source_importer import SourceImporter
-from app.services.text_chunker import chunk_text, extract_pdf_chunks
 from common.auth.dependencies import CurrentUser, require_admin
 from common.db.session import get_db_session
 
 router = APIRouter(prefix="/admin/events", tags=["admin-event-sources"])
-
-MAX_SOURCE_BYTES = 8 * 1024 * 1024
 
 
 @router.post("/{event_id}/sources")
@@ -33,13 +31,13 @@ async def import_source(
     _ensure_editable(event)
     metadata = {"sourceType": source_type, "publisher": publisher, "sourceUrl": source_url, "editionYear": edition_year}
     try:
-        chunks = await _chunks_from_input(file, text_value, metadata)
+        extraction = await SourceExtractionService().extract(file=file, text_value=text_value, metadata=metadata)
         result = await SourceImporter().import_chunks(
             db,
             event_id=event["id"],
             title=title,
-            chunks=chunks,
-            metadata=metadata,
+            chunks=extraction.chunks,
+            metadata=extraction.metadata,
             grade_tags=list(event["grade_tags"] or []),
         )
         await db.commit()
@@ -111,20 +109,3 @@ async def _list_sources(db: AsyncSession, event_id: str) -> list[dict]:
         {"event_id": event_id},
     )
     return [dict(row) for row in result.mappings().all()]
-
-
-async def _chunks_from_input(file: UploadFile | None, text_value: str | None, metadata: dict):
-    if file:
-        raw = await file.read()
-        if len(raw) > MAX_SOURCE_BYTES:
-            raise ValueError("Source file is too large")
-        filename = (file.filename or "").lower()
-        content_type = (file.content_type or "").lower()
-        if content_type == "application/pdf" or filename.endswith(".pdf"):
-            return extract_pdf_chunks(raw, metadata=metadata)
-        if content_type.startswith("text/") or filename.endswith(".txt"):
-            return chunk_text(raw.decode("utf-8"), metadata=metadata)
-        raise ValueError("Only TXT and PDF source files are supported")
-    if text_value and text_value.strip():
-        return chunk_text(text_value, metadata=metadata)
-    raise ValueError("A source file or manual text is required")

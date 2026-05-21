@@ -27,8 +27,7 @@ class Settings(BaseSettings):
     ai_fast_model: str = "gemini-2.5-flash"
     ai_embedding_model: str = "gemini-embedding-001"
     ai_image_model: str = "imagen-3.0-generate-002"
-    gcs_event_asset_bucket: str = ""
-    gcs_source_bucket: str = ""
+
 
     @field_validator("database_url")
     @classmethod

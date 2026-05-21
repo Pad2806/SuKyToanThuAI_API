@@ -22,25 +22,39 @@ class RenderAsset(FlexibleModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 class Character(FlexibleModel):
-    id: str
+    id: str | None = None
     name: str
     role: str = ""
     side: str = "other"
+    faction: str | None = None
     portrait: str | None = None
     bio: str = ""
     quote: str | None = None
+    traits: list[str] | str = Field(default_factory=list)
+    contribution: str = ""
+    description: str = ""
+    imagePrompt: str | None = None
+    imageUrl: str | None = None
 
 class TimelineMilestone(FlexibleModel):
-    id: str
+    id: str | None = None
+    order: int | None = None
+    day: str = ""
     year: str = ""
     month: str = ""
+    date: str = ""
+    time: str | None = None
     title: str
+    summary: str = ""
     description: str = ""
+    keyPoints: list[str] = Field(default_factory=list)
     icon: str | None = None
     mood: str | None = None
+    imagePrompt: str | None = None
+    imageUrl: str | None = None
 
 class ClimaxPhase(FlexibleModel):
-    id: str
+    id: str | None = None
     label: str
     summary: str = ""
     description: str = ""
@@ -48,15 +62,22 @@ class ClimaxPhase(FlexibleModel):
     image: str | None = None
 
 class Hotspot(FlexibleModel):
-    id: str
+    id: str | None = None
     x: float
     y: float
     label: str
+    name: str | None = None
     description: str = ""
+    role: str | None = None
+    tacticalRole: str | None = None
 
 class ClimaxSceneData(FlexibleModel):
     title: str
+    summary: str = ""
+    description: str = ""
+    quote: str | None = None
     backgroundImage: str | None = None
+    mapImage: str | None = None
     phaseImages: list[str] = Field(default_factory=list)
     phases: list[ClimaxPhase] = Field(default_factory=list)
     hotspots: list[Hotspot] = Field(default_factory=list)
@@ -72,6 +93,12 @@ class ComparisonList(FlexibleModel):
 
 class AftermathData(FlexibleModel):
     title: str
+    description: str = ""
+    consequences: list[str] = Field(default_factory=list)
+    lessons: list[str] = Field(default_factory=list)
+    historicalMeaning: str = ""
+    imagePrompt: str | None = None
+    imageUrl: str | None = None
     stats: list[AftermathStat] = Field(default_factory=list)
     before: ComparisonList | None = None
     after: ComparisonList | None = None
@@ -82,7 +109,7 @@ class TakeawayData(FlexibleModel):
     lesson: str = ""
 
 class QuizQuestion(FlexibleModel):
-    id: str
+    id: str | None = None
     question: str
     options: list[str] = Field(default_factory=list)
     correct: int = 0
@@ -91,12 +118,14 @@ class QuizQuestion(FlexibleModel):
 class ContentBlock(FlexibleModel):
     type: str
     body: str | None = None
+    text: str | None = None
+    description: str | None = None
     quote: str | None = None
     source: str | None = None
     image: str | None = None
     caption: str | None = None
     title: str | None = None
-    items: list[dict[str, str]] | None = None
+    items: list[Any] | None = None
 
 class StoryBeat(FlexibleModel):
     type: Literal["hook", "setup", "rising", "climax", "falling", "takeaway"]
@@ -133,7 +162,7 @@ class StoryEventData(FlexibleModel):
     climaxScene: ClimaxSceneData | None = None
     aftermath: AftermathData | None = None
     takeaway: TakeawayData | None = None
-    quiz: list[QuizQuestion] = Field(default_factory=list)
+    quiz: list[QuizQuestion] | dict[str, Any] = Field(default_factory=list)
     story: StoryData
     theme: str = "vietnamese-history"
     relatedEventSlugs: list[str] = Field(default_factory=list)
